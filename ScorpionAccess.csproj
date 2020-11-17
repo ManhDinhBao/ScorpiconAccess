@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Repository.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -121,6 +122,22 @@
   <ItemGroup>
     <Resource Include="Icon\refresh_gray_30px.png" />
     <Resource Include="Icon\search_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BUS_ScorpionAccess\BUS_ScorpionAccess.csproj">
+      <Project>{0f60c5de-ef2c-481c-b72a-c18f4e5a7018}</Project>
+      <Name>BUS_ScorpionAccess</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DTO_ScorpionAccess\DTO_ScorpionAccess.csproj">
+      <Project>{045870c7-99a1-4042-8993-6ec21e801f72}</Project>
+      <Name>DTO_ScorpionAccess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\card_gray_50px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
