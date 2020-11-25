@@ -56,6 +56,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Repository.cs" />
+    <Compile Include="ToCardSerialFormatConverter.cs" />
+    <Compile Include="ToUpperValueConverter.cs" />
+    <Compile Include="View\CardDetailView.xaml.cs">
+      <DependentUpon>CardDetailView.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -68,6 +73,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="View\CardDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -134,10 +143,26 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="View\" />
+    <Resource Include="Image\blue_ocean_bg.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\card_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\person_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\device_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\birthday_gray_30px.png" />
+    <Resource Include="Icon\email_gray_30px.png" />
+    <Resource Include="Icon\location_gray_30px.png" />
+    <Resource Include="Icon\name_tag_gray_30px.png" />
+    <Resource Include="Icon\phone_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\card_blue_50px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

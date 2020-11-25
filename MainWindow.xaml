@@ -5,46 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScorpiconAccess"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000">
+        Title="MainWindow" Height="800" Width="1000" KeyDown="Window_KeyDown">
     <DockPanel>
+        <!--Top Menu-->
         <DockPanel DockPanel.Dock="Top" Height="30" >
             <Border Background="#16697a" DockPanel.Dock="Top" CornerRadius="0,0,10,10" Margin="10,0,10,0">
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btCard" Click="btCard_Click" BorderThickness="0" Margin="10,0,0,0">
-                        <Button.Style>
-                            <Style TargetType="{x:Type Button}">
-                                <Setter Property="Background" Value="#16697a"/>
-                                <Setter Property="Template">
-                                    <Setter.Value>
-                                        <ControlTemplate TargetType="{x:Type Button}">
-                                            <Border Background="{TemplateBinding Background}" BorderBrush="Black" BorderThickness="0">
-                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                            </Border>
-                                        </ControlTemplate>
-                                    </Setter.Value>
-                                </Setter>
-                                <Style.Triggers>
-                                    <Trigger Property="IsMouseOver" Value="True">
-                                        <Setter Property="Background" Value="#16697a"/>
-                                    </Trigger>
-                                    <Trigger Property="IsFocused" Value="True">
-                                        <Setter Property="Background" Value="Aqua"/>
-                                    </Trigger>
-                                </Style.Triggers>
-                            </Style>
-                        </Button.Style>
+                    <Button x:Name="btCard" Click="btCard_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                             <Image Source="Icon\card_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center">
-                                <Image.Style>
-                                    <Style TargetType="{x:Type Image}">
-                                        <Style.Triggers>
-                                            <Trigger Property="IsFocused" Value="True">
-                                                <Setter TargetName=""/>
-                                            </Trigger>
-     
-                                        </Style.Triggers>
-                                    </Style>
-                                </Image.Style>
                             </Image>
                             <TextBlock Text="Card" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
@@ -88,45 +57,73 @@
                 </StackPanel>
             </Border>
         </DockPanel>
+        
         <DockPanel>
+            <!--Action Menu-->
             <StackPanel DockPanel.Dock="Top" Height="30" Orientation="Horizontal">
                 <DockPanel Width="180">
-                    <Button x:Name="btSearch" ToolTip="Search" Height="18" DockPanel.Dock="Left" BorderThickness="0" Background="Transparent" Margin="10,0,0,0">
+                    <Button x:Name="btSearch" ToolTip="Search" Height="18" DockPanel.Dock="Left" BorderThickness="0" Background="Transparent" Margin="10,0,0,0" Click="btSearch_Click">
                         <Image Source="Icon\search_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                     </Button>
-                    <TextBox Margin="5,0,0,0" FontFamily="Arial" FontSize="13" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Stretch"/>
+                    <TextBox x:Name="tbSearchValue" Margin="5,0,0,0" FontFamily="Arial" FontSize="13" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Stretch"/>
                 </DockPanel>
-                <Button x:Name="btNew" ToolTip="New" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0">
+                <Button x:Name="btNew" ToolTip="New" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btNew_Click">
                     <Image Source="Icon\new_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                 </Button>
-                <Button x:Name="btSave" ToolTip="Save" BorderThickness="0" Background="Transparent" Margin="5,0,0,0">
+                <Button x:Name="btSave" ToolTip="Save" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btSave_Click">
                     <Image Source="Icon\save_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                 </Button>
-                <Button x:Name="btDelete" ToolTip="Delete" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0">
+                <Button x:Name="btDelete" ToolTip="Delete" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btDelete_Click">
                     <Image Source="Icon\delete_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                 </Button>
 
-                <Button x:Name="btRefresh" ToolTip="Refresh" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0">
+                <Button x:Name="btRefresh" ToolTip="Refresh" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btRefresh_Click">
                     <Image Source="Icon\refresh_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
                 </Button>
             </StackPanel>
+
+            <!--Data-->
             <DockPanel Background="Gray">
+                <!--Bottom area-->
                 <DockPanel DockPanel.Dock="Bottom" Height="25">
                     <TextBlock x:Name="tbViewName" VerticalAlignment="Center" Margin="10,0,10,0" FontFamily="Arial" FontSize="12" DockPanel.Dock="Right" Width="50" Text="Card"/>
                     <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="Arial" FontSize="12" Text="Dinh Bao manh"/>
                 </DockPanel>
-                <Border Background="White" DockPanel.Dock="Top" CornerRadius="10" Margin="5">
-                    <DockPanel>
-                        <TreeView x:Name="trvListItem" BorderThickness="0,0,3,0" DockPanel.Dock="Left" Width="200" Margin="10,0,0,0">
-                            <TreeView.Resources>
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="LightGray" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}" Color="Black" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="Transparent" />
-                                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightTextBrushKey}" Color="Black" />
-                            </TreeView.Resources>
-                        </TreeView>
-                        <DockPanel>
-                            
+
+                <!--Data area-->
+                <Border Background="White" CornerRadius="10" Margin="5">
+                    <DockPanel Background="Transparent" Margin="10,0,0,0">
+                        <ListBox BorderThickness="0" DockPanel.Dock="Left" Name="lbListItems" Width="200" Margin="0,10,0,0" SelectionChanged="lbListItems_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding ImageSource}" Width="18" Height="18"/>
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TextBinding}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <DockPanel Background="Gray">
+                            <DockPanel  x:Name="stackLog" DockPanel.Dock="Bottom" Height="0" Margin="5,0,0,0">
+                                <StackPanel DockPanel.Dock="Top" Background="LightGray" Height="20">
+                                    <Label HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="Log" Foreground="Black" FontWeight="SemiBold" FontFamily="Consolas"/>
+                                </StackPanel>
+                                <Border HorizontalAlignment="Stretch" Background="White" CornerRadius="0,0,10,0">
+                                    <RichTextBox BorderThickness="0" VerticalScrollBarVisibility="Auto" IsReadOnly="True" x:Name="tbLog" Foreground="Gray" FontFamily="Consolas" Background="White" Margin="5">
+                                        <RichTextBox.Resources>
+                                            <Style TargetType="{x:Type Paragraph}">
+                                                <Setter Property="Margin" Value="0"></Setter>
+                                            </Style>
+                                        </RichTextBox.Resources>
+                                    </RichTextBox>
+                                </Border>
+                                
+                            </DockPanel>
+                            <Border x:Name="boderData" Background="White" CornerRadius="0,10,10,0" Margin="5,0,0,0">
+                                <Grid x:Name="pnlData" Background="White" Margin="0,0,10,0">
+
+                                </Grid>
+                            </Border>
                         </DockPanel>
                     </DockPanel>
                 </Border>

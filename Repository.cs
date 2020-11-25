@@ -10,5 +10,13 @@ namespace ScorpiconAccess
     public class Repository
     {
         public static List<DTO_Card> lstAllCards;
+        public static List<DTO_CardHolder> lstAllCardHolders;
+        public static List<DTO_Device> lstAllDevices;
+
+
+
+
+        public static DTO_Card selectedCard;
+        public static DTO_Card newCard;
     }
 }

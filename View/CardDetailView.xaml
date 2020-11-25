@@ -1,0 +1,122 @@
+﻿<UserControl x:Class="ScorpiconAccess.View.CardDetailView"
+             xmlns:super="clr-namespace:ScorpiconAccess"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScorpiconAccess.View"
+             mc:Ignorable="d" 
+             VerticalAlignment="Stretch" HorizontalAlignment="Stretch"
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <super:ToUpperValueConverter x:Key="ToUpperValueConverterKey"/>
+        <super:ToCardSerialFormatConverter x:Key="ToCardSerialFormatConverterKey"/>
+    </UserControl.Resources>
+    <DockPanel Background="White">
+        <DockPanel DockPanel.Dock="Left">
+            <!--Card-->
+            <Border Width="200" Height="110" DockPanel.Dock="Top" CornerRadius="10" Margin="0,20,0,10">
+                <Border.Background>
+                    <ImageBrush ImageSource="..\Image\blue_ocean_bg.jpg" Stretch="None"/>
+                </Border.Background>
+                <DockPanel>
+                    <Label x:Name="lbCardNumber" DockPanel.Dock="Top" Content="{Binding Path=Text,ElementName=tbCardNumber}" FontWeight="SemiBold" Foreground="White" FontFamily="Consolas" HorizontalAlignment="Right" Margin="0,0,5,0"/>
+                    <Label x:Name="lbCardHolderName" FontSize="16" DockPanel.Dock="Bottom" Content="{Binding Path=Text,ElementName=cbCardHolder, Converter={StaticResource ToUpperValueConverterKey}}" FontWeight="Heavy" Foreground="White" FontFamily="Consolas" HorizontalAlignment="Left" Margin="10,0,0,5"/>
+                    <DockPanel>
+                        <Label x:Name="lbCardSerial" FontSize="14" Content="{Binding ElementName=tbCardSerial,Path=Text, Converter={StaticResource ToCardSerialFormatConverterKey}}" DockPanel.Dock="Bottom" FontWeight="SemiBold" Foreground="White" FontFamily="Consolas" HorizontalAlignment="Left" Margin="8,0,0,0"/>
+                        <StackPanel>
+
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+            </Border>
+
+            <!--Card holder information-->
+            <StackPanel Width="300" Orientation="Vertical">
+                <TextBlock Text="CARD HOLDER INFORMATION" FontSize="12" FontFamily="Arial" Foreground="Gray" FontWeight="Heavy" Margin="50,20,0,0"/>
+                <!--Full name-->
+                <StackPanel Margin="60,10,0,0" Orientation="Horizontal">
+                    <Image Source="..\Icon\name_tag_gray_30px.png" Width="20" Height="20"/>
+                    <TextBlock x:Name="tbHolderName" Text="Dinh Bao Manh" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <!--Date of birth-->
+                <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
+                    <Image Source="..\Icon\birthday_gray_30px.png" Width="20" Height="20"/>
+                    <TextBlock x:Name="tbHolderDOB" Text="12/07/1993" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <!--Address-->
+                <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
+                    <Image Source="..\Icon\location_gray_30px.png" Width="20" Height="20"/>
+                    <TextBlock x:Name="tbHolderAddress" Text="TP. Viet Tri - Phu Tho" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <!--Phone number-->
+                <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
+                    <Image Source="..\Icon\phone_gray_30px.png" Width="20" Height="20"/>
+                    <TextBlock x:Name="tbHolderPhoneNo" Text="0977822336" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+
+                <!--Email-->
+                <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
+                    <Image Source="..\Icon\email_gray_30px.png" Width="20" Height="20"/>
+                    <TextBlock x:Name="tbHolderEmail" Text="baomanhict@gmail.com" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
+        <DockPanel>
+            <Border BorderThickness="1,0,0,0" BorderBrush="Gray" >
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="CARD INFORMATION" FontSize="12" FontFamily="Arial" Foreground="Gray" FontWeight="Heavy" Margin="50,20,0,0"/>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="50,20,0,0" Orientation="Vertical" >
+                            <TextBlock Text="Serial" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
+                                <TextBox x:Name="tbCardSerial" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbCardSerial_TextChanged"/>
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Margin="20,20,0,0" Orientation="Vertical">
+                            <TextBlock Text="Number" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
+                                <TextBox x:Name="tbCardNumber" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbCardNumber_TextChanged"/>
+                            </Border>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="50,10,0,0" Orientation="Vertical">
+                        <TextBlock Text="Holder" FontFamily="Arial" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="cbCardHolder" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0" SelectionChanged="cbCardHolder_SelectionChanged">
+
+                        </ComboBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Margin="50,10,0,0" Orientation="Vertical">
+                            <TextBlock Text="Usable Time" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <Viewbox HorizontalAlignment="Left" Width="150" Height="22" Margin="0,2,0,0">
+                                <DatePicker x:Name="dpStartTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpStartTime_SelectedDateChanged" />
+                            </Viewbox>
+                        </StackPanel>
+                        <StackPanel Margin="20,10,0,0" Orientation="Vertical">
+                            <TextBlock Text="" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <Viewbox HorizontalAlignment="Left" Width="150" Height="22" Margin="0,2,0,0">
+                                <DatePicker x:Name="dpEndTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpEndTime_SelectedDateChanged" />
+                            </Viewbox>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Margin="50,10,0,0" Orientation="Vertical">
+                        <TextBlock Text="Type" FontFamily="Arial" FontWeight="SemiBold"/>
+                        <ComboBox x:Name="cbCardType" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0" SelectionChanged="cbCardType_SelectionChanged">
+
+                        </ComboBox>
+                    </StackPanel>
+
+                </StackPanel>
+            </Border>
+        </DockPanel>
+
+    </DockPanel>
+</UserControl>
