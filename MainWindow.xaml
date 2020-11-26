@@ -6,6 +6,11 @@
         xmlns:local="clr-namespace:ScorpiconAccess"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="1000" KeyDown="Window_KeyDown">
+    <Window.Resources>
+        <Image x:Key="dropdown_black" Source="Icon\drop_down_black_32px.png"/>
+        <Image x:Key="eraser_black" Source="Icon\eraser_black_50px.png"/>
+        <Image x:Key="export_black" Source="Icon\export_txt_black_50px.png"/>
+    </Window.Resources>
     <DockPanel>
         <!--Top Menu-->
         <DockPanel DockPanel.Dock="Top" Height="30" >
@@ -87,7 +92,7 @@
                 <!--Bottom area-->
                 <DockPanel DockPanel.Dock="Bottom" Height="25">
                     <TextBlock x:Name="tbViewName" VerticalAlignment="Center" Margin="10,0,10,0" FontFamily="Arial" FontSize="12" DockPanel.Dock="Right" Width="50" Text="Card"/>
-                    <TextBlock VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="Arial" FontSize="12" Text="Dinh Bao manh"/>
+                    <TextBlock x:Name="tbStatus" VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="Arial" FontSize="12" Text="Dinh Bao manh"/>
                 </DockPanel>
 
                 <!--Data area-->
@@ -104,10 +109,17 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
                         <DockPanel Background="Gray">
+                            <!--Log-->
                             <DockPanel  x:Name="stackLog" DockPanel.Dock="Bottom" Height="0" Margin="5,0,0,0">
-                                <StackPanel DockPanel.Dock="Top" Background="LightGray" Height="20">
-                                    <Label HorizontalAlignment="Stretch" VerticalAlignment="Center" Content="Log" Foreground="Black" FontWeight="SemiBold" FontFamily="Consolas"/>
-                                </StackPanel>
+                                <DockPanel DockPanel.Dock="Top" Background="LightGray" Height="25">
+                                    <Label DockPanel.Dock="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Log" Foreground="Black" FontWeight="SemiBold" FontFamily="Consolas"/>
+                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                                        <Button  ToolTip="Clear log" Click="btClearLog_Click" BorderThickness="0" Background="Transparent" x:Name="btClearLog" Height="20" Width="20" HorizontalAlignment="Right" Content="{StaticResource eraser_black}"/>
+                                        <Button  ToolTip="Export log to txt file" Click="btExportLog_Click" BorderThickness="0" Background="Transparent" x:Name="btExportLog" Height="20" Width="20" HorizontalAlignment="Right" Content="{StaticResource export_black}"/>
+                                        <Button  ToolTip="Hide log" Click="hideLog_Click" BorderThickness="0" Background="Transparent" x:Name="btHideLog" Height="20" Width="20" HorizontalAlignment="Right" Content="{StaticResource dropdown_black}"/>
+                                        
+                                    </StackPanel>
+                                </DockPanel>
                                 <Border HorizontalAlignment="Stretch" Background="White" CornerRadius="0,0,10,0">
                                     <RichTextBox BorderThickness="0" VerticalScrollBarVisibility="Auto" IsReadOnly="True" x:Name="tbLog" Foreground="Gray" FontFamily="Consolas" Background="White" Margin="5">
                                         <RichTextBox.Resources>

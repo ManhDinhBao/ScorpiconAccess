@@ -1,0 +1,152 @@
+﻿<UserControl x:Class="ScorpiconAccess.View.HolderDetailView"
+             xmlns:super="clr-namespace:ScorpiconAccess"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScorpiconAccess.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <super:ToUpperValueConverter x:Key="ToUpperValueConverterKey"/>
+        <super:ToCardHolderTextConverter x:Key="ToCardHolderTextConverterKey"/>
+    </UserControl.Resources>
+    
+    <DockPanel Background="White">
+        <TextBlock DockPanel.Dock="Top" Text="CARD HOLDER INFORMATION" FontSize="12" FontFamily="Arial" Foreground="Gray" FontWeight="Heavy" Margin="50,20,0,0"/>
+        <DockPanel Margin="0,10,0,0">
+            <DockPanel DockPanel.Dock="Left" Width="190" Margin="50,0,0,0">
+                <!--Card-->
+                <Border HorizontalAlignment="Stretch" Height="300" DockPanel.Dock="Top" CornerRadius="10" Margin="0,10,0,10">
+                    <Border.Background>
+                        <ImageBrush ImageSource="..\Image\blue_card_bg.jpg" Stretch="None"/>
+                    </Border.Background>
+                    <StackPanel Margin="2" Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <!--Company-->
+                        <DockPanel Height="40">
+                            <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="LEFA SCORPION" Foreground="White" FontFamily="Courier" FontWeight="Heavy"/>
+                        </DockPanel>
+                        <!--Avatar-->
+                        <DockPanel Height="80">
+                            <Image Height="80" Width="80" HorizontalAlignment="Center" VerticalAlignment="Center" Source="..\Icon\male_avatar_128px.png"/>
+                        </DockPanel>
+                        <!--Information-->
+                        <Border HorizontalAlignment="Stretch" Height="176" CornerRadius="0,0,9,9">
+                            <Border.Background>
+                                <SolidColorBrush Color="White"/>
+                            </Border.Background>
+                            <StackPanel Orientation="Vertical">
+                                <Label Margin="10,10,10,0" HorizontalAlignment="Center" Content="{Binding Path=Text,ElementName=tbHolderName, Converter={StaticResource ToUpperValueConverterKey}}" Foreground="Black" FontSize="12" FontFamily="Courier" FontWeight="Medium"/>
+                                <!--Holder id-->
+                                <StackPanel Orientation="Horizontal" Margin="30,10,20,0">
+                                    <Label Width="50" HorizontalAlignment="Left" Content="ID No" Foreground="Black" FontSize="9" FontFamily="Courier" FontWeight="Regular"/>
+                                    <Label HorizontalAlignment="Left" Content="{Binding Path=Text,ElementName=tbHolderId , Converter={StaticResource ToCardHolderTextConverterKey}}" Foreground="Black" FontSize="9" FontFamily="Courier" FontWeight="Regular"/>
+                                </StackPanel>
+                                <!--Holder DOB-->
+                                <StackPanel Orientation="Horizontal" Margin="30,0,20,0">
+                                    <Label Width="50" HorizontalAlignment="Left" Content="DOB" Foreground="Black" FontSize="9" FontFamily="Courier" FontWeight="Regular"/>
+                                    <Label HorizontalAlignment="Left" Content="{Binding Path=Text,ElementName=dpHolderDOB , Converter={StaticResource ToCardHolderTextConverterKey}}" Foreground="Black" FontSize="9" FontFamily="Courier" FontWeight="Regular"/>
+                                </StackPanel>
+                                <!--Holder Phone-->
+                                <StackPanel Orientation="Horizontal" Margin="30,0,20,0">
+                                    <Label Width="50" HorizontalAlignment="Left" Content="Phone" Foreground="Black" FontSize="9" FontFamily="Courier" FontWeight="Regular"/>
+                                    <Label HorizontalAlignment="Left" Content="{Binding Path=Text,ElementName=tbHolderPhone , Converter={StaticResource ToCardHolderTextConverterKey}}" Foreground="Black" FontSize="9" FontFamily="Courier" FontWeight="Regular"/>
+                                </StackPanel>
+                                <Canvas HorizontalAlignment="Stretch" Margin="0,20,0,0" x:Name="barCodeCanvas" Height="30">
+                                    
+                                </Canvas>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+                <DockPanel>
+                    
+                </DockPanel>
+            </DockPanel>
+            <StackPanel Orientation="Vertical" Margin="20,0,0,0">
+                <!--Holder id & name-->
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Image Source="..\Icon\holder_id_gray_24px.png" Width="20" Height="20"/>
+                        <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
+                            <TextBox x:Name="tbHolderId" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderId_TextChanged" MaxLength="10" MaxLines="1"/>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
+                        <Image Source="..\Icon\name_tag_gray_30px.png" Width="20" Height="20"/>
+                        <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
+                            <TextBox x:Name="tbHolderName" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderName_TextChanged"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <!--Holder gender & DOB-->
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Image Source="..\Icon\gender_gray_50px.png" Width="20" Height="20"/>
+                        <ComboBox Margin="5,0,0,0" x:Name="cbGender" Width="150" HorizontalAlignment="Left" Height="22" SelectionChanged="cbGender_SelectionChanged">
+
+                        </ComboBox>
+                    </StackPanel>
+                    <StackPanel Margin="30,5,0,0" Orientation="Horizontal">
+                        <Image Source="..\Icon\birthday_gray_30px.png" Width="20" Height="20"/>
+                        <Viewbox HorizontalAlignment="Left" Width="150" Height="22" Margin="5,0,0,0">
+                            <DatePicker x:Name="dpHolderDOB" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpHolderDOB_SelectedDateChanged" />
+                        </Viewbox>
+                    </StackPanel>
+                </StackPanel>
+
+                <!--Holder Address-->
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Image Source="..\Icon\location_gray_30px.png" Width="20" Height="20"/>
+                    <Border Width="355" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
+                        <TextBox x:Name="tbHolderAddress" Margin="2,0,2,0" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderAddress_TextChanged"/>
+                    </Border>
+                </StackPanel>
+
+                <!--Holder Phone & Email-->
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                        <Image Source="..\Icon\phone_gray_30px.png" Width="20" Height="20"/>
+                        <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
+                            <TextBox x:Name="tbHolderPhone" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderPhone_TextChanged"/>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
+                        <Image Source="..\Icon\email_gray_30px.png" Width="20" Height="20"/>
+                        <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
+                            <TextBox x:Name="tbHolderEmail" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderEmail_TextChanged"/>
+                        </Border>
+                    </StackPanel>
+                </StackPanel>
+
+                <!--Holder description-->
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Image VerticalAlignment="Top" Source="..\Icon\note_gray_24px.png" Width="20" Height="20"/>
+                    <Border Width="355" Height="80" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
+                        <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
+                            <RichTextBox.Resources>
+                                <Style TargetType="{x:Type Paragraph}">
+                                    <Setter Property="Margin" Value="0"></Setter>
+                                </Style>
+                            </RichTextBox.Resources>
+                        </RichTextBox>
+                    </Border>
+                </StackPanel>
+
+                <!--Holder's Card-->
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <Image VerticalAlignment="Top" Source="..\Icon\card_gray_50px.png" Width="20" Height="20"/>
+                    <ListBox x:Name="lbListCard" Height="100" Width="355" HorizontalAlignment="Left" Margin="5,0,0,0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardNumber}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </StackPanel>
+
+            </StackPanel>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

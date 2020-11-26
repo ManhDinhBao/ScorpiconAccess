@@ -55,11 +55,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Barcodes.cs" />
+    <Compile Include="Code39.cs" />
+    <Compile Include="Converter\ToCardHolderTextConverter.cs" />
     <Compile Include="Repository.cs" />
-    <Compile Include="ToCardSerialFormatConverter.cs" />
-    <Compile Include="ToUpperValueConverter.cs" />
+    <Compile Include="Converter\ToCardSerialFormatConverter.cs" />
+    <Compile Include="Converter\ToUpperValueConverter.cs" />
     <Compile Include="View\CardDetailView.xaml.cs">
       <DependentUpon>CardDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HolderDetailView.xaml.cs">
+      <DependentUpon>HolderDetailView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -74,6 +80,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CardDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HolderDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -146,9 +156,6 @@
     <Resource Include="Image\blue_ocean_bg.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\card_gray_50px.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon\person_gray_30px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +170,36 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\card_blue_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\holder_id_gray_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\gender_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\blue_card_bg.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\female_gray_50px.png" />
+    <Resource Include="Icon\male_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\female_avatar_128px.png" />
+    <Resource Include="Icon\male_avatar_128px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\note_gray_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\card_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\drop_down_black_32px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\eraser_black_50px.png" />
+    <Resource Include="Icon\export_txt_black_50px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

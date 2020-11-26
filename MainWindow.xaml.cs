@@ -1,9 +1,11 @@
 ﻿using BUS_ScorpionAccess;
 using DTO_ScorpionAccess;
+using Microsoft.Win32;
 using ScorpiconAccess.View;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -100,6 +102,20 @@ namespace ScorpiconAccess
             }
         }
 
+        private void BindHolderToListItemView()
+        {
+            listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
+            foreach (DTO_CardHolder holder in Repository.lstAllCardHolders)
+            {
+                DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
+                listViewItem.ImageSource = "/Icon/person_gray_30px.png";
+                listViewItem.TextBinding = holder.Name;
+                listViewItem.Key = holder.Id;
+
+                listViewItems.Add(listViewItem);
+            }
+        }
+
         private void UpdateView(ViewMode viewMode)
         {
             this.viewMode = viewMode;
@@ -116,16 +132,7 @@ namespace ScorpiconAccess
                 case ViewMode.HOLDER_VIEW:
                     tbViewName.Text = "Holder";
 
-                    listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
-                    foreach (DTO_CardHolder holder in Repository.lstAllCardHolders)
-                    {
-                        DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
-                        listViewItem.ImageSource = "/Icon/person_gray_30px.png";
-                        listViewItem.TextBinding = holder.Name;
-                        listViewItem.Key = holder.Id;
-
-                        listViewItems.Add(listViewItem);
-                    }
+                    BindHolderToListItemView();
 
                     lbListItems.ItemsSource = listViewItems;
                     break;
@@ -198,8 +205,15 @@ namespace ScorpiconAccess
                         break;
                     case ViewMode.HOLDER_VIEW:
                         DTO_CardHolder selectedHolder = Repository.lstAllCardHolders.FirstOrDefault(holder => holder.Id == selectedItem.Key);
+                        Repository.selectedHolder = selectedHolder;
 
                         //Show holder detail info
+                        HolderDetailView ucHolder = new HolderDetailView(mode: currentMode);
+                        ucHolder.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        ucHolder.VerticalAlignment = VerticalAlignment.Stretch;
+                        pnlData.Children.Clear();
+
+                        pnlData.Children.Add(ucHolder);
 
                         break;
                     case ViewMode.DEVICE_VIEW:
@@ -263,9 +277,32 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.HOLDER_VIEW:
-                    
 
-                    //Show holder detail info
+                    listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
+                    IEnumerable<DTO_CardHolder> selectedHolders;
+                    if (tbSearchValue.Text.Count() <= 0)
+                    {
+                        selectedHolders = Repository.lstAllCardHolders;
+                    }
+                    else
+                    {
+                        selectedHolders = Repository.lstAllCardHolders.Where(holder => holder.Name.Contains(tbSearchValue.Text));
+                    }
+
+                    if (selectedHolders != null && selectedHolders.Count() > 0)
+                    {
+                        foreach (DTO_CardHolder holer in selectedHolders)
+                        {
+                            DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
+                            listViewItem.ImageSource = "/Icon/person_gray_30px.png";
+                            listViewItem.TextBinding = holer.Name;
+                            listViewItem.Key = holer.Id;
+
+                            listViewItems.Add(listViewItem);
+                        }
+                    }
+
+                    lbListItems.ItemsSource = listViewItems;
 
                     break;
                 case ViewMode.DEVICE_VIEW:
@@ -302,7 +339,7 @@ namespace ScorpiconAccess
                 return ((item as DTO_Card).CardNumber.IndexOf(tbSearchValue.Text, StringComparison.OrdinalIgnoreCase) >= 0);
         }
 
-        private void AddLog(UserLog log)
+        public void AddLog(UserLog log)
         {
             if (log != null)
             {
@@ -350,28 +387,20 @@ namespace ScorpiconAccess
                         string strReasultLog = "";
                         if (result.Result)
                         {
-                            MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Information);
-
                             DTO_Card oldCard = Repository.lstAllCards.FirstOrDefault(c => c.CardSerial == cardToUpdate.CardSerial);
                             if (oldCard != null)
                             {
                                 oldCard = cardToUpdate;
                             }
-
-                            //Refresh list card view
-                            this.listViewItems.Clear();
-                            BindCardToListItemView();
-                            lbListItems.ItemsSource = listViewItems;
-
+                            RefreshListView();
                             AddLog(new UserLog(" Update successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
-
                         }
                         else
                         {
-                            MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
                             strReasultLog = "Status: Error -> " + result.Detail;
                             AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
                         }
+                        tbStatus.Text = result.Detail;
                         AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
                     }
                     else
@@ -384,27 +413,85 @@ namespace ScorpiconAccess
                         SQLResult result = bus_Card.AddNewCard(addCard);
                         if (result.Result)
                         {
-                            MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Information);
-
                             Repository.lstAllCards.Add(addCard);
-
-                            //Refresh list card view
-                            this.listViewItems.Clear();
-                            BindCardToListItemView();
-                            lbListItems.ItemsSource = listViewItems;
-
+                            RefreshListView();
                             AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
                         }
                         else
                         {
-                            MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
                             AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
                         }
+                        tbStatus.Text = result.Detail;
                         AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
                     }
                     break;
                 case ViewMode.HOLDER_VIEW:
+                    if (this.currentMode == CHANGE_MODE)
+                    {
+                        //Update holder
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_CardHolder holderToUpdate = Repository.selectedHolder;
+                        string strHolderInfo = string.Format(" UPDATE CARD HOLDER INFORMATION\r\n Id: {0}\r\n Name: {1}\r\n Gender: {2}\r\n DOB: {3}\r\n Address: {4}\r\n Phone: {5}\r\n Email: {6}\r\n Description: {7}"
+                            , holderToUpdate.Id
+                            , holderToUpdate.Name
+                            , holderToUpdate.Gender
+                            , holderToUpdate.DOB.ToString("dd/MM/yyyy")
+                            , holderToUpdate.Address
+                            , holderToUpdate.PhoneNumber
+                            , holderToUpdate.Email
+                            , holderToUpdate.Description);
 
+                        AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bus_CardHolder.UpdateCardHolder(holderToUpdate);
+                        string strReasultLog = "";
+                        if (result.Result)
+                        {                            
+                            DTO_CardHolder oldHolder = Repository.lstAllCardHolders.FirstOrDefault(h => h.Id == holderToUpdate.Id);
+                            if (oldHolder != null)
+                            {
+                                oldHolder = holderToUpdate;
+                            }
+                            RefreshListView();
+                            AddLog(new UserLog(" Update successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            strReasultLog = "Status: Error -> " + result.Detail;
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
+                    else
+                    {
+                        //Insert holder
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_CardHolder addHolder = Repository.newHolder;
+                        string strHolderInfo = string.Format(" ADD NEW CARD HOLDER\r\n Id: {0}\r\n Name: {1}\r\n Gender: {2}\r\n DOB: {3}\r\n Address: {4}\r\n Phone: {5}\r\n Email: {6}\r\n Description: {7}"
+                            , addHolder.Id
+                            , addHolder.Name
+                            , addHolder.Gender
+                            , addHolder.DOB.ToString("dd/MM/yyyy")
+                            , addHolder.Address
+                            , addHolder.PhoneNumber
+                            , addHolder.Email
+                            , addHolder.Description);
+
+                        AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bus_CardHolder.AddNewCardHolder(addHolder);
+                        if (result.Result)
+                        {                           
+                            Repository.lstAllCardHolders.Add(addHolder);
+                            RefreshListView();
+                            AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
 
                     break;
                 case ViewMode.DEVICE_VIEW:
@@ -428,6 +515,22 @@ namespace ScorpiconAccess
             }
         }
 
+        private void RefreshListView()
+        {
+            this.listViewItems.Clear();
+
+            switch (viewMode)
+            {
+                case ViewMode.CARD_VIEW:
+                    BindCardToListItemView();
+                    break;
+                case ViewMode.HOLDER_VIEW:
+                    BindHolderToListItemView();
+                    break;
+            }         
+            lbListItems.ItemsSource = listViewItems;
+        }
+
         private void btNew_Click(object sender, RoutedEventArgs e)
         {
             this.currentMode = ADD_MODE;
@@ -444,8 +547,12 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.HOLDER_VIEW:
+                    HolderDetailView ucHolder = new HolderDetailView(mode: currentMode);
+                    ucHolder.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    ucHolder.VerticalAlignment = VerticalAlignment.Stretch;
+                    pnlData.Children.Clear();
 
-
+                    pnlData.Children.Add(ucHolder);
                     break;
                 case ViewMode.DEVICE_VIEW:
 
@@ -476,6 +583,13 @@ namespace ScorpiconAccess
                 return;
             }
 
+            MessageBoxResult messResult = MessageBox.Show("Confirm to delete?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(messResult == MessageBoxResult.No)
+            {
+                //DO NOTHING
+                return;
+            }
+
             switch (viewMode)
             {
                 case ViewMode.CARD_VIEW:
@@ -484,26 +598,49 @@ namespace ScorpiconAccess
                     SQLResult result = bus_Card.DeleteCard(cardToDelete.CardSerial);
                     if (result.Result)
                     {
-                        MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Information);
-
                         DTO_Card oldCard = Repository.lstAllCards.FirstOrDefault(c => c.CardSerial == cardToDelete.CardSerial);
                         Repository.lstAllCards.Remove(oldCard);
 
-                        //Refresh list card view
-                        this.listViewItems.Clear();
-                        BindCardToListItemView();
-                        lbListItems.ItemsSource = listViewItems;
+                        RefreshListView();
                         lbListItems.SelectedIndex = 0;
-
                     }
                     else
                     {
-                        MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
+                        
                     }
+                    tbStatus.Text = result.Detail;
+                    AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
 
                     break;
                 case ViewMode.HOLDER_VIEW:
+                    //Delete holder
+                    DTO_CardHolder holderToDelete = Repository.selectedHolder;
+                    SQLResult delHolderResult = bus_CardHolder.DeleteCardHolder(holderToDelete.Id);
+                    if (delHolderResult.Result)
+                    {
+                        //Update holder in card
+                        foreach(DTO_Card card in Repository.lstAllCards)
+                        {
+                            if(card.Holder == holderToDelete.Id)
+                            {
+                                card.Type = EType.CardType.NOT_USE;
+                                card.Holder = null;
+                            }
+                        }
 
+                        //Remove holder in list holders
+                        DTO_CardHolder oldHolder = Repository.lstAllCardHolders.FirstOrDefault(h => h.Id == holderToDelete.Id);
+                        Repository.lstAllCardHolders.Remove(oldHolder);
+
+                        RefreshListView();
+                        lbListItems.SelectedIndex = 0;
+                    }
+                    else
+                    {
+
+                    }
+                    tbStatus.Text = delHolderResult.Detail;
+                    AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
 
                     break;
                 case ViewMode.DEVICE_VIEW:
@@ -541,15 +678,54 @@ namespace ScorpiconAccess
                 {
                     stackLog.Height = 0;
                     boderData.CornerRadius = new CornerRadius(0, 10, 10, 0);
+                    showLogPanel = false;
                 }
                 else
                 {
                     stackLog.Height = 250;
                     boderData.CornerRadius = new CornerRadius(0, 10, 0, 0);
+                    showLogPanel = true;
                 }
 
-                showLogPanel = !showLogPanel;
+                
             }
+        }
+
+        private void hideLog_Click(object sender, RoutedEventArgs e)
+        {
+            stackLog.Height = 0;
+            boderData.CornerRadius = new CornerRadius(0, 10, 10, 0);
+
+            showLogPanel = false;
+        }
+
+        private void btClearLog_Click(object sender, RoutedEventArgs e)
+        {
+            tbLog.Document.Blocks.Clear();
+        }
+
+        private void btExportLog_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Text file (*.txt)|*.txt|C# file (*.cs)|*.cs";
+            if (saveFileDialog.ShowDialog() == true)
+                File.WriteAllText(saveFileDialog.FileName, StringFromRichTextBox(tbLog));
+
+            tbStatus.Text = "Success export log file: " + saveFileDialog.FileName;
+        }
+
+        public string StringFromRichTextBox(RichTextBox rtb)
+        {
+            TextRange textRange = new TextRange(
+                // TextPointer to the start of content in the RichTextBox.
+                rtb.Document.ContentStart,
+                // TextPointer to the end of content in the RichTextBox.
+                rtb.Document.ContentEnd
+            );
+
+            // The Text property on a TextRange object returns a string
+            // representing the plain text content of the TextRange.
+            return textRange.Text;
         }
     }
 

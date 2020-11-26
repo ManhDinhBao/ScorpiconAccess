@@ -18,5 +18,8 @@ namespace ScorpiconAccess
 
         public static DTO_Card selectedCard;
         public static DTO_Card newCard;
+
+        public static DTO_CardHolder selectedHolder;
+        public static DTO_CardHolder newHolder;
     }
 }
