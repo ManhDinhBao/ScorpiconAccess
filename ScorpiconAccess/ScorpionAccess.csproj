@@ -64,6 +64,9 @@
     <Compile Include="View\CardDetailView.xaml.cs">
       <DependentUpon>CardDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DeviceDetailView.xaml.cs">
+      <DependentUpon>DeviceDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HolderDetailView.xaml.cs">
       <DependentUpon>HolderDetailView.xaml</DependentUpon>
     </Compile>
@@ -80,6 +83,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\CardDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DeviceDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -200,6 +207,9 @@
   <ItemGroup>
     <Resource Include="Icon\eraser_black_50px.png" />
     <Resource Include="Icon\export_txt_black_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\input_gray_30px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

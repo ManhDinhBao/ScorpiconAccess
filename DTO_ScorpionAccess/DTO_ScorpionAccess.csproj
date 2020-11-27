@@ -44,9 +44,11 @@
     <Compile Include="DTO_Card.cs" />
     <Compile Include="DTO_CardHolder.cs" />
     <Compile Include="DTO_Device.cs" />
+    <Compile Include="DTO_DeviceSocket.cs" />
     <Compile Include="DTO_Door.cs" />
     <Compile Include="DTO_DoorMode.cs" />
     <Compile Include="EType.cs" />
+    <Compile Include="FAMode.cs" />
     <Compile Include="ListViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLResult.cs" />

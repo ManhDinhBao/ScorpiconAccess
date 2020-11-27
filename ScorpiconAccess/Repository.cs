@@ -21,5 +21,8 @@ namespace ScorpiconAccess
 
         public static DTO_CardHolder selectedHolder;
         public static DTO_CardHolder newHolder;
+
+        public static DTO_Device selectedDevice;
+        public static DTO_Device newDevice;
     }
 }

@@ -37,7 +37,7 @@ namespace DAL_ScorpionAccess
                 adapter.SelectCommand = command;
                 adapter.Fill(dt);
             }
-            catch
+            catch (Exception ex)
             {
 
             }
@@ -144,7 +144,7 @@ namespace DAL_ScorpionAccess
                 SqlCommand command = new SqlCommand();
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "spDeviceSave";
+                command.CommandText = "spLDeviceSave";
                 command.Parameters.AddWithValue("WorkType", "A");
                 command.Parameters.AddWithValue("Id", device.Id);
                 command.Parameters.AddWithValue("Name", device.Name);
@@ -153,12 +153,9 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("Subnet", device.Subnet);
                 command.Parameters.AddWithValue("Gateway", device.GateWay);
                 command.Parameters.AddWithValue("HostIP", device.HostIp);
-                command.Parameters.AddWithValue("FAMode", device.FAMode);
-                command.Parameters.AddWithValue("FAHW", device.FAHW);
+                command.Parameters.AddWithValue("FAMode", device.FAMode.IsUse ? 1:0);
+                command.Parameters.AddWithValue("FAHW", device.FAMode.FAHWNumber);
                 command.Parameters.AddWithValue("CtrlMode", device.CtrMode);
-                command.Parameters.AddWithValue("ReaderQty", device.ReaderQty);
-                command.Parameters.AddWithValue("InputQty", device.InputQty);
-                command.Parameters.AddWithValue("OutputQty", device.OutputQty);
                 command.Parameters.AddWithValue("Description", device.Description);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -202,7 +199,7 @@ namespace DAL_ScorpionAccess
                 SqlCommand command = new SqlCommand();
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "spDeviceSave";
+                command.CommandText = "spLDeviceSave";
                 command.Parameters.AddWithValue("WorkType", "U");
                 command.Parameters.AddWithValue("Id", device.Id);
                 command.Parameters.AddWithValue("Name", device.Name);
@@ -211,12 +208,9 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("Subnet", device.Subnet);
                 command.Parameters.AddWithValue("Gateway", device.GateWay);
                 command.Parameters.AddWithValue("HostIP", device.HostIp);
-                command.Parameters.AddWithValue("FAMode", device.FAMode);
-                command.Parameters.AddWithValue("FAHW", device.FAHW);
+                command.Parameters.AddWithValue("FAMode", device.FAMode.IsUse ? 1 : 0);
+                command.Parameters.AddWithValue("FAHW", device.FAMode.FAHWNumber);
                 command.Parameters.AddWithValue("CtrlMode", device.CtrMode);
-                command.Parameters.AddWithValue("ReaderQty", device.ReaderQty);
-                command.Parameters.AddWithValue("InputQty", device.InputQty);
-                command.Parameters.AddWithValue("OutputQty", device.OutputQty);
                 command.Parameters.AddWithValue("Description", device.Description);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -261,7 +255,7 @@ namespace DAL_ScorpionAccess
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spDeviceSave";
-                command.Parameters.AddWithValue("WorkType", "U");
+                command.Parameters.AddWithValue("WorkType", "L");
                 command.Parameters.AddWithValue("Id", Id);
                 command.Parameters.AddWithValue("Name", DBNull.Value);
                 command.Parameters.AddWithValue("MAC", DBNull.Value);
@@ -271,10 +265,6 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("HostIP", DBNull.Value);
                 command.Parameters.AddWithValue("FAMode", DBNull.Value);
                 command.Parameters.AddWithValue("FAHW", DBNull.Value);
-                command.Parameters.AddWithValue("CtrlMode", DBNull.Value);
-                command.Parameters.AddWithValue("ReaderQty", DBNull.Value);
-                command.Parameters.AddWithValue("InputQty", DBNull.Value);
-                command.Parameters.AddWithValue("OutputQty", DBNull.Value);
                 command.Parameters.AddWithValue("Description", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();

@@ -116,6 +116,20 @@ namespace ScorpiconAccess
             }
         }
 
+        private void BindDeviceToListItemView()
+        {
+            listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
+            foreach (DTO_Device device in Repository.lstAllDevices)
+            {
+                DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
+                listViewItem.ImageSource = "/Icon/device_gray_50px.png";
+                listViewItem.TextBinding = device.Name;
+                listViewItem.Key = device.Id;
+
+                listViewItems.Add(listViewItem);
+            }
+        }
+
         private void UpdateView(ViewMode viewMode)
         {
             this.viewMode = viewMode;
@@ -139,16 +153,7 @@ namespace ScorpiconAccess
                 case ViewMode.DEVICE_VIEW:
                     tbViewName.Text = "Device";
 
-                    listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
-                    foreach (DTO_Device device in Repository.lstAllDevices)
-                    {
-                        DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
-                        listViewItem.ImageSource = "/Icon/device_gray_50px.png";
-                        listViewItem.TextBinding = device.Name;
-                        listViewItem.Key = device.Id;
-
-                        listViewItems.Add(listViewItem);
-                    }
+                    BindDeviceToListItemView();
 
                     lbListItems.ItemsSource = listViewItems;
                     break;
@@ -190,6 +195,7 @@ namespace ScorpiconAccess
                 switch (viewMode)
                 {
                     case ViewMode.CARD_VIEW:
+                        #region SHOW CARD DETAIL VIEW
                         DTO_Card selectedCard = Repository.lstAllCards.FirstOrDefault(card => card.CardSerial == selectedItem.Key);
                         Repository.selectedCard = selectedCard;
 
@@ -200,10 +206,11 @@ namespace ScorpiconAccess
                         pnlData.Children.Clear();
 
                         pnlData.Children.Add(uc);
-                        
 
+                        #endregion
                         break;
                     case ViewMode.HOLDER_VIEW:
+                        #region SHOW HOLDER VIEW
                         DTO_CardHolder selectedHolder = Repository.lstAllCardHolders.FirstOrDefault(holder => holder.Id == selectedItem.Key);
                         Repository.selectedHolder = selectedHolder;
 
@@ -214,14 +221,25 @@ namespace ScorpiconAccess
                         pnlData.Children.Clear();
 
                         pnlData.Children.Add(ucHolder);
-
+                        #endregion
                         break;
                     case ViewMode.DEVICE_VIEW:
+                        #region SHOW DEVICE DETAIL VIEW
                         DTO_Device selectedDevice = Repository.lstAllDevices.FirstOrDefault(deice => deice.Id == selectedItem.Key);
-                        //Show device detail info
+                        Repository.selectedDevice = selectedDevice;
 
+                        //Show device detail info
+                        DeviceDetailView ucDevice = new DeviceDetailView(mode: currentMode);
+                        ucDevice.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        ucDevice.VerticalAlignment = VerticalAlignment.Stretch;
+                        pnlData.Children.Clear();
+
+                        pnlData.Children.Add(ucDevice);
+                        #endregion
                         break;
                     case ViewMode.DOOR_VIEW:
+
+
 
                         //Show door detail info
 

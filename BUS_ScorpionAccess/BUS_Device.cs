@@ -32,6 +32,10 @@ namespace BUS_ScorpionAccess
             {
                 foreach (DataRow row in dt.Rows)
                 {
+                    FAMode mode = new FAMode();
+                    mode.IsUse = Convert.ToInt16(row["FAMode"].ToString()) == 1 ? true : false;
+                    mode.FAHWNumber  = Convert.ToInt16(row["FAHW"].ToString());
+
                     DTO_Device device = new DTO_Device();
 
                     device.Id           = row["Id"].ToString();
@@ -41,12 +45,8 @@ namespace BUS_ScorpionAccess
                     device.Subnet       = row["Subnet"].ToString();
                     device.GateWay      = row["GateWay"].ToString();
                     device.HostIp       = row["HostIp"].ToString();
-                    device.FAMode       = (FAMode)Convert.ToInt16(row["FAMode"].ToString());
-                    device.FAHW         = Convert.ToInt16(row["FAHW"].ToString());
+                    device.FAMode       = mode;
                     device.CtrMode      = (ControlMode)Convert.ToInt16(row["CtrlMode"].ToString());
-                    device.ReaderQty    = Convert.ToInt16(row["ReaderQty"].ToString());
-                    device.InputQty     = Convert.ToInt16(row["InputQty"].ToString());
-                    device.OutputQty    = Convert.ToInt16(row["OutputQty"].ToString());
                     device.Description  = row["Description"].ToString();
 
                     lstDevices.Add(device);
@@ -78,7 +78,11 @@ namespace BUS_ScorpionAccess
             try
             {
                 foreach (DataRow row in dt.Rows)
-                {                   
+                {
+                    FAMode mode = new FAMode();
+                    mode.IsUse = Convert.ToInt16(row["FAMode"].ToString()) == 1 ? true : false;
+                    mode.FAHWNumber = Convert.ToInt16(row["FAHW"].ToString());
+
                     device.Id = row["Id"].ToString();
                     device.Name = row["Name"].ToString();
                     device.MAC = row["MAC"].ToString();
@@ -86,12 +90,8 @@ namespace BUS_ScorpionAccess
                     device.Subnet = row["Subnet"].ToString();
                     device.GateWay = row["GateWay"].ToString();
                     device.HostIp = row["HostIp"].ToString();
-                    device.FAMode = (FAMode)Convert.ToInt16(row["FAMode"].ToString());
-                    device.FAHW = Convert.ToInt16(row["FAHW"].ToString());
+                    device.FAMode = mode;
                     device.CtrMode = (ControlMode)Convert.ToInt16(row["CtrlMode"].ToString());
-                    device.ReaderQty = Convert.ToInt16(row["ReaderQty"].ToString());
-                    device.InputQty = Convert.ToInt16(row["InputQty"].ToString());
-                    device.OutputQty = Convert.ToInt16(row["OutputQty"].ToString());
                     device.Description = row["Description"].ToString();
                 }
 
@@ -122,6 +122,10 @@ namespace BUS_ScorpionAccess
             {
                 foreach (DataRow row in dt.Rows)
                 {
+                    FAMode mode = new FAMode();
+                    mode.IsUse = Convert.ToInt16(row["FAMode"].ToString()) == 1 ? true : false;
+                    mode.FAHWNumber = Convert.ToInt16(row["FAHW"].ToString());
+
                     DTO_Device device = new DTO_Device();
 
                     device.Id = row["Id"].ToString();
@@ -131,12 +135,8 @@ namespace BUS_ScorpionAccess
                     device.Subnet = row["Subnet"].ToString();
                     device.GateWay = row["GateWay"].ToString();
                     device.HostIp = row["HostIp"].ToString();
-                    device.FAMode = (FAMode)Convert.ToInt16(row["FAMode"].ToString());
-                    device.FAHW = Convert.ToInt16(row["FAHW"].ToString());
+                    device.FAMode = mode;
                     device.CtrMode = (ControlMode)Convert.ToInt16(row["CtrlMode"].ToString());
-                    device.ReaderQty = Convert.ToInt16(row["ReaderQty"].ToString());
-                    device.InputQty = Convert.ToInt16(row["InputQty"].ToString());
-                    device.OutputQty = Convert.ToInt16(row["OutputQty"].ToString());
                     device.Description = row["Description"].ToString();
 
                     lstDevices.Add(device);
@@ -144,7 +144,7 @@ namespace BUS_ScorpionAccess
 
                 return lstDevices;
             }
-            catch
+            catch (Exception ex)
             {
                 return null;
             }

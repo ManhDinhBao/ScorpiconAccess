@@ -24,21 +24,19 @@ namespace DTO_ScorpionAccess
         }
 
         /// <summary>
-        /// Fire Alarm Mode
-        /// </summary>
-        public enum FAMode
-        {
-            NOT_USE = 0,
-            USED = 1
-        }
-
-        /// <summary>
         /// Control mode
         /// </summary>
         public enum ControlMode
         {
             CONTROL_DOOR = 1,
             CONTROL_ELEVATOR = 2
+        }
+
+        public enum DeviceSocketType
+        {
+            READER = 0,
+            INPUT = 1,
+            OUTPUT = 2
         }
 
         public enum UserLogType
