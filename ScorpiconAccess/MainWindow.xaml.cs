@@ -29,6 +29,7 @@ namespace ScorpiconAccess
         private BUS_Card bus_Card;
         private BUS_CardHolder bus_CardHolder;
         private BUS_Device bus_Device;
+        private BUS_DeviceSocket bUS_DeviceSocket;
         private ViewMode viewMode;
         private const int ADD_MODE = 1;
         private const int CHANGE_MODE = 2;
@@ -44,6 +45,7 @@ namespace ScorpiconAccess
             bus_Card = new BUS_Card();
             bus_CardHolder = new BUS_CardHolder();
             bus_Device = new BUS_Device();
+            bUS_DeviceSocket = new BUS_DeviceSocket();
 
             PrepareData();
         }
@@ -513,7 +515,79 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.DEVICE_VIEW:
+                    if (this.currentMode == CHANGE_MODE)
+                    {
+                        //Update device
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_Device deviceToUpdate = Repository.selectedDevice;
+                        string strHolderInfo = string.Format(" UPDATE DEVICE INFORMATION\r\n Id: {0}\r\n Name: {1}\r\n MAC: {2}\r\n IP: {3}\r\n Subnet: {4}\r\n Gateway: {5}\r\n Host: {6}\r\n FAMode: {7}\r\n CtrlMode: {8}\r\n Description: {9}"
+                            , deviceToUpdate.Id
+                            , deviceToUpdate.Name
+                            , deviceToUpdate.MAC
+                            , deviceToUpdate.IP
+                            , deviceToUpdate.Subnet
+                            , deviceToUpdate.GateWay
+                            , deviceToUpdate.HostIp
+                            , deviceToUpdate.FAMode.IsUse == true ? "USED: " + deviceToUpdate.FAMode.FAHWNumber.ToString(): "NOT_USE: 0"
+                            , deviceToUpdate.CtrMode
+                            , deviceToUpdate.Description) ;
 
+                        AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bus_Device.UpdateDevice(deviceToUpdate);
+                        string strReasultLog = "";
+                        if (result.Result)
+                        {
+                            DTO_Device oldDevice = Repository.lstAllDevices.FirstOrDefault(h => h.Id == deviceToUpdate.Id);
+                            if (oldDevice != null)
+                            {
+                                oldDevice = deviceToUpdate;
+                            }
+                            RefreshListView();
+                            AddLog(new UserLog(" Update successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            strReasultLog = "Status: Error -> " + result.Detail;
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
+                    else
+                    {
+                        //Insert device
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_Device addDevice = Repository.newDevice;
+                        string strHolderInfo = string.Format(" ADD DEVICE \r\n Id: {0}\r\n Name: {1}\r\n MAC: {2}\r\n IP: {3}\r\n Subnet: {4}\r\n Gateway: {5}\r\n Host: {6}\r\n FAMode: {7}\r\n CtrlMode: {8}\r\n Description: {9}"
+                            , addDevice.Id
+                            , addDevice.Name
+                            , addDevice.MAC
+                            , addDevice.IP
+                            , addDevice.Subnet
+                            , addDevice.GateWay
+                            , addDevice.HostIp
+                            , addDevice.FAMode.IsUse == true ? "USED: " + addDevice.FAMode.FAHWNumber.ToString() : "NOT_USE: 0"
+                            , addDevice.CtrMode
+                            , addDevice.Description);
+
+                        AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bus_Device.AddNewDevice(addDevice);
+                        if (result.Result)
+                        {
+                            //Load socket for new deview
+                            addDevice.Sockets = bUS_DeviceSocket.GetSocketByDevice(addDevice.Id);
+
+                            Repository.lstAllDevices.Add(addDevice);
+                            RefreshListView();
+                            AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
 
                     break;
                 case ViewMode.DOOR_VIEW:
@@ -545,6 +619,9 @@ namespace ScorpiconAccess
                 case ViewMode.HOLDER_VIEW:
                     BindHolderToListItemView();
                     break;
+                case ViewMode.DEVICE_VIEW:
+                    BindDeviceToListItemView();
+                    break;
             }         
             lbListItems.ItemsSource = listViewItems;
         }
@@ -573,7 +650,12 @@ namespace ScorpiconAccess
                     pnlData.Children.Add(ucHolder);
                     break;
                 case ViewMode.DEVICE_VIEW:
+                    DeviceDetailView ucDevice = new DeviceDetailView(mode: currentMode);
+                    ucDevice.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    ucDevice.VerticalAlignment = VerticalAlignment.Stretch;
+                    pnlData.Children.Clear();
 
+                    pnlData.Children.Add(ucDevice);
 
                     break;
                 case ViewMode.DOOR_VIEW:
@@ -608,11 +690,14 @@ namespace ScorpiconAccess
                 return;
             }
 
+            AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
             switch (viewMode)
             {
                 case ViewMode.CARD_VIEW:
                     //Delete card
                     DTO_Card cardToDelete = Repository.selectedCard;
+                    string strCardInfo = string.Format(" DELETE CARD \r\n Number: {0}\r\n Serial: {1}", cardToDelete.CardNumber, cardToDelete.CardSerial);
+                    AddLog(new UserLog(strCardInfo, EType.UserLogType.LOG_CONTENT));
                     SQLResult result = bus_Card.DeleteCard(cardToDelete.CardSerial);
                     if (result.Result)
                     {
@@ -621,10 +706,11 @@ namespace ScorpiconAccess
 
                         RefreshListView();
                         lbListItems.SelectedIndex = 0;
+                        AddLog(new UserLog(" Delete successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
                     }
                     else
                     {
-                        
+                        AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
                     }
                     tbStatus.Text = result.Detail;
                     AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
@@ -633,6 +719,8 @@ namespace ScorpiconAccess
                 case ViewMode.HOLDER_VIEW:
                     //Delete holder
                     DTO_CardHolder holderToDelete = Repository.selectedHolder;
+                    string strHolderInfo = string.Format(" DELETE HOLDER \r\n Id: {0}\r\n Name: {1}", holderToDelete.Id, holderToDelete.Name);
+                    AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
                     SQLResult delHolderResult = bus_CardHolder.DeleteCardHolder(holderToDelete.Id);
                     if (delHolderResult.Result)
                     {
@@ -652,17 +740,38 @@ namespace ScorpiconAccess
 
                         RefreshListView();
                         lbListItems.SelectedIndex = 0;
+                        AddLog(new UserLog(" Delete successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
                     }
                     else
                     {
-
+                        AddLog(new UserLog(" Error: " + delHolderResult.Detail, EType.UserLogType.LOG_STATUS_ERROR));
                     }
                     tbStatus.Text = delHolderResult.Detail;
                     AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
 
                     break;
                 case ViewMode.DEVICE_VIEW:
+                    //Delete device
+                    DTO_Device deviceToDelete = Repository.selectedDevice;
+                    string strDeviceInfo = string.Format(" DELETE DEVICE \r\n Id: {0}\r\n Name: {1}", deviceToDelete.Id, deviceToDelete.Name);
+                    AddLog(new UserLog(strDeviceInfo, EType.UserLogType.LOG_CONTENT));
+                    SQLResult delDeviceResult = bus_Device.DeleteDevice(deviceToDelete.Id);
+                    if (delDeviceResult.Result)
+                    {
+                        //Remove device in list devices
+                        DTO_Device oldDevice = Repository.lstAllDevices.FirstOrDefault(h => h.Id == deviceToDelete.Id);
+                        Repository.lstAllDevices.Remove(oldDevice);
 
+                        RefreshListView();
+                        lbListItems.SelectedIndex = 0;
+                        AddLog(new UserLog(" Delete successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                    }
+                    else
+                    {
+                        AddLog(new UserLog(" Error: " + delDeviceResult.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                    }
+                    tbStatus.Text = delDeviceResult.Detail;
+                    AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
 
                     break;
                 case ViewMode.DOOR_VIEW:

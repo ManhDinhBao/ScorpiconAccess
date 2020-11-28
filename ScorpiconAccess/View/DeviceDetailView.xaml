@@ -17,23 +17,31 @@
                         <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                             <TextBlock Text="ID No" FontFamily="Arial" FontWeight="SemiBold"/>
                             <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                <TextBox x:Name="tbDeviceId" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                                <TextBox x:Name="tbDeviceId" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbDeviceId_TextChanged"/>
                             </Border>
                         </StackPanel>
                         <!--Name-->
                         <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                             <TextBlock Text="Name" FontFamily="Arial" FontWeight="SemiBold"/>
                             <Border HorizontalAlignment="Left" Width="200" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                <TextBox x:Name="tbDeviceName" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                                <TextBox x:Name="tbDeviceName" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbDeviceName_TextChanged"/>
                             </Border>
                         </StackPanel>
                     </StackPanel>
-            
-                    <!--Description-->
+
+                        <!--MAC-->
+                        <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
+                            <TextBlock Text="MAC" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
+                                <TextBox x:Name="tbMAC" TextChanged="tbMAC_TextChanged" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                            </Border>
+                        </StackPanel>
+
+                        <!--Description-->
                     <StackPanel Margin="20,10,0,10" Orientation="Vertical" >
                         <TextBlock Text="Description" FontFamily="Arial" FontWeight="SemiBold"/>
                         <Border Width="370" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left">
-                            <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888">
+                            <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
                                 <RichTextBox.Resources>
                                     <Style TargetType="{x:Type Paragraph}">
                                         <Setter Property="Margin" Value="0"></Setter>
@@ -57,28 +65,28 @@
                             <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                                 <TextBlock Text="IP Address" FontFamily="Arial" FontWeight="SemiBold"/>
                                 <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                    <TextBox x:Name="tbIp" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                                    <TextBox x:Name="tbIp" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" TextChanged="tbIp_TextChanged" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
                                 </Border>
                             </StackPanel>
                             <!--Subnet mask-->
                             <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                                 <TextBlock Text="Subnet mask" FontFamily="Arial" FontWeight="SemiBold"/>
                                     <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                        <TextBox x:Name="tbSubnet" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                                        <TextBox x:Name="tbSubnet" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" TextChanged="tbSubnet_TextChanged" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
                                     </Border>
                                 </StackPanel>
                             <!--Gateway-->
                             <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                                 <TextBlock Text="Gateway" FontFamily="Arial" FontWeight="SemiBold"/>
                                 <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                    <TextBox x:Name="tbGateway" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                                    <TextBox x:Name="tbGateway" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextChanged="tbGateway_TextChanged" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
                                 </Border>
                             </StackPanel>
                             <!--Host IP-->
                             <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                                 <TextBlock Text="Host IP Address" FontFamily="Arial" FontWeight="SemiBold"/>
                                 <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                    <TextBox x:Name="tbHostIp" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" />
+                                    <TextBox x:Name="tbHostIp" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" TextChanged="tbHostIp_TextChanged" FontSize="12" FontFamily="Arial" Foreground="#888888" />
                                 </Border>
                             </StackPanel>
                         </StackPanel>
@@ -88,17 +96,17 @@
                         <GroupBox Header="Mode" HorizontalAlignment="Stretch" Margin="0,10,20,0">
                             <StackPanel Orientation="Vertical">
                                 <!--Fire alarm mode-->
-                                <CheckBox x:Name="chkUseFAMode" Content="Use Fire Alarm" Margin="5,5,0,0"/>
+                                <CheckBox x:Name="chkUseFAMode" IsThreeState="False" Checked="chkUseFAMode_Checked" Content="Use Fire Alarm" Margin="5,5,0,0"/>
                                 <StackPanel Margin="5,10,0,5" Orientation="Vertical" HorizontalAlignment="Left">
                                     <TextBlock Text="HW Number" FontFamily="Arial" FontWeight="SemiBold"/>
-                                    <ComboBox x:Name="cbHWNum" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0">
+                                    <ComboBox x:Name="cbHWNum" SelectionChanged="cbHWNum_SelectionChanged" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0">
 
                                     </ComboBox>
                                 </StackPanel>
                                 <!--Control mode-->
                                 <StackPanel Margin="5,5,0,5" Orientation="Vertical" HorizontalAlignment="Left">
                                     <TextBlock Text="Control mode" FontFamily="Arial" FontWeight="SemiBold"/>
-                                    <ComboBox x:Name="cbCtrlMode" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0">
+                                    <ComboBox x:Name="cbCtrlMode" SelectionChanged="cbCtrlMode_SelectionChanged" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0">
 
                                     </ComboBox>
                                 </StackPanel>
@@ -119,7 +127,10 @@
                 <ListBox x:Name="lbReaders" Height="80" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardNumber}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Id}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -129,10 +140,13 @@
                     <Image VerticalAlignment="Top" Source="..\Icon\input_gray_30px.png" Width="20" Height="20"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Inputs" Margin="5,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
                 </StackPanel>
-                <ListBox x:Name="lbInputs" Height="80" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
+                <ListBox x:Name="lbInputs" Height="100" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardNumber}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Id}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -142,10 +156,13 @@
                     <Image VerticalAlignment="Top" Source="..\Icon\input_gray_30px.png" Width="20" Height="20"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Outputs" Margin="5,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
                 </StackPanel>
-                <ListBox x:Name="lbOutputs" Height="80" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
+                <ListBox x:Name="lbOutputs" Height="130" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardNumber}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Id}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

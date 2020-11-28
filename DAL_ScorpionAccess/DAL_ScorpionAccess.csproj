@@ -44,6 +44,7 @@
     <Compile Include="DAL_Card.cs" />
     <Compile Include="DAL_CardHolder.cs" />
     <Compile Include="DAL_Device.cs" />
+    <Compile Include="DAL_DeviceSocket.cs" />
     <Compile Include="DAL_Door.cs" />
     <Compile Include="DBConnect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -149,13 +149,45 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("Id", device.Id);
                 command.Parameters.AddWithValue("Name", device.Name);
                 command.Parameters.AddWithValue("MAC", device.MAC);
-                command.Parameters.AddWithValue("IP", device.IP);
-                command.Parameters.AddWithValue("Subnet", device.Subnet);
-                command.Parameters.AddWithValue("Gateway", device.GateWay);
-                command.Parameters.AddWithValue("HostIP", device.HostIp);
+                if (device.IP == null)
+                {
+                    command.Parameters.AddWithValue("IP", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("IP", device.IP);
+                }
+
+                if (device.Subnet == null)
+                {
+                    command.Parameters.AddWithValue("Subnet", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Subnet", device.Subnet);
+                }
+
+                if (device.GateWay == null)
+                {
+                    command.Parameters.AddWithValue("Gateway", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Gateway", device.GateWay);
+                }
+
+                if (device.HostIp == null)
+                {
+                    command.Parameters.AddWithValue("HostIP", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("HostIP", device.HostIp);
+                }
+
                 command.Parameters.AddWithValue("FAMode", device.FAMode.IsUse ? 1:0);
                 command.Parameters.AddWithValue("FAHW", device.FAMode.FAHWNumber);
-                command.Parameters.AddWithValue("CtrlMode", device.CtrMode);
+                command.Parameters.AddWithValue("CtrlMode", (int)device.CtrMode);
                 command.Parameters.AddWithValue("Description", device.Description);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -170,9 +202,9 @@ namespace DAL_ScorpionAccess
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
             }
-            catch
+            catch (Exception ex)
             {
-
+                result.Detail = ex.Message;
             }
             finally
             {
@@ -204,10 +236,41 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("Id", device.Id);
                 command.Parameters.AddWithValue("Name", device.Name);
                 command.Parameters.AddWithValue("MAC", device.MAC);
-                command.Parameters.AddWithValue("IP", device.IP);
-                command.Parameters.AddWithValue("Subnet", device.Subnet);
-                command.Parameters.AddWithValue("Gateway", device.GateWay);
-                command.Parameters.AddWithValue("HostIP", device.HostIp);
+                if (device.IP == null)
+                {
+                    command.Parameters.AddWithValue("IP", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("IP", device.IP);
+                }
+
+                if (device.Subnet == null)
+                {
+                    command.Parameters.AddWithValue("Subnet", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Subnet", device.Subnet);
+                }
+
+                if (device.GateWay == null)
+                {
+                    command.Parameters.AddWithValue("Gateway", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Gateway", device.GateWay);
+                }
+
+                if (device.HostIp == null)
+                {
+                    command.Parameters.AddWithValue("HostIP", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("HostIP", device.HostIp);
+                }
                 command.Parameters.AddWithValue("FAMode", device.FAMode.IsUse ? 1 : 0);
                 command.Parameters.AddWithValue("FAHW", device.FAMode.FAHWNumber);
                 command.Parameters.AddWithValue("CtrlMode", device.CtrMode);
@@ -225,9 +288,9 @@ namespace DAL_ScorpionAccess
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
             }
-            catch
+            catch (Exception ex)
             {
-
+                result.Detail = ex.Message;
             }
             finally
             {
@@ -254,8 +317,8 @@ namespace DAL_ScorpionAccess
                 SqlCommand command = new SqlCommand();
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "spDeviceSave";
-                command.Parameters.AddWithValue("WorkType", "L");
+                command.CommandText = "spLDeviceSave";
+                command.Parameters.AddWithValue("WorkType", "D");
                 command.Parameters.AddWithValue("Id", Id);
                 command.Parameters.AddWithValue("Name", DBNull.Value);
                 command.Parameters.AddWithValue("MAC", DBNull.Value);
@@ -265,6 +328,7 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("HostIP", DBNull.Value);
                 command.Parameters.AddWithValue("FAMode", DBNull.Value);
                 command.Parameters.AddWithValue("FAHW", DBNull.Value);
+                command.Parameters.AddWithValue("CtrlMode", DBNull.Value);
                 command.Parameters.AddWithValue("Description", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -279,9 +343,9 @@ namespace DAL_ScorpionAccess
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
             }
-            catch
+            catch(Exception ex) 
             {
-
+                result.Detail = ex.Message;
             }
             finally
             {

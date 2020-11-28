@@ -13,6 +13,7 @@ namespace BUS_ScorpionAccess
     public class BUS_Device
     {
         DAL_Device dal = new DAL_Device();
+        BUS_DeviceSocket busSocket = new BUS_DeviceSocket();
 
         /// <summary>
         /// Get all device
@@ -48,6 +49,8 @@ namespace BUS_ScorpionAccess
                     device.FAMode       = mode;
                     device.CtrMode      = (ControlMode)Convert.ToInt16(row["CtrlMode"].ToString());
                     device.Description  = row["Description"].ToString();
+
+                    device.Sockets = busSocket.GetSocketByDevice(device.Id);
 
                     lstDevices.Add(device);
                 }
@@ -93,6 +96,8 @@ namespace BUS_ScorpionAccess
                     device.FAMode = mode;
                     device.CtrMode = (ControlMode)Convert.ToInt16(row["CtrlMode"].ToString());
                     device.Description = row["Description"].ToString();
+
+                    device.Sockets = busSocket.GetSocketByDevice(device.Id);
                 }
 
                 return device;
@@ -139,6 +144,8 @@ namespace BUS_ScorpionAccess
                     device.CtrMode = (ControlMode)Convert.ToInt16(row["CtrlMode"].ToString());
                     device.Description = row["Description"].ToString();
 
+                    device.Sockets = busSocket.GetSocketByDevice(device.Id);
+
                     lstDevices.Add(device);
                 }
 
@@ -159,7 +166,12 @@ namespace BUS_ScorpionAccess
         {
             if (device == null)
             {
-                return new SQLResult(false, "");
+                return new SQLResult(false, "Device can't null");
+            }
+
+            if (!device.Validate().Result)
+            {
+                return new SQLResult(false, device.Validate().Detail);
             }
 
             return dal.AddNewDevice(device);
@@ -174,7 +186,12 @@ namespace BUS_ScorpionAccess
         {
             if (device == null)
             {
-                return new SQLResult(false, "");
+                return new SQLResult(false, "Device can't null");
+            }
+
+            if (!device.Validate().Result)
+            {
+                return new SQLResult(false, device.Validate().Detail);
             }
 
             return dal.UpdateDevice(device);
@@ -185,11 +202,11 @@ namespace BUS_ScorpionAccess
         /// </summary>
         /// <param name="deviceId">Id of device want to delete</param>
         /// <returns></returns>
-        public SQLResult DeleteCard(string deviceId)
+        public SQLResult DeleteDevice(string deviceId)
         {
-            if (deviceId == null)
+            if (deviceId == null||deviceId=="")
             {
-                return new SQLResult(false, "");
+                return new SQLResult(false, "Device id can't null");
             }
 
             return dal.DeleteDevice(deviceId);

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScorpiconAccess"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1000" KeyDown="Window_KeyDown">
+        Title="MainWindow" Height="800" Width="1100" KeyDown="Window_KeyDown">
     <Window.Resources>
         <Image x:Key="dropdown_black" Source="Icon\drop_down_black_32px.png"/>
         <Image x:Key="eraser_black" Source="Icon\eraser_black_50px.png"/>
