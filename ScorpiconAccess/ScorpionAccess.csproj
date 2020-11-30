@@ -58,6 +58,9 @@
     <Compile Include="Barcodes.cs" />
     <Compile Include="Code39.cs" />
     <Compile Include="Converter\ToCardHolderTextConverter.cs" />
+    <Compile Include="LaunchWindow.xaml.cs">
+      <DependentUpon>LaunchWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Repository.cs" />
     <Compile Include="Converter\ToCardSerialFormatConverter.cs" />
     <Compile Include="Converter\ToUpperValueConverter.cs" />
@@ -70,6 +73,16 @@
     <Compile Include="View\HolderDetailView.xaml.cs">
       <DependentUpon>HolderDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ScheduleDetailView.xaml.cs">
+      <DependentUpon>ScheduleDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucDatePicker.xaml.cs">
+      <DependentUpon>ucDatePicker.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LaunchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -91,6 +104,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HolderDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ScheduleDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucDatePicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

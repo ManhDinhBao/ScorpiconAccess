@@ -47,6 +47,7 @@
     <Compile Include="DTO_DeviceSocket.cs" />
     <Compile Include="DTO_Door.cs" />
     <Compile Include="DTO_DoorMode.cs" />
+    <Compile Include="DTO_Period.cs" />
     <Compile Include="EType.cs" />
     <Compile Include="FAMode.cs" />
     <Compile Include="ListViewItem.cs" />

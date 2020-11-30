@@ -46,8 +46,6 @@ namespace ScorpiconAccess
             bus_CardHolder = new BUS_CardHolder();
             bus_Device = new BUS_Device();
             bUS_DeviceSocket = new BUS_DeviceSocket();
-
-            PrepareData();
         }
 
         #region Menu Button Click
@@ -172,18 +170,12 @@ namespace ScorpiconAccess
                     tbViewName.Text = "Event";
                     break;
             }
+            lbListItems.SelectedIndex = 0;
         }
 
         private void btRight_Click(object sender, RoutedEventArgs e)
         {
 
-        }
-
-        private void PrepareData()
-        {
-            Repository.lstAllCards = bus_Card.GetAllCard();
-            Repository.lstAllCardHolders = bus_CardHolder.GetAllCardHolder();
-            Repository.lstAllDevices = bus_Device.GetAllDevice();
         }
 
         private void lbListItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -579,6 +571,7 @@ namespace ScorpiconAccess
 
                             Repository.lstAllDevices.Add(addDevice);
                             RefreshListView();
+                            lbListItems.SelectedIndex = lbListItems.Items.Count - 1;
                             AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
                         }
                         else
@@ -620,7 +613,7 @@ namespace ScorpiconAccess
                     BindHolderToListItemView();
                     break;
                 case ViewMode.DEVICE_VIEW:
-                    BindDeviceToListItemView();
+                    BindDeviceToListItemView();                    
                     break;
             }         
             lbListItems.ItemsSource = listViewItems;

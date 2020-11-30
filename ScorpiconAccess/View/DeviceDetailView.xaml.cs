@@ -24,6 +24,7 @@ namespace ScorpiconAccess.View
     {
         #region Variables
         BUS_Device bus_device = new BUS_Device();
+        BUS_General bUS_General = new BUS_General();
 
         private const int ADD_MODE = 1;
         private const int CHANGE_MODE = 2;
@@ -61,6 +62,7 @@ namespace ScorpiconAccess.View
         {
             cbHWNum.ItemsSource = lstHWNumber;
             cbCtrlMode.ItemsSource = Enum.GetValues(typeof(EType.ControlMode));
+            tbDeviceId.IsReadOnly = true;
 
             if (mode == ADD_MODE)
             {
@@ -70,6 +72,8 @@ namespace ScorpiconAccess.View
                 cbCtrlMode.SelectedIndex = 0;
                 chkUseFAMode.IsChecked = true;
                 cbHWNum.SelectedIndex = 0;
+
+                tbDeviceId.Text = bUS_General.GenerateId("DEVICE");              
             }
             else
             {
@@ -196,16 +200,7 @@ namespace ScorpiconAccess.View
 
         private void chkUseFAMode_Checked(object sender, RoutedEventArgs e)
         {
-            if (mode == CHANGE_MODE)
-            {
-                if (Repository.selectedDevice != null)
-                    Repository.selectedDevice.FAMode.IsUse = (bool)chkUseFAMode.IsChecked;
-            }
-            else
-            {
-                if (Repository.newDevice != null)
-                    Repository.newDevice.FAMode.IsUse = (bool)chkUseFAMode.IsChecked;
-            }
+            
 
         }
 
@@ -214,6 +209,20 @@ namespace ScorpiconAccess.View
             if (cbHWNum.SelectedValue != null)
             {
                 int hwNum = (int)cbHWNum.SelectedValue;
+
+                if(hwNum == 0 && (bool)chkUseFAMode.IsChecked)
+                {
+                    MessageBox.Show("Fire alarm hardware number can't be 0");
+                    cbHWNum.SelectedItem = 1;
+                    return;
+                }
+
+                if (hwNum > 0 && !(bool)chkUseFAMode.IsChecked)
+                {
+                    MessageBox.Show("Fire alarm hardware number must be 0");
+                    cbHWNum.SelectedItem = 0;
+                    return;
+                }
 
                 if (mode == CHANGE_MODE)
                 {
@@ -257,6 +266,37 @@ namespace ScorpiconAccess.View
                 if (Repository.newDevice != null)
                     Repository.newDevice.MAC = tbMAC.Text;
             }
+        }
+
+        private void chkUseFAMode_Click(object sender, RoutedEventArgs e)
+        {
+            if ((bool)chkUseFAMode.IsChecked)
+            {
+                if (cbHWNum.SelectedIndex == 0 && Repository.selectedDevice.FAMode.FAHWNumber != 0)
+                    cbHWNum.SelectedIndex = Repository.selectedDevice.FAMode.FAHWNumber;
+                else
+                {
+                    cbHWNum.SelectedIndex = 1;
+                }
+
+            }
+            else
+            {
+                if (cbHWNum.SelectedIndex > 0)
+                    cbHWNum.SelectedIndex = 0;
+            }
+
+            if (mode == CHANGE_MODE)
+            {
+                if (Repository.selectedDevice != null)
+                    Repository.selectedDevice.FAMode.IsUse = (bool)chkUseFAMode.IsChecked;
+            }
+            else
+            {
+                if (Repository.newDevice != null)
+                    Repository.newDevice.FAMode.IsUse = (bool)chkUseFAMode.IsChecked;
+            }
+
         }
     }
 }

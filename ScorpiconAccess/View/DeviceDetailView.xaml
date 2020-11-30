@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
     <DockPanel Background="White">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
                 <!--Basic information-->
                 <GroupBox Header="Basic information" HorizontalAlignment="Left" Width="420" Margin="20,10,0,0">
@@ -40,7 +40,7 @@
                         <!--Description-->
                     <StackPanel Margin="20,10,0,10" Orientation="Vertical" >
                         <TextBlock Text="Description" FontFamily="Arial" FontWeight="SemiBold"/>
-                        <Border Width="370" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left">
+                        <Border Width="370" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="0,2,0,0">
                             <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
                                 <RichTextBox.Resources>
                                     <Style TargetType="{x:Type Paragraph}">
@@ -96,7 +96,7 @@
                         <GroupBox Header="Mode" HorizontalAlignment="Stretch" Margin="0,10,20,0">
                             <StackPanel Orientation="Vertical">
                                 <!--Fire alarm mode-->
-                                <CheckBox x:Name="chkUseFAMode" IsThreeState="False" Checked="chkUseFAMode_Checked" Content="Use Fire Alarm" Margin="5,5,0,0"/>
+                                <CheckBox x:Name="chkUseFAMode" IsThreeState="False" Click="chkUseFAMode_Click" Checked="chkUseFAMode_Checked" Content="Use Fire Alarm" Margin="5,5,0,0"/>
                                 <StackPanel Margin="5,10,0,5" Orientation="Vertical" HorizontalAlignment="Left">
                                     <TextBlock Text="HW Number" FontFamily="Arial" FontWeight="SemiBold"/>
                                     <ComboBox x:Name="cbHWNum" SelectionChanged="cbHWNum_SelectionChanged" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0">
@@ -129,7 +129,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Id}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -145,7 +145,7 @@
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Id}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
@@ -156,12 +156,12 @@
                     <Image VerticalAlignment="Top" Source="..\Icon\input_gray_30px.png" Width="20" Height="20"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Outputs" Margin="5,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
                 </StackPanel>
-                <ListBox x:Name="lbOutputs" Height="130" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
+                <ListBox x:Name="lbOutputs" Height="140" Width="300" HorizontalAlignment="Left" Margin="20,2,0,0">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal">
                                 <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Id}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

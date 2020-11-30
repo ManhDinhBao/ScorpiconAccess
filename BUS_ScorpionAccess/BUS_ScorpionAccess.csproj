@@ -45,6 +45,7 @@
     <Compile Include="BUS_CardHolder.cs" />
     <Compile Include="BUS_Device.cs" />
     <Compile Include="BUS_DeviceSocket.cs" />
+    <Compile Include="BUS_General.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

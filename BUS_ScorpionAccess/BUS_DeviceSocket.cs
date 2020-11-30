@@ -35,6 +35,7 @@ namespace BUS_ScorpionAccess
                     DTO_DeviceSocket socket = new DTO_DeviceSocket();
                     socket.Id           = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
                     socket.Device       = row["Device"] == DBNull.Value ? null : row["Device"].ToString();
+                    socket.Name         = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
                     socket.OrdNumber    = row["OrdNumber"] == DBNull.Value ? -1 : Convert.ToInt16(row["OrdNumber"].ToString());
                     socket.Type         = row["Type"] == DBNull.Value ? EType.DeviceSocketType.READER : (EType.DeviceSocketType)row["Type"];
                     socket.IsUse        = row["IsUse"] == DBNull.Value ? false : (bool)row["IsUse"];
@@ -73,6 +74,7 @@ namespace BUS_ScorpionAccess
                     DTO_DeviceSocket socket = new DTO_DeviceSocket();
                     socket.Id = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
                     socket.Device = row["Device"] == DBNull.Value ? null : row["Device"].ToString();
+                    socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
                     socket.OrdNumber = row["OrdNumber"] == DBNull.Value ? -1 : Convert.ToInt16(row["OrdNumber"].ToString());
                     socket.Type = row["Type"] == DBNull.Value ? EType.DeviceSocketType.READER : (EType.DeviceSocketType)row["Type"];
                     socket.IsUse = row["IsUse"] == DBNull.Value ? false : (bool)row["IsUse"];

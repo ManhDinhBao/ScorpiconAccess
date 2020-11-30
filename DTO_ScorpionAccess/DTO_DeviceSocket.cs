@@ -10,6 +10,7 @@ namespace DTO_ScorpionAccess
     public class DTO_DeviceSocket
     {
         public string Id { get; set; }
+        public string Name { get; set; }
         public string Device { get; set; }
         public int OrdNumber { get; set; }
         public DeviceSocketType Type { get; set; }
@@ -20,9 +21,10 @@ namespace DTO_ScorpionAccess
         {
         }
 
-        public DTO_DeviceSocket(string id, string device, int ordNumber, DeviceSocketType type, bool isUse, string doorSocket)
+        public DTO_DeviceSocket(string id, string name, string device, int ordNumber, DeviceSocketType type, bool isUse, string doorSocket)
         {
             Id = id;
+            Name = name;
             Device = device;
             OrdNumber = ordNumber;
             Type = type;

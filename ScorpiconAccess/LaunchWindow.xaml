@@ -1,0 +1,18 @@
+﻿<Window x:Class="ScorpiconAccess.LaunchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScorpiconAccess"
+        mc:Ignorable="d"
+        Title="LaunchWindow" Background="#16697a" Width="500" Height="150" WindowStyle="None" WindowStartupLocation="CenterScreen">
+    <DockPanel>
+        <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <ProgressBar x:Name="prBarLoadData"  HorizontalAlignment="Stretch" Height="20"/>
+            <TextBlock x:Name="tbLoadData" Text="0%" Foreground="Black" Background="Transparent" FontFamily="Consolas" FontWeight="SemiBold" FontSize="10" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        </Grid>
+        <Grid>
+            <TextBlock Text=" LEFA SCORPION" Foreground="White" FontFamily="Consolas" FontWeight="SemiBold" FontSize="50" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+        </Grid>
+    </DockPanel>
+</Window>
