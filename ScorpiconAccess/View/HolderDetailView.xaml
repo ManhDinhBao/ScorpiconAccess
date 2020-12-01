@@ -69,13 +69,13 @@
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Image Source="..\Icon\holder_id_gray_24px.png" Width="20" Height="20"/>
                         <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
-                            <TextBox x:Name="tbHolderId" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderId_TextChanged" MaxLength="10" MaxLines="1"/>
+                            <TextBox x:Name="tbHolderId" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="tbHolderId_TextChanged" MaxLength="10" MaxLines="1"/>
                         </Border>
                     </StackPanel>
                     <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
                         <Image Source="..\Icon\name_tag_gray_30px.png" Width="20" Height="20"/>
                         <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
-                            <TextBox x:Name="tbHolderName" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderName_TextChanged"/>
+                            <TextBox x:Name="tbHolderName" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="tbHolderName_TextChanged"/>
                         </Border>
                     </StackPanel>
                 </StackPanel>
@@ -84,7 +84,7 @@
                 <StackPanel Orientation="Horizontal">
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Image Source="..\Icon\gender_gray_50px.png" Width="20" Height="20"/>
-                        <ComboBox Margin="5,0,0,0" x:Name="cbGender" Width="150" HorizontalAlignment="Left" Height="22" SelectionChanged="cbGender_SelectionChanged">
+                        <ComboBox FontFamily="Consolas" Margin="5,0,0,0" x:Name="cbGender" Width="150" HorizontalAlignment="Left" Height="22" SelectionChanged="cbGender_SelectionChanged">
 
                         </ComboBox>
                     </StackPanel>
@@ -100,7 +100,7 @@
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\location_gray_30px.png" Width="20" Height="20"/>
                     <Border Width="355" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
-                        <TextBox x:Name="tbHolderAddress" Margin="2,0,2,0" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderAddress_TextChanged"/>
+                        <TextBox x:Name="tbHolderAddress" Margin="2,0,2,0" BorderThickness="0" HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="tbHolderAddress_TextChanged"/>
                     </Border>
                 </StackPanel>
 
@@ -109,13 +109,13 @@
                     <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                         <Image Source="..\Icon\phone_gray_30px.png" Width="20" Height="20"/>
                         <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
-                            <TextBox x:Name="tbHolderPhone" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderPhone_TextChanged"/>
+                            <TextBox x:Name="tbHolderPhone" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="tbHolderPhone_TextChanged"/>
                         </Border>
                     </StackPanel>
                     <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
                         <Image Source="..\Icon\email_gray_30px.png" Width="20" Height="20"/>
                         <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
-                            <TextBox x:Name="tbHolderEmail" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbHolderEmail_TextChanged"/>
+                            <TextBox x:Name="tbHolderEmail" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="tbHolderEmail_TextChanged"/>
                         </Border>
                     </StackPanel>
                 </StackPanel>
@@ -124,7 +124,7 @@
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <Image VerticalAlignment="Top" Source="..\Icon\note_gray_24px.png" Width="20" Height="20"/>
                     <Border Width="355" Height="80" BorderThickness="1" BorderBrush="Gray" Margin="5,0,0,0">
-                        <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
+                        <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
                             <RichTextBox.Resources>
                                 <Style TargetType="{x:Type Paragraph}">
                                     <Setter Property="Margin" Value="0"></Setter>
@@ -137,10 +137,10 @@
                 <!--Holder's Card-->
                 <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
                     <Image VerticalAlignment="Top" Source="..\Icon\card_gray_50px.png" Width="20" Height="20"/>
-                    <ListBox x:Name="lbListCard" Height="100" Width="355" HorizontalAlignment="Left" Margin="5,0,0,0">
+                    <ListBox x:Name="lbListCard"  Height="100" Width="355" HorizontalAlignment="Left" Margin="5,0,0,0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardNumber}" Margin="5,0,0,0" FontFamily="Arial" FontSize="12"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardNumber}" Margin="5,0,0,0" FontFamily="Consolas" FontSize="12"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

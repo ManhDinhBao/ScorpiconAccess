@@ -12,6 +12,7 @@ namespace ScorpiconAccess
         public static List<DTO_Card> lstAllCards;
         public static List<DTO_CardHolder> lstAllCardHolders;
         public static List<DTO_Device> lstAllDevices;
+        public static List<DTO_Schedule> lstAllSchedules;
 
 
 
@@ -24,5 +25,8 @@ namespace ScorpiconAccess
 
         public static DTO_Device selectedDevice;
         public static DTO_Device newDevice;
+
+        public static DTO_Schedule selectedSchedule;
+        public static DTO_Schedule newSchedule;
     }
 }

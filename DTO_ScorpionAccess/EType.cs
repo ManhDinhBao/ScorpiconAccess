@@ -47,6 +47,17 @@ namespace DTO_ScorpionAccess
             LOG_STATUS_ERROR = 4,
             LOG_STATUS_WARNING = 5,
         }
+
+        public enum WeekDay
+        {
+            MONDAY = 0,
+            TUESDAY = 1,
+            WEDNESDAY = 2,
+            THURSDAY = 3,
+            FRIDAY = 4,
+            SATURDAY = 5,
+            SUNDAY = 6
+        }
     }
 
 }

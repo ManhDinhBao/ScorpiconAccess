@@ -46,6 +46,8 @@
     <Compile Include="BUS_Device.cs" />
     <Compile Include="BUS_DeviceSocket.cs" />
     <Compile Include="BUS_General.cs" />
+    <Compile Include="BUS_Period.cs" />
+    <Compile Include="BUS_Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

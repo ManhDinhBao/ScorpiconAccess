@@ -37,31 +37,31 @@
                 <!--Full name-->
                 <StackPanel Margin="60,10,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\name_tag_gray_30px.png" Width="20" Height="20"/>
-                    <TextBlock x:Name="tbHolderName" Text="Dinh Bao Manh" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock x:Name="tbHolderName" Text="Dinh Bao Manh" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>
 
                 <!--Date of birth-->
                 <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\birthday_gray_30px.png" Width="20" Height="20"/>
-                    <TextBlock x:Name="tbHolderDOB" Text="12/07/1993" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock x:Name="tbHolderDOB" Text="12/07/1993" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>
 
                 <!--Address-->
                 <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\location_gray_30px.png" Width="20" Height="20"/>
-                    <TextBlock x:Name="tbHolderAddress" Text="TP. Viet Tri - Phu Tho" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock x:Name="tbHolderAddress" Text="TP. Viet Tri - Phu Tho" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>
 
                 <!--Phone number-->
                 <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\phone_gray_30px.png" Width="20" Height="20"/>
-                    <TextBlock x:Name="tbHolderPhoneNo" Text="0977822336" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock x:Name="tbHolderPhoneNo" Text="0977822336" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>
 
                 <!--Email-->
                 <StackPanel Margin="60,5,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\email_gray_30px.png" Width="20" Height="20"/>
-                    <TextBlock x:Name="tbHolderEmail" Text="baomanhict@gmail.com" FontSize="12" FontWeight="SemiBold" FontFamily="Arial" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    <TextBlock x:Name="tbHolderEmail" Text="baomanhict@gmail.com" FontSize="12" FontWeight="SemiBold" FontFamily="Consolas" Foreground="#888888" VerticalAlignment="Center" Margin="5,0,0,0"/>
                 </StackPanel>
             </StackPanel>
         </DockPanel>
@@ -72,13 +72,13 @@
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Margin="50,20,0,0" Orientation="Vertical" >
-                            <TextBlock Text="Serial" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <TextBlock Text="Serial" FontFamily="Consolas" FontWeight="SemiBold"/>
                             <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
                                 <TextBox x:Name="tbCardSerial" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbCardSerial_TextChanged"/>
                             </Border>
                         </StackPanel>
                         <StackPanel Margin="20,20,0,0" Orientation="Vertical">
-                            <TextBlock Text="Number" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <TextBlock Text="Number" FontFamily="Consolas" FontWeight="SemiBold"/>
                             <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
                                 <TextBox x:Name="tbCardNumber" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbCardNumber_TextChanged"/>
                             </Border>
@@ -86,7 +86,7 @@
                     </StackPanel>
 
                     <StackPanel Margin="50,10,0,0" Orientation="Vertical">
-                        <TextBlock Text="Holder" FontFamily="Arial" FontWeight="SemiBold"/>
+                        <TextBlock Text="Holder" FontFamily="Consolas" FontWeight="SemiBold"/>
                         <ComboBox x:Name="cbCardHolder" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0" SelectionChanged="cbCardHolder_SelectionChanged">
 
                         </ComboBox>
@@ -94,7 +94,7 @@
 
                     <StackPanel Orientation="Horizontal">
                         <StackPanel Margin="50,10,0,0" Orientation="Vertical">
-                            <TextBlock Text="Usable Time" FontFamily="Arial" FontWeight="SemiBold"/>
+                            <TextBlock Text="Usable Time" FontFamily="Consolas" FontWeight="SemiBold"/>
                             <Viewbox HorizontalAlignment="Left" Width="150" Height="22" Margin="0,2,0,0">
                                 <DatePicker x:Name="dpStartTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpStartTime_SelectedDateChanged" />
                             </Viewbox>
@@ -108,7 +108,7 @@
                     </StackPanel>
 
                     <StackPanel Margin="50,10,0,0" Orientation="Vertical">
-                        <TextBlock Text="Type" FontFamily="Arial" FontWeight="SemiBold"/>
+                        <TextBlock Text="Type" FontFamily="Consolas" FontWeight="SemiBold"/>
                         <ComboBox x:Name="cbCardType" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0" SelectionChanged="cbCardType_SelectionChanged">
 
                         </ComboBox>

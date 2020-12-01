@@ -5,27 +5,27 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ScorpiconAccess.View"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="600" Loaded="UserControl_Loaded">
     <DockPanel Background="White">
         <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
-                    <TextBlock Text="ID No" FontFamily="Arial" FontWeight="SemiBold"/>
+                    <TextBlock Text="ID No" FontFamily="Consolas" FontWeight="SemiBold"/>
                     <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                        <TextBox x:Name="tbScheduleId" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbDeviceId_TextChanged"/>
+                        <TextBox x:Name="tbScheduleId" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
-                    <TextBlock Text="ID No" FontFamily="Arial" FontWeight="SemiBold"/>
+                    <TextBlock Text="Name" FontFamily="Consolas" FontWeight="SemiBold"/>
                     <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                        <TextBox x:Name="tbScheduleName" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbDeviceId_TextChanged"/>
+                        <TextBox x:Name="tbScheduleName" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
                     </Border>
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="20,10,0,10" Orientation="Vertical" >
-                <TextBlock Text="Description" FontFamily="Arial" FontWeight="SemiBold"/>
+                <TextBlock Text="Description" FontFamily="Consolas" FontWeight="SemiBold"/>
                 <Border Width="320" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="0,2,0,0">
-                    <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
+                    <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888">
                         <RichTextBox.Resources>
                             <Style TargetType="{x:Type Paragraph}">
                                 <Setter Property="Margin" Value="0"></Setter>
@@ -35,20 +35,251 @@
                 </Border>
             </StackPanel>
         </StackPanel>
-        <Grid>
-            <TabControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="15">
-                <TabItem Header="Monday" IsSelected="True">
-                    <Grid Background="#FFE5E5E5"/>
+        <StackPanel >
+            <TabControl HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="550" Margin="20,20,0,0">
+                <!--Monday-->
+                <TabItem Header="Monday" FontFamily="Consolas" IsSelected="True">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid x:Name="gridTabMondayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabMondayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabMondaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabMondayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabMondayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabMondayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabMondayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
                 </TabItem>
-                <TabItem Header="Tuesday">
-                    <Grid Background="#FFE5E5E5"/>
+
+                <!--Tuesday-->
+                <TabItem Header="Tuesday" FontFamily="Consolas" IsSelected="False">
+                    <Grid Background="#FFE5E5E5" Height="260">
+                        <DataGrid x:Name="gridTabTuesdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabTuesdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabTuesdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabTuesdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabTuesdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabTuesdayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabTuesdayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
                 </TabItem>
-                <TabItem Header="Wednesday"/>
-                <TabItem Header="Thursday"/>
-                <TabItem Header="Friday"/>
-                <TabItem Header="Saturday"/>
-                <TabItem Header="Sunday"/>
+
+                <!--Wednesday-->
+                <TabItem Header="Wednesday" FontFamily="Consolas" IsSelected="False">
+                    <Grid Background="#FFE5E5E5" Height="260">
+                        <DataGrid x:Name="gridTabWednesdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabWednesdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabWednesdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabWednesdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabWednesdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabWednesdayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabWednesdayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
+                </TabItem>
+
+                <!--Thursday-->
+                <TabItem Header="Thursday" FontFamily="Consolas" IsSelected="False">
+                    <Grid Background="#FFE5E5E5" Height="260">
+                        <DataGrid x:Name="gridTabThursdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabThursdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabThursdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabThursdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabThursdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabThursdayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabThursdayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
+                </TabItem>
+
+                <!--Friday-->
+                <TabItem Header="Friday" FontFamily="Consolas" IsSelected="False">
+                    <Grid Background="#FFE5E5E5" Height="260">
+                        <DataGrid x:Name="gridTabFridayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabFridayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabFridaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabFridayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabFridayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabFridayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabFridayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
+                </TabItem>
+
+                <!--Saturday-->
+                <TabItem Header="Saturday" FontFamily="Consolas" IsSelected="False">
+                    <Grid Background="#FFE5E5E5" Height="260">
+                        <DataGrid x:Name="gridTabSaturdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabSaturdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabSaturdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabSaturdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabSaturdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabSaturdayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabSaturdayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
+                </TabItem>
+
+                <!--Sunday-->
+                <TabItem Header="Sunday" FontFamily="Consolas" IsSelected="False">
+                    <Grid Background="#FFE5E5E5" Height="260">
+                        <DataGrid x:Name="gridTabSundayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <ComboBox x:Name="cbTabSundayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabSundaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <TextBox TextAlignment="Center" x:Name="cbTabSundayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Button x:Name="btTabSundayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
+                                <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabSundayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
+                                <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btTabSundayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                            <StackPanel Orientation="Horizontal">
+                                <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
+                                <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
+                            </StackPanel>
+                        </Button>
+                        <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                    </Grid>
+                </TabItem>
             </TabControl>
-        </Grid>
+        </StackPanel>
     </DockPanel>
 </UserControl>

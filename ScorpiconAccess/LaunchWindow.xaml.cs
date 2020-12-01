@@ -25,6 +25,7 @@ namespace ScorpiconAccess
         private BUS_Card bus_Card;
         private BUS_CardHolder bus_CardHolder;
         private BUS_Device bus_Device;
+        private BUS_Schedule bus_Schedule;
 
         private BackgroundWorker wokerLoadAllData;
         private List<string> lstDataType;
@@ -35,8 +36,9 @@ namespace ScorpiconAccess
             bus_Card = new BUS_Card();
             bus_CardHolder = new BUS_CardHolder();
             bus_Device = new BUS_Device();
+            bus_Schedule = new BUS_Schedule();
 
-            lstDataType = new List<string>() { "CARD", "HOLDER", "DEVICE" };
+            lstDataType = new List<string>() { "CARD", "HOLDER", "DEVICE","SCHEDULE" };
 
             wokerLoadAllData = new BackgroundWorker();
             wokerLoadAllData.WorkerReportsProgress = true;
@@ -89,6 +91,9 @@ namespace ScorpiconAccess
                     break;
                 case "DEVICE":
                     Repository.lstAllDevices = bus_Device.GetAllDevice();
+                    break;
+                case "SCHEDULE":
+                    Repository.lstAllSchedules = bus_Schedule.GetAllSchedule();
                     break;
                 default:
                     break;

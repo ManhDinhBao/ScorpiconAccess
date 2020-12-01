@@ -130,6 +130,20 @@ namespace ScorpiconAccess
             }
         }
 
+        private void BindScheduleToListItemView()
+        {
+            listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
+            foreach (DTO_Schedule schedule in Repository.lstAllSchedules)
+            {
+                DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
+                listViewItem.ImageSource = "/Icon/schedule_gray_50px.png";
+                listViewItem.TextBinding = schedule.Name;
+                listViewItem.Key = schedule.Id;
+
+                listViewItems.Add(listViewItem);
+            }
+        }
+
         private void UpdateView(ViewMode viewMode)
         {
             this.viewMode = viewMode;
@@ -162,6 +176,10 @@ namespace ScorpiconAccess
                     break;
                 case ViewMode.SCHEDULE_VIEW:
                     tbViewName.Text = "Schedule";
+
+                    BindScheduleToListItemView();
+
+                    lbListItems.ItemsSource = listViewItems;
                     break;
                 case ViewMode.RIGHT_VIEW:
                     tbViewName.Text = "Right";
@@ -239,9 +257,16 @@ namespace ScorpiconAccess
 
                         break;
                     case ViewMode.SCHEDULE_VIEW:
+                        DTO_Schedule selectedSchedule = Repository.lstAllSchedules.FirstOrDefault(deice => deice.Id == selectedItem.Key);
+                        Repository.selectedSchedule = selectedSchedule;
 
                         //Show schedule detail info
+                        ScheduleDetailView ucSchedule = new ScheduleDetailView(mode: currentMode);
+                        ucSchedule.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        ucSchedule.VerticalAlignment = VerticalAlignment.Stretch;
+                        pnlData.Children.Clear();
 
+                        pnlData.Children.Add(ucSchedule);
                         break;
                     case ViewMode.RIGHT_VIEW:
 
