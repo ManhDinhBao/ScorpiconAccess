@@ -154,7 +154,7 @@ namespace BUS_ScorpionAccess
         /// </summary>
         /// <param name="scheduleId">Id of schedule want to delete</param>
         /// <returns></returns>
-        public SQLResult DeleteCard(string scheduleId)
+        public SQLResult DeleteSchedule(string scheduleId)
         {
             if (scheduleId == null)
             {

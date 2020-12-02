@@ -25,24 +25,5 @@ namespace DTO_ScorpionAccess
             Periods = periods;
         }
 
-        public string PeriodsToString()
-        {
-            string result = null;
-            foreach(DTO_Period period in Periods)
-            {
-                result += string.Format("{0}_/{1}_/{2}_/{3}=/", period.WeekDay, period.Schedule, period.StartTime, period.EndTime);
-            }
-
-            for(int i = 0; i < Periods.Count; i++)
-            {
-                result += string.Format("{0}_/{1}_/{2}_/{3}", Periods[i].WeekDay, Periods[i].Schedule, Periods[i].StartTime, Periods[i].EndTime);
-                if (i < Periods.Count-1)
-                {
-                    result += "=/";
-                }
-            }
-
-            return result;
-        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿<UserControl x:Class="ScorpiconAccess.View.ScheduleDetailView"
+             xmlns:super="clr-namespace:ScorpiconAccess"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,26 +7,29 @@
              xmlns:local="clr-namespace:ScorpiconAccess.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <super:RowToIndexConverter x:Key="RowToIndexConverterKey"/>
+    </UserControl.Resources>
     <DockPanel Background="White">
         <StackPanel Orientation="Vertical" DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
                 <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                     <TextBlock Text="ID No" FontFamily="Consolas" FontWeight="SemiBold"/>
                     <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                        <TextBox x:Name="tbScheduleId" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                        <TextBox x:Name="tbScheduleId" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbScheduleId_TextChanged"/>
                     </Border>
                 </StackPanel>
                 <StackPanel Margin="20,10,0,0" Orientation="Vertical" >
                     <TextBlock Text="Name" FontFamily="Consolas" FontWeight="SemiBold"/>
                     <Border HorizontalAlignment="Left" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                        <TextBox x:Name="tbScheduleName" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888"/>
+                        <TextBox x:Name="tbScheduleName" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbScheduleName_TextChanged"/>
                     </Border>
                 </StackPanel>
             </StackPanel>
             <StackPanel Margin="20,10,0,10" Orientation="Vertical" >
                 <TextBlock Text="Description" FontFamily="Consolas" FontWeight="SemiBold"/>
                 <Border Width="320" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="0,2,0,0">
-                    <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888">
+                    <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
                         <RichTextBox.Resources>
                             <Style TargetType="{x:Type Paragraph}">
                                 <Setter Property="Margin" Value="0"></Setter>
@@ -36,53 +40,85 @@
             </StackPanel>
         </StackPanel>
         <StackPanel >
-            <TabControl HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="550" Margin="20,20,0,0">
+            <TabControl x:Name="tabPeriod" HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="550" Margin="20,20,0,0">
                 <!--Monday-->
                 <TabItem Header="Monday" FontFamily="Consolas" IsSelected="True">
                     <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
-                        <DataGrid x:Name="gridTabMondayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabMondayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabMondayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabMondaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabMondayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <Button x:Name="btTabMondayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox Text="{Binding SelectedItem.StartTime,ElementName=gridTabMondayPeriod,Mode=OneWay}" TextAlignment="Center" x:Name="tbTabMondaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black" TextChanged="tbTabMondaySTime_TextChanged"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox Text="{Binding SelectedItem.EndTime,ElementName=gridTabMondayPeriod,Mode=OneWay}" TextAlignment="Center" x:Name="tbTabMondayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black" TextChanged="tbTabMondayETime_TextChanged"/>
+                        </Border>
+
+                        <Button x:Name="btTabMondayAddPeriod" Click="btTabMondayAddPeriod_Click" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
                                 <Label Content="Add" FontFamily="Consolas" FontSize="9"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btTabMondayUptPeriod" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
+                        <Button x:Name="btTabMondayUptPeriod" Click="btTabMondayUptPeriod_Click" HorizontalAlignment="Left" Margin="429,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\save_gray_30px.png"/>
                                 <Label Content="Upt" FontFamily="Consolas" FontSize="9"/>
                             </StackPanel>
                         </Button>
-                        <Button x:Name="btTabMondayDelPeriod" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
+                        <Button x:Name="btTabMondayDelPeriod" Click="btTabMondayDelPeriod_Click" HorizontalAlignment="Left" Margin="485,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\delete_gray_30px.png"/>
                                 <Label Content="Del" FontFamily="Consolas" FontSize="9"/>
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabMondayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabMondayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
                 <!--Tuesday-->
                 <TabItem Header="Tuesday" FontFamily="Consolas" IsSelected="False">
-                    <Grid Background="#FFE5E5E5" Height="260">
-                        <DataGrid x:Name="gridTabTuesdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabTuesdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="150" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="150"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabTuesdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabTuesdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabTuesdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox TextChanged="tbTabTuesdaySTime_TextChanged" Text="{Binding SelectedItem.StartTime,ElementName=gridTabTuesdayPeriod}" TextAlignment="Center" x:Name="tbTabTuesdaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox TextChanged="tbTabTuesdayETime_TextChanged" Text="{Binding SelectedItem.EndTime,ElementName=gridTabTuesdayPeriod}" TextAlignment="Center" x:Name="tbTabTuesdayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+
                         <Button x:Name="btTabTuesdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
@@ -102,22 +138,41 @@
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabTuesdayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabTuesdayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
                 <!--Wednesday-->
                 <TabItem Header="Wednesday" FontFamily="Consolas" IsSelected="False">
-                    <Grid Background="#FFE5E5E5" Height="260">
-                        <DataGrid x:Name="gridTabWednesdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabWednesdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabWednesdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabWednesdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabWednesdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox TextChanged="tbTabWednesdaySTime_TextChanged" Text="{Binding SelectedItem.StartTime,ElementName=gridTabWednesdayPeriod}" TextAlignment="Center" x:Name="tbTabWednesdaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox TextChanged="tbTabWednesdayETime_TextChanged" Text="{Binding SelectedItem.EndTime,ElementName=gridTabWednesdayPeriod}" TextAlignment="Center" x:Name="tbTabWednesdayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+
                         <Button x:Name="btTabWednesdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
@@ -137,22 +192,41 @@
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabWednesdayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabWednesdayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
                 <!--Thursday-->
                 <TabItem Header="Thursday" FontFamily="Consolas" IsSelected="False">
-                    <Grid Background="#FFE5E5E5" Height="260">
-                        <DataGrid x:Name="gridTabThursdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabThursdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabThursdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabThursdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabThursdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox TextChanged="tbTabThursdaySTime_TextChanged" Text="{Binding SelectedItem.StartTime,ElementName=gridTabThursdayPeriod}" TextAlignment="Center" x:Name="tbTabThursdaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox TextChanged="tbTabThursdayETime_TextChanged" Text="{Binding SelectedItem.EndTime,ElementName=gridTabThursdayPeriod}" TextAlignment="Center" x:Name="tbTabThursdayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+
                         <Button x:Name="btTabThursdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
@@ -172,22 +246,41 @@
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabThursdayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabThursdayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
                 <!--Friday-->
                 <TabItem Header="Friday" FontFamily="Consolas" IsSelected="False">
-                    <Grid Background="#FFE5E5E5" Height="260">
-                        <DataGrid x:Name="gridTabFridayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabFridayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabFridayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabFridaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabFridayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox TextChanged="tbTabFridaySTime_TextChanged" Text="{Binding SelectedItem.StartTime,ElementName=gridTabFridayPeriod}" TextAlignment="Center" x:Name="tbTabFridaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox TextChanged="tbTabFridayETime_TextChanged" Text="{Binding SelectedItem.EndTime,ElementName=gridTabFridayPeriod}" TextAlignment="Center" x:Name="tbTabFridayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+
                         <Button x:Name="btTabFridayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
@@ -207,22 +300,41 @@
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabFridayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabFridayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
-                </TabItem>
+                    </TabItem>
 
                 <!--Saturday-->
                 <TabItem Header="Saturday" FontFamily="Consolas" IsSelected="False">
-                    <Grid Background="#FFE5E5E5" Height="260">
-                        <DataGrid x:Name="gridTabSaturdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabSaturdayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabSaturdayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabSaturdaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabSaturdayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox TextChanged="tbTabSaturdaySTime_TextChanged" Text="{Binding SelectedItem.StartTime,ElementName=gridTabSaturdayPeriod}" TextAlignment="Center" x:Name="tbTabSaturdaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox TextChanged="tbTabSaturdayETime_TextChanged" Text="{Binding SelectedItem.EndTime,ElementName=gridTabSaturdayPeriod}" TextAlignment="Center" x:Name="tbTabSaturdayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+
                         <Button x:Name="btTabSaturdayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
@@ -242,22 +354,41 @@
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabSaturdayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabSaturdayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
 
                 <!--Sunday-->
                 <TabItem Header="Sunday" FontFamily="Consolas" IsSelected="False">
-                    <Grid Background="#FFE5E5E5" Height="260">
-                        <DataGrid x:Name="gridTabSundayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                    <Grid Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Height="260">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabSundayPeriod" HorizontalAlignment="Left" Height="238" Margin="10,10,0,0" VerticalAlignment="Top" Width="350">
+                            <DataGrid.Style>
+                                <Style TargetType="DataGrid">
+                                    <Setter Property="AlternatingRowBackground" Value="#16697a"/>
+                                </Style>
+                            </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="Week Day" Binding="{Binding WeekDay}" Width="150" />
-                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="100" />
-                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="100"/>
+                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" />
+                                <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="165" />
+                                <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="165"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
+                                <DataGridTextColumn Visibility="Collapsed" Header="Schedule" Binding="{Binding EndTime}" Width="150"/>
                             </DataGrid.Columns>
                         </DataGrid>
-                        <ComboBox x:Name="cbTabSundayWeekDay" HorizontalAlignment="Left" Margin="374,164,0,0" VerticalAlignment="Top" Width="161"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabSundaySTime" HorizontalAlignment="Left" Height="23" Margin="374,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
-                        <TextBox TextAlignment="Center" x:Name="cbTabSundayETime" HorizontalAlignment="Left" Height="23" Margin="465,193,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="70"/>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="374,193,0,45">
+                            <TextBox TextChanged="tbTabSundaySTime_TextChanged" Text="{Binding SelectedItem.StartTime,ElementName=gridTabSundayPeriod}" TextAlignment="Center" x:Name="tbTabSundaySTime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+                        <Border HorizontalAlignment="Left" Width="70" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="465,193,0,45">
+                            <TextBox TextChanged="tbTabSundayETime_TextChanged" Text="{Binding SelectedItem.EndTime,ElementName=gridTabSundayPeriod}" TextAlignment="Center" x:Name="tbTabSundayETime" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="Black"/>
+                        </Border>
+
                         <Button x:Name="btTabSundayAddPeriod" HorizontalAlignment="Left" Margin="374,223,0,0" VerticalAlignment="Top" Width="50">
                             <StackPanel Orientation="Horizontal">
                                 <Image Width="15" Height="15" Source="..\Icon\new_gray_30px.png"/>
@@ -277,6 +408,14 @@
                             </StackPanel>
                         </Button>
                         <TextBlock Text="-"  FontWeight="Bold" TextAlignment="Center" FontSize="15" HorizontalAlignment="Left" Margin="444,193,0,0" VerticalAlignment="Top" Width="21" Height="23"/>
+                        <StackPanel Orientation="Horizontal" Margin="386,34,9,188">
+                            <TextBlock x:Name="tbTabSundayCalHours" TextAlignment="Center" Text="05" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock  TextAlignment="Left" Text="hours" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="386,72,9,150">
+                            <TextBlock x:Name="tbTabSundayCalMins" TextAlignment="Center" Text="30" Foreground="#16697a" FontWeight="SemiBold" FontFamily="Arial" FontSize="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="50"/>
+                            <TextBlock TextAlignment="Left" Text="mins" FontWeight="Regular" FontFamily="Consolas" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
             </TabControl>

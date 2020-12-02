@@ -57,6 +57,7 @@
     </ApplicationDefinition>
     <Compile Include="Barcodes.cs" />
     <Compile Include="Code39.cs" />
+    <Compile Include="Converter\RowToIndexConverter.cs" />
     <Compile Include="Converter\ToCardHolderTextConverter.cs" />
     <Compile Include="LaunchWindow.xaml.cs">
       <DependentUpon>LaunchWindow.xaml</DependentUpon>

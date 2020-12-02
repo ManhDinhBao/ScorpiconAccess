@@ -35,6 +35,7 @@ namespace BUS_ScorpionAccess
                 {
                     DTO_Period period = new DTO_Period();
 
+                    period.Id           = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
                     period.WeekDay      = row["DayInWeek"] == DBNull.Value ? WeekDay.MONDAY : (WeekDay)Convert.ToInt16(row["DayInWeek"]);
                     period.Schedule     = scheduleId;
                     period.StartTime    = row["StartTime"] == DBNull.Value ? null : row["StartTime"].ToString();
@@ -49,6 +50,51 @@ namespace BUS_ScorpionAccess
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Add new period
+        /// </summary>
+        /// <param name="period">The period object want to add</param>
+        /// <returns>Return true if update success, Error if update fail or validate fail</returns>
+        public SQLResult AddNewPeriod(DTO_Period period)
+        {
+            if (period == null)
+            {
+                return new SQLResult(false, "Period null");
+            }
+
+            return dal.AddNewPeriod(period);
+        }
+
+        /// <summary>
+        /// Update period information
+        /// </summary>
+        /// <param name="period">The card period want to update</param>
+        /// <returns>Return true if update success, Error if update fail or validate fail</returns>
+        public SQLResult UpdatePeriod(DTO_Period period)
+        {
+            if (period == null)
+            {
+                return new SQLResult(false, "Period null");
+            }
+
+            return dal.UpdatePeriod(period);
+        }
+
+        /// <summary>
+        /// Delete period
+        /// </summary>
+        /// <param name="periodId">Id of period want to delete</param>
+        /// <returns></returns>
+        public SQLResult DeletePeriod(string periodId)
+        {
+            if (periodId == null)
+            {
+                return new SQLResult(false, "Period Id can't null");
+            }
+
+            return dal.DeletePeriod(periodId);
         }
     }
 }

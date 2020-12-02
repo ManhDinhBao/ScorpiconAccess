@@ -1,14 +1,16 @@
 ﻿using DTO_ScorpionAccess;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace ScorpiconAccess
 {
-    public class Repository
+    public class Repository: INotifyPropertyChanged
     {
+
         public static List<DTO_Card> lstAllCards;
         public static List<DTO_CardHolder> lstAllCardHolders;
         public static List<DTO_Device> lstAllDevices;
@@ -28,5 +30,17 @@ namespace ScorpiconAccess
 
         public static DTO_Schedule selectedSchedule;
         public static DTO_Schedule newSchedule;
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
+        }
+
     }
 }

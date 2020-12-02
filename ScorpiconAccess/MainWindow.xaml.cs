@@ -30,6 +30,7 @@ namespace ScorpiconAccess
         private BUS_CardHolder bus_CardHolder;
         private BUS_Device bus_Device;
         private BUS_DeviceSocket bUS_DeviceSocket;
+        private BUS_Schedule bUS_Schedule;
         private ViewMode viewMode;
         private const int ADD_MODE = 1;
         private const int CHANGE_MODE = 2;
@@ -46,6 +47,7 @@ namespace ScorpiconAccess
             bus_CardHolder = new BUS_CardHolder();
             bus_Device = new BUS_Device();
             bUS_DeviceSocket = new BUS_DeviceSocket();
+            bUS_Schedule = new BUS_Schedule();
         }
 
         #region Menu Button Click
@@ -613,7 +615,63 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.SCHEDULE_VIEW:
+                    if (this.currentMode == CHANGE_MODE)
+                    {
+                        //Update schedule
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_Schedule scheduleToUpdate = Repository.selectedSchedule;
+                        string strHolderInfo = string.Format(" UPDATE SCHEDULE INFORMATION\r\n Id: {0}\r\n Name: {1}\r\n Description: {2}"
+                            , scheduleToUpdate.Id
+                            , scheduleToUpdate.Name
+                            , scheduleToUpdate.Description);
 
+                        AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bUS_Schedule.UpdateSchedule(scheduleToUpdate);
+                        string strReasultLog = "";
+                        if (result.Result)
+                        {
+                            DTO_Schedule oldSchedule = Repository.lstAllSchedules.FirstOrDefault(h => h.Id == scheduleToUpdate.Id);
+                            if (oldSchedule != null)
+                            {
+                                oldSchedule = scheduleToUpdate;
+                            }
+                            RefreshListView();
+                            AddLog(new UserLog(" Update successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            strReasultLog = "Status: Error -> " + result.Detail;
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
+                    else
+                    {
+                        //Insert schedule
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_Schedule addSchedule = Repository.newSchedule;
+                        string strHolderInfo = string.Format(" ADD SCHEDULE \r\n Id: {0}\r\n Name: {1}\r\n Description: {2}"
+                            , addSchedule.Id
+                            , addSchedule.Name
+                            , addSchedule.Description);
+
+                        AddLog(new UserLog(strHolderInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bUS_Schedule.AddNewSchedule(addSchedule);
+                        if (result.Result)
+                        {
+                            Repository.lstAllSchedules.Add(addSchedule);
+                            RefreshListView();
+                            lbListItems.SelectedIndex = lbListItems.Items.Count - 1;
+                            AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
                     break;
                 case ViewMode.RIGHT_VIEW:
 
@@ -639,6 +697,9 @@ namespace ScorpiconAccess
                     break;
                 case ViewMode.DEVICE_VIEW:
                     BindDeviceToListItemView();                    
+                    break;
+                case ViewMode.SCHEDULE_VIEW:
+                    BindScheduleToListItemView();
                     break;
             }         
             lbListItems.ItemsSource = listViewItems;
@@ -681,7 +742,12 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.SCHEDULE_VIEW:
+                    ScheduleDetailView ucSchedule = new ScheduleDetailView(mode: currentMode);
+                    ucSchedule.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    ucSchedule.VerticalAlignment = VerticalAlignment.Stretch;
+                    pnlData.Children.Clear();
 
+                    pnlData.Children.Add(ucSchedule);
                     break;
                 case ViewMode.RIGHT_VIEW:
 
@@ -797,7 +863,27 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.SCHEDULE_VIEW:
+                    //Delete schedule
+                    DTO_Schedule scheduleToDelete = Repository.selectedSchedule;
+                    string strScheduleInfo = string.Format(" DELETE SCHEDULE \r\n Id: {0}\r\n Name: {1}", scheduleToDelete.Id, scheduleToDelete.Name);
+                    AddLog(new UserLog(strScheduleInfo, EType.UserLogType.LOG_CONTENT));
+                    SQLResult delScheduleResult = bUS_Schedule.DeleteSchedule(scheduleToDelete.Id);
+                    if (delScheduleResult.Result)
+                    {
+                        //Remove schedule in list schedules
+                        DTO_Schedule oldSchedule = Repository.lstAllSchedules.FirstOrDefault(h => h.Id == scheduleToDelete.Id);
+                        Repository.lstAllSchedules.Remove(oldSchedule);
 
+                        RefreshListView();
+                        lbListItems.SelectedIndex = 0;
+                        AddLog(new UserLog(" Delete successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                    }
+                    else
+                    {
+                        AddLog(new UserLog(" Error: " + delScheduleResult.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                    }
+                    tbStatus.Text = delScheduleResult.Detail;
+                    AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
                     break;
                 case ViewMode.RIGHT_VIEW:
 

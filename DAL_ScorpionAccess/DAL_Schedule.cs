@@ -142,7 +142,6 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("@Id", schedule.Id);
                 command.Parameters.AddWithValue("@Name", schedule.Name);
                 command.Parameters.AddWithValue("@Description", schedule.Description);
-                command.Parameters.AddWithValue("@ListPeriods", schedule.PeriodsToString());
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -190,7 +189,6 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("@Id", schedule.Id);
                 command.Parameters.AddWithValue("@Name", schedule.Name);
                 command.Parameters.AddWithValue("@Description", schedule.Description);
-                command.Parameters.AddWithValue("@ListPeriods", schedule.PeriodsToString());
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -234,11 +232,10 @@ namespace DAL_ScorpionAccess
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLScheduleSave";
-                command.Parameters.AddWithValue("WorkType", "U");
+                command.Parameters.AddWithValue("WorkType", "D");
                 command.Parameters.AddWithValue("@Id", serial);
                 command.Parameters.AddWithValue("@Name", DBNull.Value);
                 command.Parameters.AddWithValue("@Description", DBNull.Value);
-                command.Parameters.AddWithValue("@ListPeriods", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;

@@ -92,7 +92,7 @@
                 <!--Bottom area-->
                 <DockPanel DockPanel.Dock="Bottom" Height="25">
                     <TextBlock x:Name="tbViewName" VerticalAlignment="Center" Margin="10,0,10,0" FontFamily="Arial" FontSize="12" DockPanel.Dock="Right" Width="50" Text="Card"/>
-                    <TextBlock x:Name="tbStatus" VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="Arial" FontSize="12" Text="Dinh Bao manh"/>
+                    <TextBlock x:Name="tbStatus" VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="Arial" FontSize="12" Text=""/>
                 </DockPanel>
 
                 <!--Data area-->
