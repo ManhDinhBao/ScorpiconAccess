@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="DTO_Card.cs" />
     <Compile Include="DTO_CardHolder.cs" />
+    <Compile Include="DTO_Contact.cs" />
     <Compile Include="DTO_Device.cs" />
     <Compile Include="DTO_DeviceSocket.cs" />
     <Compile Include="DTO_Door.cs" />
     <Compile Include="DTO_DoorMode.cs" />
+    <Compile Include="DTO_DoorSocket.cs" />
     <Compile Include="DTO_Period.cs" />
     <Compile Include="DTO_Schedule.cs" />
     <Compile Include="EType.cs" />

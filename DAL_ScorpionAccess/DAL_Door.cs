@@ -85,6 +85,43 @@ namespace DAL_ScorpionAccess
         }
 
         /// <summary>
+        /// Get door socket by key (Id) from database
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
+        public DataTable GetDoorDocketById(string Id, int type)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLDoorSocketQry";
+                command.Parameters.AddWithValue("WorkType", "Q");
+                command.Parameters.AddWithValue("Id", Id);
+                command.Parameters.AddWithValue("Type", type);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        /// <summary>
         /// Get door by serial or holder from databse
         /// </summary>
         /// <param name="value"></param>

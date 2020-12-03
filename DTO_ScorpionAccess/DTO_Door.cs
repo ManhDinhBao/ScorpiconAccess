@@ -10,23 +10,26 @@ namespace DTO_ScorpionAccess
     {
         public string Id { get; set; }
         public string Name { get; set; }
-        public DTO_DoorMode DoorMode { get; set; }
+        public DTO_DoorMode Mode { get; set; }
         public string Description { get; set; }
         public int LOTimeOut { get; set; }
         public int DOTimeOut { get; set; }
+        public List<DTO_DoorSocket> Sockets { get; set; }
 
         public DTO_Door()
         {
+
         }
 
-        public DTO_Door(string id, string name, DTO_DoorMode doorMode, string description, int lOTimeOut, int dOTimeOut)
+        public DTO_Door(string id, string name, DTO_DoorMode mode, string description, int lOTimeOut, int dOTimeOut, List<DTO_DoorSocket> sockets)
         {
             Id = id;
             Name = name;
-            DoorMode = doorMode;
+            Mode = mode;
             Description = description;
             LOTimeOut = lOTimeOut;
             DOTimeOut = dOTimeOut;
+            Sockets = sockets;
         }
     }
 }

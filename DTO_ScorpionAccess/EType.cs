@@ -38,6 +38,14 @@ namespace DTO_ScorpionAccess
             INPUT = 1,
             OUTPUT = 2
         }
+        public enum DoorSocketType
+        {
+            CONTACT = 0,
+            LOCK = 1,
+            READER = 2,
+            REX = 3
+        }
+
 
         public enum UserLogType
         {

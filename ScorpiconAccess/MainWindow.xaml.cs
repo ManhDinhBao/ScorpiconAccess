@@ -738,8 +738,12 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.DOOR_VIEW:
+                    DoorDetailView ucDoor = new DoorDetailView();
+                    ucDoor.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    ucDoor.VerticalAlignment = VerticalAlignment.Stretch;
+                    pnlData.Children.Clear();
 
-
+                    pnlData.Children.Add(ucDoor);
                     break;
                 case ViewMode.SCHEDULE_VIEW:
                     ScheduleDetailView ucSchedule = new ScheduleDetailView(mode: currentMode);

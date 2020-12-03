@@ -71,6 +71,12 @@
     <Compile Include="View\DeviceDetailView.xaml.cs">
       <DependentUpon>DeviceDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\DoorDetailView.xaml.cs">
+      <DependentUpon>DoorDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\DoorSocketDetailView.xaml.cs">
+      <DependentUpon>DoorSocketDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HolderDetailView.xaml.cs">
       <DependentUpon>HolderDetailView.xaml</DependentUpon>
     </Compile>
@@ -98,6 +104,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DeviceDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DoorDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\DoorSocketDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -181,9 +195,6 @@
     <Resource Include="Icon\person_gray_30px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\device_gray_50px.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon\birthday_gray_30px.png" />
     <Resource Include="Icon\email_gray_30px.png" />
     <Resource Include="Icon\location_gray_30px.png" />
@@ -224,10 +235,32 @@
     <Resource Include="Icon\export_txt_black_50px.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Icon\schedule_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\properties_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\door_connect_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\door_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\device_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Icon\input_gray_30px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\schedule_gray_50px.png" />
+    <Resource Include="Icon\disconnect_gray_24px.png" />
+    <Resource Include="Icon\reorder_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\clock_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\switch_gray_50px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
