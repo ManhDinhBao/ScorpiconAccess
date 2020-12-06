@@ -33,7 +33,7 @@
 
             <!--Card holder information-->
             <StackPanel Width="300" Orientation="Vertical">
-                <TextBlock Text="CARD HOLDER INFORMATION" FontSize="12" FontFamily="Arial" Foreground="Gray" FontWeight="Heavy" Margin="50,20,0,0"/>
+                <TextBlock Text="CARD HOLDER INFORMATION" FontSize="12" FontFamily="Courier" Foreground="Gray" FontWeight="Heavy" Margin="50,20,0,0"/>
                 <!--Full name-->
                 <StackPanel Margin="60,10,0,0" Orientation="Horizontal">
                     <Image Source="..\Icon\name_tag_gray_30px.png" Width="20" Height="20"/>
@@ -65,54 +65,64 @@
                 </StackPanel>
             </StackPanel>
         </DockPanel>
+        
+        <!--Card holder information-->
         <DockPanel>
             <Border BorderThickness="1,0,0,0" BorderBrush="Gray" >
                 <StackPanel Orientation="Vertical">
-                    <TextBlock Text="CARD INFORMATION" FontSize="12" FontFamily="Arial" Foreground="Gray" FontWeight="Heavy" Margin="50,20,0,0"/>
-
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="50,20,0,0" Orientation="Vertical" >
-                            <TextBlock Text="Serial" FontFamily="Consolas" FontWeight="SemiBold"/>
-                            <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                <TextBox x:Name="tbCardSerial" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbCardSerial_TextChanged"/>
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Margin="20,20,0,0" Orientation="Vertical">
-                            <TextBlock Text="Number" FontFamily="Consolas" FontWeight="SemiBold"/>
-                            <Border Width="150" Height="22" BorderThickness="1" BorderBrush="Gray" Margin="0,2,0,0">
-                                <TextBox x:Name="tbCardNumber" Margin="2,0,2,0" BorderThickness="0" Width="150" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbCardNumber_TextChanged"/>
-                            </Border>
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel Margin="50,10,0,0" Orientation="Vertical">
-                        <TextBlock Text="Holder" FontFamily="Consolas" FontWeight="SemiBold"/>
-                        <ComboBox x:Name="cbCardHolder" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0" SelectionChanged="cbCardHolder_SelectionChanged">
-
-                        </ComboBox>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <StackPanel Margin="50,10,0,0" Orientation="Vertical">
-                            <TextBlock Text="Usable Time" FontFamily="Consolas" FontWeight="SemiBold"/>
-                            <Viewbox HorizontalAlignment="Left" Width="150" Height="22" Margin="0,2,0,0">
-                                <DatePicker x:Name="dpStartTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpStartTime_SelectedDateChanged" />
-                            </Viewbox>
-                        </StackPanel>
-                        <StackPanel Margin="20,10,0,0" Orientation="Vertical">
-                            <TextBlock Text="" FontFamily="Arial" FontWeight="SemiBold"/>
-                            <Viewbox HorizontalAlignment="Left" Width="150" Height="22" Margin="0,2,0,0">
-                                <DatePicker x:Name="dpEndTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpEndTime_SelectedDateChanged" />
-                            </Viewbox>
-                        </StackPanel>
-                    </StackPanel>
-
-                    <StackPanel Margin="50,10,0,0" Orientation="Vertical">
-                        <TextBlock Text="Type" FontFamily="Consolas" FontWeight="SemiBold"/>
-                        <ComboBox x:Name="cbCardType" Width="150" HorizontalAlignment="Left" Height="22" Margin="0,2,0,0" SelectionChanged="cbCardType_SelectionChanged">
+                    <TextBlock Text="CARD INFORMATION" HorizontalAlignment="Left" TextAlignment="Center" Width="250" FontSize="12" FontFamily="Courier" Foreground="Gray" FontWeight="Heavy" Margin="20,20,0,0"/>
+                    
+                    <!--Serial-->
+                    <Grid Margin="20,30,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\qrcode_gray_30px.png" Width="20"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Serial" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
+                        <Border HorizontalAlignment="Right" Width="150" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Gray">
+                            <TextBox x:Name="tbCardSerial" TextChanged="tbCardSerial_TextChanged" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="#888888"/>
+                        </Border>
+                    </Grid>
+                    <!--Number-->
+                    <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\number_gray_50px.png" Width="20"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Number" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
+                        <Border HorizontalAlignment="Right" Width="150" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Gray">
+                            <TextBox x:Name="tbCardNumber" TextChanged="tbCardNumber_TextChanged" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="#888888"/>
+                        </Border>
+                    </Grid> 
+                    <!--Card holder-->
+                    <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Holder" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
+                        <ComboBox x:Name="cbCardHolder" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0" SelectionChanged="cbCardHolder_SelectionChanged">
 
                         </ComboBox>
-                    </StackPanel>
+                    </Grid>
+
+                    <!--Useable time-->
+                    <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\schedule_gray_50px.png" Width="20"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Begin" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
+                        <Viewbox HorizontalAlignment="Right" Width="150" Height="22" Margin="0,2,0,0">
+                            <DatePicker x:Name="dpStartTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpStartTime_SelectedDateChanged" />
+                        </Viewbox>
+                    </Grid>
+
+                    <!--Useable time-->
+                    <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\schedule_gray_50px.png" Width="20"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Experied" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
+                        <Viewbox HorizontalAlignment="Right" Width="150" Height="22" Margin="0,2,0,0">
+                            <DatePicker x:Name="dpEndTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpEndTime_SelectedDateChanged" />
+                        </Viewbox>
+                    </Grid>
+
+                    <!--Type-->
+                    <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Type" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
+                        <ComboBox x:Name="cbCardType" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0" SelectionChanged="cbCardType_SelectionChanged">
+
+                        </ComboBox>
+                    </Grid>
 
                 </StackPanel>
             </Border>

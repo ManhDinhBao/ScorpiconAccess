@@ -80,6 +80,9 @@
     <Compile Include="View\HolderDetailView.xaml.cs">
       <DependentUpon>HolderDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\PeriodDetailView.xaml.cs">
+      <DependentUpon>PeriodDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ScheduleDetailView.xaml.cs">
       <DependentUpon>ScheduleDetailView.xaml</DependentUpon>
     </Compile>
@@ -116,6 +119,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\HolderDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\PeriodDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -261,6 +268,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\switch_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\qrcode_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\number_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\ip_address_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\router_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\mode_gray_24px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
