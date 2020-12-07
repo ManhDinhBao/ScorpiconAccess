@@ -16,7 +16,7 @@
             <StackPanel Orientation="Vertical">
                 <!--Id-->
                 <Grid Margin="20,20,0,0" Height="22" Width="220" HorizontalAlignment="Left">
-                    <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="ID" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                     <Border HorizontalAlignment="Right" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray">
                         <TextBox x:Name="tbScheduleId" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="#888888" TextChanged="tbScheduleId_TextChanged"/>
@@ -24,7 +24,7 @@
                 </Grid>
                 <!--Name-->
                 <Grid Margin="20,10,0,0" Height="22" Width="220" HorizontalAlignment="Left">
-                    <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Name" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                     <Border HorizontalAlignment="Right" Width="150" Height="22" BorderThickness="1" BorderBrush="Gray">
                         <TextBox x:Name="tbScheduleName" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="tbScheduleName_TextChanged"/>
@@ -32,10 +32,10 @@
                 </Grid>
             </StackPanel>
             <!--Description-->
-            <Grid Margin="20,10,0,0" Height="80" Width="220" HorizontalAlignment="Left">
-                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+            <Grid Margin="20,10,0,0" Height="80" Width="450" HorizontalAlignment="Left">
+                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
                 <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Description" Margin="25,3,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
-                <Border Width="220" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="0,10,0,0">
+                <Border Width="450" Height="50" BorderThickness="1" BorderBrush="Gray" HorizontalAlignment="Left" Margin="0,10,0,0">
                     <RichTextBox x:Name="rtbDescription" Margin="5" BorderThickness="0" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Arial" Foreground="#888888" TextChanged="rtbDescription_TextChanged">
                         <RichTextBox.Resources>
                             <Style TargetType="{x:Type Paragraph}">
@@ -47,11 +47,17 @@
             </Grid>
         </StackPanel>
         <StackPanel>
-            <TabControl x:Name="tabPeriod" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="20">
+            <TabControl x:Name="tabPeriod" Width="450" HorizontalAlignment="Left" VerticalAlignment="Stretch" Margin="20">
                 <!--Monday-->
                 <TabItem Header="Monday" FontFamily="Consolas" IsSelected="True">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabMondayPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabMondayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemMondayAdd" Click="itemMondayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemMondayDel" Click="itemMondayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
                                 <Style TargetType="DataGrid">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>
@@ -71,7 +77,13 @@
                 <!--Tuesday-->
                 <TabItem Header="Tuesday" FontFamily="Consolas" IsSelected="False">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabTuesdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabTuesdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemTuesdayAdd" Click="itemTuesdayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemTuesdayDel" Click="itemTuesdayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
                                 <Style TargetType="DataGrid">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>
@@ -91,7 +103,13 @@
                 <!--Wednesday-->
                 <TabItem Header="Wednesday" FontFamily="Consolas" IsSelected="False">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridWednesdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabWednesdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemWednesdayAdd" Click="itemWednesdayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemWednesdayDel" Click="itemWednesdayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
                                 <Style TargetType="DataGrid">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>
@@ -111,7 +129,13 @@
                 <!--Thursday-->
                 <TabItem Header="Thursday" FontFamily="Consolas" IsSelected="False">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabThursdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabThursdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemThursdayAdd" Click="itemThursdayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemThursdayDel" Click="itemThursdayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
                                 <Style TargetType="DataGrid">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>
@@ -131,14 +155,20 @@
                 <!--Friday-->
                 <TabItem Header="Friday" FontFamily="Consolas" IsSelected="False">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabFriPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabFridayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemFridayAdd" Click="itemFridayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemFridayDel" Click="itemFridayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
-                                <Style TargetType="DataGrid">
+                                <Style TargetType="{x:Type DataGrid}">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>
                                 </Style>
                             </DataGrid.Style>
                             <DataGrid.Columns>
-                                <DataGridTextColumn Header="No." Binding="{Binding RelativeSource={RelativeSource AncestorType=DataGridRow}, Converter={StaticResource RowToIndexConverterKey}}" Width="59" />
+                                <DataGridTextColumn Header="No." Binding="{Binding Converter={StaticResource RowToIndexConverterKey}, RelativeSource={RelativeSource AncestorType={x:Type DataGridRow}}}" Width="59" />
                                 <DataGridTextColumn Header="Start Time" Binding="{Binding StartTime}" Width="170" />
                                 <DataGridTextColumn Header="End Time" Binding="{Binding EndTime}" Width="170"/>
                                 <DataGridTextColumn Visibility="Collapsed" Header="Week Day" Binding="{Binding WeekDay}" Width="150"/>
@@ -151,7 +181,13 @@
                 <!--Saturday-->
                 <TabItem Header="Saturday" FontFamily="Consolas" IsSelected="False">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabSaturdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabSaturdayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemSaturdayAdd" Click="itemSaturdayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemSaturdayDel" Click="itemSaturdayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
                                 <Style TargetType="DataGrid">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>
@@ -171,7 +207,13 @@
                 <!--Sunday-->
                 <TabItem Header="Sunday" FontFamily="Consolas" IsSelected="False">
                     <StackPanel Background="#FFE5E5E5" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabSundayPeriod" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Stretch" Width="400" Height="220">
+                        <DataGrid IsReadOnly="True" HorizontalScrollBarVisibility="Hidden" SelectionUnit="FullRow" GridLinesVisibility="Vertical" HeadersVisibility="All" CanUserResizeColumns="False" CanUserResizeRows="False" AlternationCount="2" AutoGenerateColumns="False" x:Name="gridTabSundayPeriod" HorizontalAlignment="Left" Margin="10,10,0,10" VerticalAlignment="Stretch" Width="400" Height="220">
+                            <DataGrid.ContextMenu>
+                                <ContextMenu>
+                                    <MenuItem Header="Add" x:Name="itemSundayAdd" Click="itemSundayAdd_Click"/>
+                                    <MenuItem Header="Delete" x:Name="itemSundayDel" Click="itemSundayDel_Click"/>
+                                </ContextMenu>
+                            </DataGrid.ContextMenu>
                             <DataGrid.Style>
                                 <Style TargetType="DataGrid">
                                     <Setter Property="AlternatingRowBackground" Value="#16697a"/>

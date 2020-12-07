@@ -45,6 +45,9 @@
     <Compile Include="BUS_CardHolder.cs" />
     <Compile Include="BUS_Device.cs" />
     <Compile Include="BUS_DeviceSocket.cs" />
+    <Compile Include="BUS_Door.cs" />
+    <Compile Include="BUS_DoorMode.cs" />
+    <Compile Include="BUS_DoorSocket.cs" />
     <Compile Include="BUS_General.cs" />
     <Compile Include="BUS_Period.cs" />
     <Compile Include="BUS_Schedule.cs" />

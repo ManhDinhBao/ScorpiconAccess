@@ -146,6 +146,20 @@ namespace ScorpiconAccess
             }
         }
 
+        private void BindDoorToListItemView()
+        {
+            listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
+            foreach (DTO_Door door in Repository.lstAllDoor)
+            {
+                DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
+                listViewItem.ImageSource = "/Icon/door_gray_30px.png";
+                listViewItem.TextBinding = door.Name;
+                listViewItem.Key = door.Id;
+
+                listViewItems.Add(listViewItem);
+            }
+        }
+
         private void UpdateView(ViewMode viewMode)
         {
             this.viewMode = viewMode;
@@ -155,33 +169,22 @@ namespace ScorpiconAccess
                 case ViewMode.CARD_VIEW:
                     tbViewName.Text = "Card";
                     BindCardToListItemView();
-                    
-                    lbListItems.ItemsSource = listViewItems;
-                    
                     break;
                 case ViewMode.HOLDER_VIEW:
                     tbViewName.Text = "Holder";
-
                     BindHolderToListItemView();
-
-                    lbListItems.ItemsSource = listViewItems;
                     break;
                 case ViewMode.DEVICE_VIEW:
                     tbViewName.Text = "Device";
-
                     BindDeviceToListItemView();
-
-                    lbListItems.ItemsSource = listViewItems;
                     break;
                 case ViewMode.DOOR_VIEW:
                     tbViewName.Text = "Door";
+                    BindDoorToListItemView();
                     break;
                 case ViewMode.SCHEDULE_VIEW:
                     tbViewName.Text = "Schedule";
-
                     BindScheduleToListItemView();
-
-                    lbListItems.ItemsSource = listViewItems;
                     break;
                 case ViewMode.RIGHT_VIEW:
                     tbViewName.Text = "Right";
@@ -190,6 +193,8 @@ namespace ScorpiconAccess
                     tbViewName.Text = "Event";
                     break;
             }
+
+            lbListItems.ItemsSource = listViewItems;
             lbListItems.SelectedIndex = 0;
         }
 
@@ -252,11 +257,18 @@ namespace ScorpiconAccess
                         #endregion
                         break;
                     case ViewMode.DOOR_VIEW:
-
-
+                        #region SHOW DOOR DETAIL VIEW
+                        DTO_Door selectedDoor = Repository.lstAllDoor.FirstOrDefault(d => d.Id == selectedItem.Key);
+                        Repository.selectedDoor = selectedDoor;
 
                         //Show door detail info
+                        DoorDetailView ucDoor = new DoorDetailView(mode: currentMode);
+                        ucDoor.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        ucDoor.VerticalAlignment = VerticalAlignment.Stretch;
+                        pnlData.Children.Clear();
 
+                        pnlData.Children.Add(ucDoor);
+                        #endregion
                         break;
                     case ViewMode.SCHEDULE_VIEW:
                         DTO_Schedule selectedSchedule = Repository.lstAllSchedules.FirstOrDefault(deice => deice.Id == selectedItem.Key);
@@ -701,6 +713,9 @@ namespace ScorpiconAccess
                 case ViewMode.SCHEDULE_VIEW:
                     BindScheduleToListItemView();
                     break;
+                case ViewMode.DOOR_VIEW:
+                    BindDoorToListItemView();
+                    break;
             }         
             lbListItems.ItemsSource = listViewItems;
         }
@@ -738,7 +753,7 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.DOOR_VIEW:
-                    DoorDetailView ucDoor = new DoorDetailView();
+                    DoorDetailView ucDoor = new DoorDetailView(mode: currentMode);
                     ucDoor.HorizontalAlignment = HorizontalAlignment.Stretch;
                     ucDoor.VerticalAlignment = VerticalAlignment.Stretch;
                     pnlData.Children.Clear();

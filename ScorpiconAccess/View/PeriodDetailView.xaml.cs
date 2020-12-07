@@ -24,7 +24,6 @@ namespace ScorpiconAccess.View
     {
         private WeekDay weekDay;
         private string scheduleId;
-        public static bool frmResult;
         BUS_Period bus_Period;
 
         public PeriodDetailView(string scheduleId, WeekDay weekDay)
@@ -37,7 +36,6 @@ namespace ScorpiconAccess.View
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             bus_Period = new BUS_Period();
-            frmResult = true;
         }
 
         private void btSave_Click(object sender, RoutedEventArgs e)
@@ -46,11 +44,11 @@ namespace ScorpiconAccess.View
             if (!result.Result)
             {
                 MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                frmResult = false;
                 return;
             }
 
             Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
+            this.DialogResult = true;
             this.Hide();
         }
     }

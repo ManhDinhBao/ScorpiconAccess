@@ -46,6 +46,8 @@
     <Compile Include="DAL_Device.cs" />
     <Compile Include="DAL_DeviceSocket.cs" />
     <Compile Include="DAL_Door.cs" />
+    <Compile Include="DAL_DoorMode.cs" />
+    <Compile Include="DAL_DoorSocket.cs" />
     <Compile Include="DAL_General.cs" />
     <Compile Include="DAL_Period.cs" />
     <Compile Include="DAL_Schedule.cs" />

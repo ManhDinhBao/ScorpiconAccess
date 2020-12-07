@@ -74,7 +74,7 @@
                     
                     <!--Serial-->
                     <Grid Margin="20,30,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\qrcode_gray_30px.png" Width="20"/>
+                        <Image HorizontalAlignment="Left" Source="..\Icon\qrcode_gray_30px.png" Width="18" Height="18"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Serial" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                         <Border HorizontalAlignment="Right" Width="150" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Gray">
                             <TextBox x:Name="tbCardSerial" TextChanged="tbCardSerial_TextChanged" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="#888888"/>
@@ -82,7 +82,7 @@
                     </Grid>
                     <!--Number-->
                     <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\number_gray_50px.png" Width="20"/>
+                        <Image HorizontalAlignment="Left" Source="..\Icon\number_gray_50px.png" Width="18" Height="18"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Number" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                         <Border HorizontalAlignment="Right" Width="150" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Gray">
                             <TextBox x:Name="tbCardNumber" TextChanged="tbCardNumber_TextChanged" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="12" FontFamily="Consolas" Foreground="#888888"/>
@@ -90,7 +90,7 @@
                     </Grid> 
                     <!--Card holder-->
                     <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+                        <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Holder" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                         <ComboBox x:Name="cbCardHolder" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0" SelectionChanged="cbCardHolder_SelectionChanged">
 
@@ -99,7 +99,7 @@
 
                     <!--Useable time-->
                     <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\schedule_gray_50px.png" Width="20"/>
+                        <Image HorizontalAlignment="Left" Source="..\Icon\schedule_gray_50px.png" Width="18" Height="18"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Begin" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                         <Viewbox HorizontalAlignment="Right" Width="150" Height="22" Margin="0,2,0,0">
                             <DatePicker x:Name="dpStartTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpStartTime_SelectedDateChanged" />
@@ -108,7 +108,7 @@
 
                     <!--Useable time-->
                     <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\schedule_gray_50px.png" Width="20"/>
+                        <Image HorizontalAlignment="Left" Source="..\Icon\schedule_gray_50px.png" Width="18" Height="18"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Experied" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                         <Viewbox HorizontalAlignment="Right" Width="150" Height="22" Margin="0,2,0,0">
                             <DatePicker x:Name="dpEndTime" FontFamily="Arial" FontSize="12" Width="178" SelectedDateChanged="dpEndTime_SelectedDateChanged" />
@@ -117,7 +117,7 @@
 
                     <!--Type-->
                     <Grid Margin="20,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
-                        <Image HorizontalAlignment="Left" VerticalAlignment="Stretch" Source="..\Icon\properties_gray_30px.png" Width="20"/>
+                        <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
                         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Type" Margin="25,0,0,0" FontFamily="Consolas" FontWeight="SemiBold" FontSize="12"/>
                         <ComboBox x:Name="cbCardType" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0" SelectionChanged="cbCardType_SelectionChanged">
 

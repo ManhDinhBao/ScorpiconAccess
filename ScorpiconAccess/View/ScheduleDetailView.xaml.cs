@@ -40,415 +40,55 @@ namespace ScorpiconAccess.View
             this.mode = mode;
         }
 
-        #region Tab Monday Period
-        private void tbTabMondaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabMondayCalHours.Text = CalculateDate(tbTabMondaySTime.Text, tbTabMondayETime.Text).ToString("hh");
-            tbTabMondayCalMins.Text = CalculateDate(tbTabMondaySTime.Text, tbTabMondayETime.Text).ToString("mm");
-        }
-        private void tbTabMondayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabMondayCalHours.Text = CalculateDate(tbTabMondaySTime.Text, tbTabMondayETime.Text).ToString("hh");
-            tbTabMondayCalMins.Text = CalculateDate(tbTabMondaySTime.Text, tbTabMondayETime.Text).ToString("mm");
-        }
-        private void btTabMondayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.MONDAY, tbScheduleId.Text, tbTabMondaySTime.Text, tbTabMondayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail,"" , MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-            
-            ReloadPeriod();
-            gridTabMondayPeriod.SelectedIndex = gridTabMondayPeriod.Items.Count - 1;
-        }
-        private void btTabMondayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabMondayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-            DTO_Period period = (DTO_Period)gridTabMondayPeriod.SelectedItem;
-            period.StartTime = tbTabMondaySTime.Text;
-            period.EndTime = tbTabMondayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabMondayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabMondayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabMondayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-
-            ReloadPeriod();
-            gridTabMondayPeriod.SelectedIndex = gridTabMondayPeriod.Items.Count - 1;
-        }
-        #endregion
-
-        #region Tab Tuesday Period
-        private void tbTabTuesdaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabTuesdayCalHours.Text = CalculateDate(tbTabTuesdaySTime.Text, tbTabTuesdayETime.Text).ToString("hh");
-            tbTabTuesdayCalMins.Text = CalculateDate(tbTabTuesdaySTime.Text, tbTabTuesdayETime.Text).ToString("mm");
-        }
-        private void tbTabTuesdayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabTuesdayCalHours.Text = CalculateDate(tbTabTuesdaySTime.Text, tbTabTuesdayETime.Text).ToString("hh");
-            tbTabTuesdayCalMins.Text = CalculateDate(tbTabTuesdaySTime.Text, tbTabTuesdayETime.Text).ToString("mm");
-        }
-        private void btTabTuesdayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.TUESDAY, tbScheduleId.Text, tbTabTuesdaySTime.Text, tbTabTuesdayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-
-            ReloadPeriod();
-            gridTabTuesdayPeriod.SelectedIndex = gridTabTuesdayPeriod.Items.Count - 1;
-        }
-        private void btTabTuesdayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabTuesdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabTuesdayPeriod.SelectedItem;
-            period.StartTime = tbTabTuesdaySTime.Text;
-            period.EndTime = tbTabTuesdayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabTuesdayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabTuesdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabTuesdayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-            ReloadPeriod();
-            gridTabTuesdayPeriod.SelectedIndex = gridTabTuesdayPeriod.Items.Count - 1;
-        }
-        #endregion
-
-        #region Tab Wednesday
-        private void tbTabWednesdaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabWednesdayCalHours.Text = CalculateDate(tbTabWednesdaySTime.Text, tbTabWednesdayETime.Text).ToString("hh");
-            tbTabWednesdayCalMins.Text = CalculateDate(tbTabWednesdaySTime.Text, tbTabWednesdayETime.Text).ToString("mm");
-        }
-        private void tbTabWednesdayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabWednesdayCalHours.Text = CalculateDate(tbTabWednesdaySTime.Text, tbTabWednesdayETime.Text).ToString("hh");
-            tbTabWednesdayCalMins.Text = CalculateDate(tbTabWednesdaySTime.Text, tbTabWednesdayETime.Text).ToString("mm");
-        }
-        private void btTabWednesdayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.WEDNESDAY, tbScheduleId.Text, tbTabWednesdaySTime.Text, tbTabWednesdayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-
-            ReloadPeriod();
-            gridTabWednesdayPeriod.SelectedIndex = gridTabWednesdayPeriod.Items.Count - 1;
-        }
-        private void btTabWednesdayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabWednesdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabWednesdayPeriod.SelectedItem;
-            period.StartTime = tbTabWednesdaySTime.Text;
-            period.EndTime = tbTabWednesdayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabWednesdayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabWednesdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabWednesdayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-            ReloadPeriod();
-            gridTabWednesdayPeriod.SelectedIndex = gridTabWednesdayPeriod.Items.Count - 1;
-        }
-        #endregion
-
-        #region Tab Thurday Period
-        private void tbTabThursdaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabThursdayCalHours.Text = CalculateDate(tbTabThursdaySTime.Text, tbTabThursdayETime.Text).ToString("hh");
-            tbTabThursdayCalMins.Text = CalculateDate(tbTabThursdaySTime.Text, tbTabThursdayETime.Text).ToString("mm");
-        }
-        private void tbTabThursdayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabThursdayCalHours.Text = CalculateDate(tbTabThursdaySTime.Text, tbTabThursdayETime.Text).ToString("hh");
-            tbTabThursdayCalMins.Text = CalculateDate(tbTabThursdaySTime.Text, tbTabThursdayETime.Text).ToString("mm");
-        }
-        private void btTabThursdayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.THURSDAY, tbScheduleId.Text, tbTabThursdaySTime.Text, tbTabThursdayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-
-            ReloadPeriod();
-            gridTabThursdayPeriod.SelectedIndex = gridTabThursdayPeriod.Items.Count - 1;
-
-        }
-        private void btTabThursdayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabThursdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabThursdayPeriod.SelectedItem;
-            period.StartTime = tbTabThursdaySTime.Text;
-            period.EndTime = tbTabThursdayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabThursdayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabThursdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabThursdayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-            ReloadPeriod();
-            gridTabThursdayPeriod.SelectedIndex = gridTabThursdayPeriod.Items.Count - 1;
-        }
-        #endregion
-
-        #region Tab Friday Period
-        private void tbTabFridaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabFridayCalHours.Text = CalculateDate(tbTabFridaySTime.Text, tbTabFridayETime.Text).ToString("hh");
-            tbTabFridayCalMins.Text = CalculateDate(tbTabFridaySTime.Text, tbTabFridayETime.Text).ToString("mm");
-        }
-        private void tbTabFridayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabFridayCalHours.Text = CalculateDate(tbTabFridaySTime.Text, tbTabFridayETime.Text).ToString("hh");
-            tbTabFridayCalMins.Text = CalculateDate(tbTabFridaySTime.Text, tbTabFridayETime.Text).ToString("mm");
-        }
-        private void btTabFridayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.FRIDAY, tbScheduleId.Text, tbTabFridaySTime.Text, tbTabFridayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-
-            ReloadPeriod();
-            gridTabFridayPeriod.SelectedIndex = gridTabFridayPeriod.Items.Count - 1;
-        }
-        private void btTabFridayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabFridayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabFridayPeriod.SelectedItem;
-            period.StartTime = tbTabFridaySTime.Text;
-            period.EndTime = tbTabFridayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabFridayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabFridayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabFridayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-            ReloadPeriod();
-            gridTabFridayPeriod.SelectedIndex = gridTabFridayPeriod.Items.Count - 1;
-        }
-        #endregion
-
-        #region Tab Saturday Period
-        private void tbTabSaturdaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabSaturdayCalHours.Text = CalculateDate(tbTabSaturdaySTime.Text, tbTabSaturdayETime.Text).ToString("hh");
-            tbTabSaturdayCalMins.Text = CalculateDate(tbTabSaturdaySTime.Text, tbTabSaturdayETime.Text).ToString("mm");
-        }
-        private void tbTabSaturdayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabSaturdayCalHours.Text = CalculateDate(tbTabSaturdaySTime.Text, tbTabSaturdayETime.Text).ToString("hh");
-            tbTabSaturdayCalMins.Text = CalculateDate(tbTabSaturdaySTime.Text, tbTabSaturdayETime.Text).ToString("mm");
-        }
-        private void btTabSaturdayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.SATURDAY, tbScheduleId.Text, tbTabSaturdaySTime.Text, tbTabSaturdayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-
-            ReloadPeriod();
-            gridTabSaturdayPeriod.SelectedIndex = gridTabSaturdayPeriod.Items.Count - 1;
-        }
-        private void btTabSaturdayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabSaturdayPeriod.SelectedItem == null)
-            {
-                return;
-            }
-
-            DTO_Period period = (DTO_Period)gridTabSaturdayPeriod.SelectedItem;
-            period.StartTime = tbTabSaturdaySTime.Text;
-            period.EndTime = tbTabSaturdayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabSaturdayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabSaturdayPeriod.SelectedItem == null)
-            {
-                return;
-
-            }
-            DTO_Period period = (DTO_Period)gridTabSaturdayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-            ReloadPeriod();
-            gridTabSaturdayPeriod.SelectedIndex = gridTabSaturdayPeriod.Items.Count - 1;
-        }
-        #endregion
-
-        #region Tab Sunday Period
-        private void tbTabSundaySTime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabSundayCalHours.Text = CalculateDate(tbTabSundaySTime.Text, tbTabSundayETime.Text).ToString("hh");
-            tbTabSundayCalMins.Text = CalculateDate(tbTabSundaySTime.Text, tbTabSundayETime.Text).ToString("mm");
-        }
-        private void tbTabSundayETime_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            tbTabSundayCalHours.Text = CalculateDate(tbTabSundaySTime.Text, tbTabSundayETime.Text).ToString("hh");
-            tbTabSundayCalMins.Text = CalculateDate(tbTabSundaySTime.Text, tbTabSundayETime.Text).ToString("mm");
-        }
-        private void btTabSundayAddPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", EType.WeekDay.SUNDAY, tbScheduleId.Text, tbTabSundaySTime.Text, tbTabSundayETime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
-
-            ReloadPeriod();
-            gridTabSundayPeriod.SelectedIndex = gridTabSundayPeriod.Items.Count - 1;
-        }
-        private void btTabSundayUptPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabSundayPeriod.SelectedItem == null)
-            {
-                return;
-
-            }
-            DTO_Period period = (DTO_Period)gridTabSundayPeriod.SelectedItem;
-            period.StartTime = tbTabSundaySTime.Text;
-            period.EndTime = tbTabSundayETime.Text;
-            SQLResult result = bus_Period.UpdatePeriod(period);
-
-            ReloadPeriod();
-        }
-        private void btTabSundayDelPeriod_Click(object sender, RoutedEventArgs e)
-        {
-            if (gridTabSundayPeriod.SelectedItem == null)
-            {
-                return;
-
-
-            }
-            DTO_Period period = (DTO_Period)gridTabSundayPeriod.SelectedItem;
-            SQLResult result = bus_Period.DeletePeriod(period.Id);
-            if (result.Result)
-            {
-                Repository.selectedSchedule.Periods.Remove(period);
-            }
-
-            ReloadPeriod();
-            gridTabSundayPeriod.SelectedIndex = gridTabSundayPeriod.Items.Count - 1;
-        }
-        #endregion
-
         #region Extra Methods
+        private void DeletePeriod(DataGrid dataGrid, EType.WeekDay weekDay)
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Confirm delete period?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if(messageBoxResult == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            if (dataGrid.SelectedItem == null)
+            {
+                return;
+            }
+            DTO_Period period = (DTO_Period)dataGrid.SelectedItem;
+            SQLResult result = bus_Period.DeletePeriod(period.Id);
+            if (result.Result)
+            {
+                Repository.selectedSchedule.Periods.Remove(period);
+                LoadGridData(weekDay);
+            }
+        }
+        private void LoadGridData(EType.WeekDay weekDay)
+        {
+            switch (weekDay)
+            {
+                case EType.WeekDay.MONDAY:
+                    gridTabMondayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.MONDAY).ToList();
+                    break;
+                case EType.WeekDay.TUESDAY:
+                    gridTabTuesdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.TUESDAY).ToList();
+                    break;
+                case EType.WeekDay.WEDNESDAY:
+                    gridTabWednesdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.WEDNESDAY).ToList();
+                    break;
+                case EType.WeekDay.THURSDAY:
+                    gridTabThursdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.THURSDAY).ToList();
+                    break;
+                case EType.WeekDay.FRIDAY:
+                    gridTabFridayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.FRIDAY).ToList();
+                    break;
+                case EType.WeekDay.SATURDAY:
+                    gridTabSaturdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.SATURDAY).ToList();
+                    break;
+                case EType.WeekDay.SUNDAY:
+                    gridTabSundayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.SUNDAY).ToList();
+                    break;
+
+            }
+        }
         public string StringFromRichTextBox(RichTextBox rtb)
         {
             TextRange textRange = new TextRange(
@@ -461,87 +101,24 @@ namespace ScorpiconAccess.View
             // The Text property on a TextRange object returns a string
             // representing the plain text content of the TextRange.
             return textRange.Text;
-        }
-        private void ReloadPeriod()
+        }    
+        private void ShowPeriodDetail(EType.WeekDay weekDay)
         {
-            TabItem selectedTab = (TabItem)tabPeriod.SelectedItem;
-            DTO_Schedule schedule = new DTO_Schedule();
-
-            switch (selectedTab.Header)
+            if (Repository.selectedSchedule != null)
             {
-                case "Monday":
-                    gridTabMondayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.MONDAY).ToList();
-                    break;
-                case "Tuesday":
-                    gridTabTuesdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.TUESDAY).ToList();
-                    break;
-                case "Wednesday":
-                    gridTabWednesdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.WEDNESDAY).ToList();
-                    break;
-                case "Thursday":
-                    gridTabThursdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.THURSDAY).ToList();
-                    break;
-                case "Fri":
-                    gridTabFridayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.FRIDAY).ToList();
-                    break;
-                case "Saturday":
-                    gridTabSaturdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.SATURDAY).ToList();
-                    break;
-                case "Sunday":
-                    gridTabSundayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.SUNDAY).ToList();
-                    break;
-            }
-        }
-        private TimeSpan CalculateDate(string strStartDate, string strEndDate)
-        {
-            TimeSpan timeSpan;
-            try
-            {
-                string[] arrStartDate = strStartDate.Split(':');
-                string[] arrEndDate = strEndDate.Split(':');
-                if (arrStartDate.Count() < 3 || arrEndDate.Count() < 3)
+                PeriodDetailView view = new PeriodDetailView(Repository.selectedSchedule.Id, weekDay);
+                if (view.ShowDialog() == true)
                 {
-                    return new TimeSpan(00, 00, 00);
+                    LoadGridData(weekDay);
                 }
 
-                DateTime sDate = new DateTime(2020, 01, 01, Convert.ToInt16(arrStartDate[0]), Convert.ToInt16(arrStartDate[1]), Convert.ToInt16(arrStartDate[2]));
-                DateTime eDate = new DateTime(2020, 01, 01, Convert.ToInt16(arrEndDate[0]), Convert.ToInt16(arrEndDate[1]), Convert.ToInt16(arrEndDate[2]));
-
-                timeSpan = eDate.Subtract(sDate);
             }
-            catch
-            {
-                return new TimeSpan(00, 00, 00);
-            }
-
-            return timeSpan;
         }
-
         #endregion
+
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tbTabMondayCalHours.Text = "00";
-            tbTabMondayCalMins.Text = "00";
-
-            tbTabTuesdayCalHours.Text = "00";
-            tbTabTuesdayCalMins.Text = "00";
-
-            tbTabWednesdayCalHours.Text = "00";
-            tbTabWednesdayCalMins.Text = "00";
-
-            tbTabThursdayCalHours.Text = "00";
-            tbTabThursdayCalMins.Text = "00";
-
-            tbTabFridayCalHours.Text = "00";
-            tbTabFridayCalMins.Text = "00";
-
-            tbTabSaturdayCalHours.Text = "00";
-            tbTabSaturdayCalMins.Text = "00";
-
-            tbTabSundayCalHours.Text = "00";
-            tbTabSundayCalMins.Text = "00";
-
             tbScheduleId.IsReadOnly = true;
 
             if (mode == ADD_MODE)
@@ -559,53 +136,18 @@ namespace ScorpiconAccess.View
 
                 if (Repository.selectedSchedule.Periods != null)
                 {
-                    gridTabMondayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.MONDAY).ToList();
-                    if (gridTabMondayPeriod.Items.Count > 0)
-                    {
-                        gridTabMondayPeriod.SelectedIndex = 0;
-                    }
-
-                    gridTabTuesdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.TUESDAY).ToList();
-                    if (gridTabTuesdayPeriod.Items.Count > 0)
-                    {
-                        gridTabTuesdayPeriod.SelectedIndex = 0;
-                    }
-
-                    gridTabWednesdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.WEDNESDAY).ToList();
-                    if (gridTabWednesdayPeriod.Items.Count > 0)
-                    {
-                        gridTabWednesdayPeriod.SelectedIndex = 0;
-                    }
-
-                    gridTabThursdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.THURSDAY).ToList();
-                    if (gridTabThursdayPeriod.Items.Count > 0)
-                    {
-                        gridTabThursdayPeriod.SelectedIndex = 0;
-                    }
-
-                    gridTabFridayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.FRIDAY).ToList();
-                    if (gridTabFridayPeriod.Items.Count > 0)
-                    {
-                        gridTabFridayPeriod.SelectedIndex = 0;
-                    }
-
-                    gridTabSaturdayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.SATURDAY).ToList();
-                    if (gridTabSaturdayPeriod.Items.Count > 0)
-                    {
-                        gridTabSaturdayPeriod.SelectedIndex = 0;
-                    }
-
-                    gridTabSundayPeriod.ItemsSource = Repository.selectedSchedule.Periods.Where(s => s.WeekDay == EType.WeekDay.SUNDAY).ToList();
-                    if (gridTabSundayPeriod.Items.Count > 0)
-                    {
-                        gridTabSundayPeriod.SelectedIndex = 0;
-                    }
+                    LoadGridData(EType.WeekDay.MONDAY);
+                    LoadGridData(EType.WeekDay.TUESDAY);
+                    LoadGridData(EType.WeekDay.WEDNESDAY);
+                    LoadGridData(EType.WeekDay.THURSDAY);
+                    LoadGridData(EType.WeekDay.FRIDAY);
+                    LoadGridData(EType.WeekDay.SATURDAY);
+                    LoadGridData(EType.WeekDay.SUNDAY);
                 }
 
                 // GenerateListItemCard();
             }
         }
-       
         private void tbScheduleName_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (mode == CHANGE_MODE)
@@ -647,6 +189,89 @@ namespace ScorpiconAccess.View
                     Repository.newSchedule.Id = tbScheduleId.Text;
             }
         }
+
+        #region Add Period
+        private void itemMondayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.MONDAY);
+            }
+        }
+        private void itemTuesdayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.TUESDAY);
+            }
+        }
+        private void itemWednesdayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.WEDNESDAY);
+            }
+        }
+        private void itemThursdayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.THURSDAY);
+            }
+        }
+        private void itemFridayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.FRIDAY);
+            }
+        }
+        private void itemSaturdayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.SATURDAY);
+            }
+        }
+        private void itemSundayAdd_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.selectedSchedule != null)
+            {
+                ShowPeriodDetail(EType.WeekDay.SUNDAY);
+            }
+        }
+        #endregion
+
+        #region Delete Period
+        private void itemMondayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabMondayPeriod, EType.WeekDay.MONDAY);
+        }
+        private void itemTuesdayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabTuesdayPeriod, EType.WeekDay.TUESDAY);
+        }
+        private void itemWednesdayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabWednesdayPeriod, EType.WeekDay.WEDNESDAY);
+        }
+        private void itemThursdayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabThursdayPeriod, EType.WeekDay.THURSDAY);
+        }
+        private void itemFridayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabFridayPeriod, EType.WeekDay.FRIDAY);
+        }
+        private void itemSaturdayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabSaturdayPeriod, EType.WeekDay.SATURDAY);
+        }
+        private void itemSundayDel_Click(object sender, RoutedEventArgs e)
+        {
+            DeletePeriod(gridTabSundayPeriod, EType.WeekDay.SUNDAY);
+        }
+        #endregion
 
     }
 }

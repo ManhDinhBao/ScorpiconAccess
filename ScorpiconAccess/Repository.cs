@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace ScorpiconAccess
 {
-    public class Repository: INotifyPropertyChanged
+    public class Repository
     {
-
+        public static List<DTO_DoorMode> lstAllDoorMode;
         public static List<DTO_Card> lstAllCards;
         public static List<DTO_CardHolder> lstAllCardHolders;
         public static List<DTO_Device> lstAllDevices;
         public static List<DTO_Schedule> lstAllSchedules;
-
+        public static List<DTO_Door> lstAllDoor;
 
 
 
@@ -31,16 +31,8 @@ namespace ScorpiconAccess
         public static DTO_Schedule selectedSchedule;
         public static DTO_Schedule newSchedule;
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(name));
-            }
-        }
+        public static DTO_Door selectedDoor;
+        public static DTO_Door newDoor;
 
     }
 }

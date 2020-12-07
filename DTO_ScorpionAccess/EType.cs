@@ -46,6 +46,37 @@ namespace DTO_ScorpionAccess
             REX = 3
         }
 
+        public enum LockType
+        {
+            NOT_USE = 0,
+            NC = 1,
+            NO = 2
+        }
+
+        public enum ContactType
+        {
+            DOOR = 1,
+            LOCK = 2
+        }
+        public enum ContactMode
+        {
+            NOT_USE = 0,
+            NC = 1,
+            NO = 2
+        }
+
+        public enum ReaderType
+        {
+            IN = 1,
+            OUT = 2
+        }
+        public enum RexType
+        {
+            IN = 1,
+            OUT = 2
+        }
+
+
 
         public enum UserLogType
         {
