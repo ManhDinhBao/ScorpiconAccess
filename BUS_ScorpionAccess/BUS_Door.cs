@@ -107,5 +107,59 @@ namespace BUS_ScorpionAccess
             }
         }
 
+        /// <summary>
+        /// Add new door
+        /// </summary>
+        /// <param name="door">The door object want to add</param>
+        /// <returns>Return true if add success, Error if update fail or validate fail</returns>
+        public SQLResult AddNewDoor(DTO_Door door)
+        {
+            if (door == null)
+            {
+                return new SQLResult(false, "Card null");
+            }
+
+            if (!door.Validation())
+            {
+                return new SQLResult(false, "Validation fail");
+            }
+
+            return dal.AddNewDoor(door);
+        }
+
+        /// <summary>
+        /// Update door information
+        /// </summary>
+        /// <param name="door">The door object want to update</param>
+        /// <returns>Return true if update success, Error if update fail or validate fail</returns>
+        public SQLResult UpdateDoor(DTO_Door door)
+        {
+            if (door == null)
+            {
+                return new SQLResult(false, "Card null");
+            }
+
+            if (!door.Validation())
+            {
+                return new SQLResult(false, "Validation fail");
+            }
+
+            return dal.UpdateDoor(door);
+        }
+
+        /// <summary>
+        /// Delete door 
+        /// </summary>
+        /// <param name="doorId">Id of door want to delete</param>
+        /// <returns></returns>
+        public SQLResult DeleteDoor(string doorId)
+        {
+            if (doorId == null)
+            {
+                return new SQLResult(false, "Door Id can't null");
+            }
+
+            return dal.DeleteDoor(doorId);
+        }
     }
 }

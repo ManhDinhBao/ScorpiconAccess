@@ -15,7 +15,9 @@ namespace DTO_ScorpionAccess
         public DoorSocketType Type { get; set; }
         public object Property { get; set; }
         public int ConnectedDeviceSocketOrder { get; set; }
+        public string ConnectedDeviceSocketId { get; set; }
         public string ConnectedDevice { get; set; }
+        public string ConnectedDeviceId { get; set; }
 
         public DTO_DoorSocket()
         {

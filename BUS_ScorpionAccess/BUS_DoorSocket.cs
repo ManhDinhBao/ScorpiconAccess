@@ -38,9 +38,11 @@ namespace BUS_ScorpionAccess
                     socket.Id = row["SocketId"] == DBNull.Value ? null : row["SocketId"].ToString();
                     socket.Door = row["Door"] == DBNull.Value ? null : row["Door"].ToString();
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
-                    socket.Type = row["Type"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["Type"].ToString());
+                    socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
+                    socket.ConnectedDeviceSocketId = row["DeviceSocketId"] == DBNull.Value ? null : row["DeviceSocketId"].ToString();
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
+                    socket.ConnectedDeviceId = row["DeviceId"] == DBNull.Value ? null : row["DeviceId"].ToString();
 
                     DTO_Contact contact = new DTO_Contact();
                     contact.Id = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
@@ -61,7 +63,7 @@ namespace BUS_ScorpionAccess
                     socket.Id = row["SocketId"] == DBNull.Value ? null : row["SocketId"].ToString();
                     socket.Door = row["Door"] == DBNull.Value ? null : row["Door"].ToString();
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
-                    socket.Type = row["Type"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["Type"].ToString());
+                    socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.LOCK : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
 
@@ -83,7 +85,7 @@ namespace BUS_ScorpionAccess
                     socket.Id = row["SocketId"] == DBNull.Value ? null : row["SocketId"].ToString();
                     socket.Door = row["Door"] == DBNull.Value ? null : row["Door"].ToString();
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
-                    socket.Type = row["Type"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["Type"].ToString());
+                    socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.READER : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
 
@@ -106,7 +108,7 @@ namespace BUS_ScorpionAccess
                     socket.Id = row["SocketId"] == DBNull.Value ? null : row["SocketId"].ToString();
                     socket.Door = row["Door"] == DBNull.Value ? null : row["Door"].ToString();
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
-                    socket.Type = row["Type"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["Type"].ToString());
+                    socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.REX : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
 
@@ -151,9 +153,11 @@ namespace BUS_ScorpionAccess
                 socket.Id = row["SocketId"] == DBNull.Value ? null : row["SocketId"].ToString();
                 socket.Door = row["Door"] == DBNull.Value ? null : row["Door"].ToString();
                 socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
-                socket.Type = row["Type"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["Type"].ToString());
+                socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.CONTACT : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                 socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
+                socket.ConnectedDeviceSocketId = row["DeviceSocketId"] == DBNull.Value ? null : row["DeviceSocketId"].ToString();
                 socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
+                socket.ConnectedDeviceId = row["DeviceId"] == DBNull.Value ? null : row["DeviceId"].ToString();
 
                 switch (socket.Type)
                 {
@@ -196,6 +200,50 @@ namespace BUS_ScorpionAccess
             {
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Add new socket
+        /// </summary>
+        /// <param name="socket">The socket object want to add</param>
+        /// <returns>Return true if update success, Error if update fail or validate fail</returns>
+        public SQLResult AddNewSocket(DTO_DoorSocket socket)
+        {
+            if (socket == null)
+            {
+                return new SQLResult(false, "Socket null");
+            }
+
+            return dal.AddNewSocket(socket);
+        }
+
+        /// <summary>
+        /// Update socket information
+        /// </summary>
+        /// <param name="socket">The socket object want to update</param>
+        /// <returns>Return true if update success, Error if update fail or validate fail</returns>
+        public SQLResult UpdateSocket(DTO_DoorSocket socket)
+        {
+            if (socket == null)
+            {
+                return new SQLResult(false, "Socket null");
+            }
+
+            return dal.UpdateSocket(socket);
+        }
+
+        /// <summary>
+        /// Delete socket
+        /// </summary>
+        /// <param name="id">ID of card want to delete</param>
+        /// <returns></returns>
+        public SQLResult DeleteSocket(string id, string connectedDeviceSocketId)
+        {
+            if (id == null)
+            {
+                return new SQLResult(false, "Socket id can't null");
+            }
+            return dal.DeleteSocket(id, connectedDeviceSocketId);
         }
     }
 }

@@ -11,5 +11,9 @@ namespace DTO_ScorpionAccess
         public string TextBinding { get; set; }
         public string ImageSource { get; set; }
         public string Key { get; set; }
+
+        public ListViewItem()
+        {
+        }
     }
 }

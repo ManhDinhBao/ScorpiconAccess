@@ -31,5 +31,20 @@ namespace DTO_ScorpionAccess
             DOTimeOut = dOTimeOut;
             Sockets = sockets;
         }
+
+        public bool Validation()
+        {
+            if (Id == null || Id == "")
+            {
+                return false;
+            }
+
+            if (Mode.Id == null || Mode.Id == "")
+            {
+                return false;
+            }
+
+            return true;
+        }
     }
 }

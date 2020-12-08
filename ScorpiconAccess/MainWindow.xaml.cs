@@ -31,6 +31,7 @@ namespace ScorpiconAccess
         private BUS_Device bus_Device;
         private BUS_DeviceSocket bUS_DeviceSocket;
         private BUS_Schedule bUS_Schedule;
+        private BUS_Door bUS_Door;
         private ViewMode viewMode;
         private const int ADD_MODE = 1;
         private const int CHANGE_MODE = 2;
@@ -48,6 +49,7 @@ namespace ScorpiconAccess
             bus_Device = new BUS_Device();
             bUS_DeviceSocket = new BUS_DeviceSocket();
             bUS_Schedule = new BUS_Schedule();
+            bUS_Door = new BUS_Door();
         }
 
         #region Menu Button Click
@@ -623,7 +625,67 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.DOOR_VIEW:
+                    if (this.currentMode == CHANGE_MODE)
+                    {
+                        //Update door
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_Door doorToUpdate = Repository.selectedDoor;
+                        string strDoorInfo = string.Format(" UPDATE DOOR INFORMATION\r\n Id: {0}\r\n Name: {1}\r\n Mode: {2}\r\n DOTimeOut: {3}\r\n LOTimeOut: {4}"
+                            , doorToUpdate.Id
+                            , doorToUpdate.Name
+                            , doorToUpdate.Mode.Name
+                            , doorToUpdate.DOTimeOut.ToString()
+                            , doorToUpdate.LOTimeOut.ToString());
 
+                        AddLog(new UserLog(strDoorInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bUS_Door.UpdateDoor(doorToUpdate);
+                        string strReasultLog = "";
+                        if (result.Result)
+                        {
+                            DTO_Door oldDoor = Repository.lstAllDoor.FirstOrDefault(h => h.Id == doorToUpdate.Id);
+                            if (oldDoor != null)
+                            {
+                                oldDoor = doorToUpdate;
+                            }
+                            RefreshListView();
+                            AddLog(new UserLog(" Update successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            strReasultLog = "Status: Error -> " + result.Detail;
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
+                    else
+                    {
+                        //Insert door
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_Door doorToAdd = Repository.newDoor;
+                        string strDoorInfo = string.Format(" UPDATE DOOR INFORMATION\r\n Id: {0}\r\n Name: {1}\r\n Mode: {2}\r\n DOTimeOut: {3}\r\n LOTimeOut: {4}"
+                            , doorToAdd.Id
+                            , doorToAdd.Name
+                            , doorToAdd.Mode.Name
+                            , doorToAdd.DOTimeOut.ToString()
+                            , doorToAdd.LOTimeOut.ToString());
+
+                        AddLog(new UserLog(strDoorInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bUS_Door.AddNewDoor(doorToAdd);
+                        if (result.Result)
+                        {
+                            Repository.lstAllDoor.Add(doorToAdd);
+                            RefreshListView();
+                            lbListItems.SelectedIndex = lbListItems.Items.Count - 1;
+                            AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
 
                     break;
                 case ViewMode.SCHEDULE_VIEW:
@@ -878,7 +940,27 @@ namespace ScorpiconAccess
 
                     break;
                 case ViewMode.DOOR_VIEW:
+                    //Delete door
+                    DTO_Door doorToDelete = Repository.selectedDoor;
+                    string strDoorInfo = string.Format(" DELETE DOOR \r\n Id: {0}\r\n Name: {1}\r\n Mode: {2}", doorToDelete.Id, doorToDelete.Name, doorToDelete.Mode.Name);
+                    AddLog(new UserLog(strDoorInfo, EType.UserLogType.LOG_CONTENT));
+                    SQLResult delDoorResult = bUS_Door.DeleteDoor(doorToDelete.Id);
+                    if (delDoorResult.Result)
+                    {
+                        //Remove door in list doors
+                        DTO_Door oldDoor = Repository.lstAllDoor.FirstOrDefault(h => h.Id == doorToDelete.Id);
+                        Repository.lstAllDoor.Remove(oldDoor);
 
+                        RefreshListView();
+                        lbListItems.SelectedIndex = 0;
+                        AddLog(new UserLog(" Delete successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                    }
+                    else
+                    {
+                        AddLog(new UserLog(" Error: " + delDoorResult.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                    }
+                    tbStatus.Text = delDoorResult.Detail;
+                    AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
 
                     break;
                 case ViewMode.SCHEDULE_VIEW:
