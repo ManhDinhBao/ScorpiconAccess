@@ -54,8 +54,10 @@
     <Compile Include="DTO_Reader.cs" />
     <Compile Include="DTO_Rex.cs" />
     <Compile Include="DTO_Schedule.cs" />
+    <Compile Include="DTO_UserRight.cs" />
     <Compile Include="EType.cs" />
     <Compile Include="FAMode.cs" />
+    <Compile Include="ListRightDetailItem.cs" />
     <Compile Include="ListViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SQLResult.cs" />

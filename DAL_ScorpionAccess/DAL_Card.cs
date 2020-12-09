@@ -87,7 +87,7 @@ namespace DAL_ScorpionAccess
         }
 
         /// <summary>
-        /// Get card by serial or holder from databse
+        /// Get card by number or holder from databse
         /// </summary>
         /// <param name="value"></param>
         /// <returns></returns>

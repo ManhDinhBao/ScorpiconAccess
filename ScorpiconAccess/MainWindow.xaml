@@ -59,6 +59,12 @@
                             <TextBlock Text="Event" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
                         </StackPanel>
                     </Button>
+                    <Button x:Name="btExportFile" Click="btExportFile_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <Image Source="Icon\export_file_white_30px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                            <TextBlock Text="Export File" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
+                        </StackPanel>
+                    </Button>
                 </StackPanel>
             </Border>
         </DockPanel>

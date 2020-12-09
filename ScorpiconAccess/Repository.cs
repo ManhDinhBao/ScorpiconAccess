@@ -16,6 +16,7 @@ namespace ScorpiconAccess
         public static List<DTO_Device> lstAllDevices;
         public static List<DTO_Schedule> lstAllSchedules;
         public static List<DTO_Door> lstAllDoor;
+        public static List<DTO_UserRight> lstAllRIght;
 
 
 
@@ -33,6 +34,9 @@ namespace ScorpiconAccess
 
         public static DTO_Door selectedDoor;
         public static DTO_Door newDoor;
+
+        public static DTO_UserRight selectedRight;
+        public static DTO_UserRight newRight;
 
     }
 }

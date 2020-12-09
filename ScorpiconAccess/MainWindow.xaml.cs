@@ -32,6 +32,8 @@ namespace ScorpiconAccess
         private BUS_DeviceSocket bUS_DeviceSocket;
         private BUS_Schedule bUS_Schedule;
         private BUS_Door bUS_Door;
+        private BUS_Right bus_Right;
+
         private ViewMode viewMode;
         private const int ADD_MODE = 1;
         private const int CHANGE_MODE = 2;
@@ -50,6 +52,7 @@ namespace ScorpiconAccess
             bUS_DeviceSocket = new BUS_DeviceSocket();
             bUS_Schedule = new BUS_Schedule();
             bUS_Door = new BUS_Door();
+            bus_Right = new BUS_Right();
         }
 
         #region Menu Button Click
@@ -81,6 +84,11 @@ namespace ScorpiconAccess
         private void btEvent_Click(object sender, RoutedEventArgs e)
         {
             UpdateView(ViewMode.EVENT_VIEW);
+        }
+
+        private void btRight_Click(object sender, RoutedEventArgs e)
+        {
+            UpdateView(ViewMode.RIGHT_VIEW);
         }
         #endregion
 
@@ -162,6 +170,20 @@ namespace ScorpiconAccess
             }
         }
 
+        private void BindRightToListItemView()
+        {
+            listViewItems = new List<DTO_ScorpionAccess.ListViewItem>();
+            foreach (DTO_UserRight right in Repository.lstAllRIght)
+            {
+                DTO_ScorpionAccess.ListViewItem listViewItem = new DTO_ScorpionAccess.ListViewItem();
+                listViewItem.ImageSource = "/Icon/right_gray_50px.png";
+                listViewItem.TextBinding = right.Name;
+                listViewItem.Key = right.Id;
+
+                listViewItems.Add(listViewItem);
+            }
+        }
+
         private void UpdateView(ViewMode viewMode)
         {
             this.viewMode = viewMode;
@@ -190,6 +212,7 @@ namespace ScorpiconAccess
                     break;
                 case ViewMode.RIGHT_VIEW:
                     tbViewName.Text = "Right";
+                    BindRightToListItemView();
                     break;
                 case ViewMode.EVENT_VIEW:
                     tbViewName.Text = "Event";
@@ -198,11 +221,6 @@ namespace ScorpiconAccess
 
             lbListItems.ItemsSource = listViewItems;
             lbListItems.SelectedIndex = 0;
-        }
-
-        private void btRight_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void lbListItems_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -285,9 +303,15 @@ namespace ScorpiconAccess
                         pnlData.Children.Add(ucSchedule);
                         break;
                     case ViewMode.RIGHT_VIEW:
+                        DTO_UserRight selectedRight = Repository.lstAllRIght.FirstOrDefault(r => r.Id == selectedItem.Key);
+                        Repository.selectedRight = selectedRight;
 
                         //Show right detail info
-
+                        UserRightView ucRight = new UserRightView(mode: currentMode);
+                        ucRight.HorizontalAlignment = HorizontalAlignment.Stretch;
+                        ucRight.VerticalAlignment = VerticalAlignment.Stretch;
+                        pnlData.Children.Clear();
+                        pnlData.Children.Add(ucRight);
                         break;
                     case ViewMode.EVENT_VIEW:
 
@@ -748,8 +772,63 @@ namespace ScorpiconAccess
                     }
                     break;
                 case ViewMode.RIGHT_VIEW:
+                    if (this.currentMode == CHANGE_MODE)
+                    {
+                        //Update right
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_UserRight rightToUpdate = Repository.selectedRight;
+                        string strRightInfo = string.Format(" UPDATE RIGHT INFORMATION\r\n Id: {0}\r\n Name: {1}\r\n Description: {2}"
+                            , rightToUpdate.Id
+                            , rightToUpdate.Name
+                            , rightToUpdate.Description);
 
+                        AddLog(new UserLog(strRightInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bus_Right.UpdateRight(rightToUpdate);
+                        string strReasultLog = "";
+                        if (result.Result)
+                        {
+                            DTO_UserRight oldRight = Repository.lstAllRIght.FirstOrDefault(h => h.Id == rightToUpdate.Id);
+                            if (oldRight != null)
+                            {
+                                oldRight = rightToUpdate;
+                            }
+                            RefreshListView();
+                            AddLog(new UserLog(" Update successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            strReasultLog = "Status: Error -> " + result.Detail;
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
+                    else
+                    {
+                        //Insert right
+                        AddLog(new UserLog(DateTime.Now.ToString(), EType.UserLogType.LOG_TIME));
+                        DTO_UserRight addRight = Repository.newRight;
+                        string strRightInfo = string.Format(" ADD RIGHT \r\n Id: {0}\r\n Name: {1}\r\n Description: {2}"
+                            , addRight.Id
+                            , addRight.Name
+                            , addRight.Description);
 
+                        AddLog(new UserLog(strRightInfo, EType.UserLogType.LOG_CONTENT));
+                        SQLResult result = bus_Right.AddNewRight(addRight);
+                        if (result.Result)
+                        {
+                            Repository.lstAllRIght.Add(addRight);
+                            RefreshListView();
+                            lbListItems.SelectedIndex = lbListItems.Items.Count - 1;
+                            AddLog(new UserLog(" Insert successfull!", EType.UserLogType.LOG_STATUS_SUCCESS));
+                        }
+                        else
+                        {
+                            AddLog(new UserLog(" Error: " + result.Detail, EType.UserLogType.LOG_STATUS_ERROR));
+                        }
+                        tbStatus.Text = result.Detail;
+                        AddLog(new UserLog("--------------------", EType.UserLogType.LOG_CONTENT));
+                    }
                     break;
                 case ViewMode.EVENT_VIEW:
 
@@ -831,7 +910,12 @@ namespace ScorpiconAccess
                     pnlData.Children.Add(ucSchedule);
                     break;
                 case ViewMode.RIGHT_VIEW:
+                    UserRightView ucRight = new UserRightView(mode: currentMode);
+                    ucRight.HorizontalAlignment = HorizontalAlignment.Stretch;
+                    ucRight.VerticalAlignment = VerticalAlignment.Stretch;
+                    pnlData.Children.Clear();
 
+                    pnlData.Children.Add(ucRight);
 
                     break;
                 case ViewMode.EVENT_VIEW:
@@ -1058,6 +1142,11 @@ namespace ScorpiconAccess
             // The Text property on a TextRange object returns a string
             // representing the plain text content of the TextRange.
             return textRange.Text;
+        }
+
+        private void btExportFile_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 

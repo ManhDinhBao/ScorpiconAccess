@@ -93,14 +93,23 @@
     <Compile Include="View\DoorSocketDetailView.xaml.cs">
       <DependentUpon>DoorSocketDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ExportFileView.xaml.cs">
+      <DependentUpon>ExportFileView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\HolderDetailView.xaml.cs">
       <DependentUpon>HolderDetailView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PeriodDetailView.xaml.cs">
       <DependentUpon>PeriodDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\RightDetailView.xaml.cs">
+      <DependentUpon>RightDetailView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ScheduleDetailView.xaml.cs">
       <DependentUpon>ScheduleDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\UserRightView.xaml.cs">
+      <DependentUpon>UserRightView.xaml</DependentUpon>
     </Compile>
     <Page Include="LaunchWindow.xaml">
       <SubType>Designer</SubType>
@@ -134,6 +143,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ExportFileView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\HolderDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -142,7 +155,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\RightDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\ScheduleDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\UserRightView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,6 +339,12 @@
     <Resource Include="Icon\e_character_green_50px.png" />
     <Resource Include="Icon\l_character_gray_50px.png" />
     <Resource Include="Icon\l_character_green_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\right_gray_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\export_file_white_30px.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
