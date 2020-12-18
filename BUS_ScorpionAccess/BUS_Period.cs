@@ -38,8 +38,8 @@ namespace BUS_ScorpionAccess
                     period.Id           = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
                     period.WeekDay      = row["DayInWeek"] == DBNull.Value ? WeekDay.MONDAY : (WeekDay)Convert.ToInt16(row["DayInWeek"]);
                     period.Schedule     = scheduleId;
-                    period.StartTime    = row["StartTime"] == DBNull.Value ? null : row["StartTime"].ToString();
-                    period.EndTime      = row["EndTime"]   == DBNull.Value ? null : row["EndTime"].ToString();
+                    period.StartTime    = row["StartTime"] == DBNull.Value ? new DateTime(1970,1,1) : Convert.ToDateTime(row["StartTime"].ToString());
+                    period.EndTime      = row["EndTime"]   == DBNull.Value ? new DateTime(1970, 1, 1) : Convert.ToDateTime(row["EndTime"].ToString());
 
                     lstPeriods.Add(period);
                 }

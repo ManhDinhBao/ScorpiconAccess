@@ -9,6 +9,7 @@ namespace DTO_ScorpionAccess
     public class ListViewItem
     {
         public string TextBinding { get; set; }
+        public string Description { get; set; }
         public string ImageSource { get; set; }
         public string Key { get; set; }
 

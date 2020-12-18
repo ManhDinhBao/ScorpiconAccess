@@ -3,149 +3,125 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xcad="http://schemas.xceed.com/wpf/xaml/avalondock"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:ScorpiconAccess"
         mc:Ignorable="d"
-        Title="MainWindow" Height="800" Width="1100" KeyDown="Window_KeyDown" WindowStartupLocation="CenterScreen" MinWidth="1100" MinHeight="800">
+        Title="MainWindow" Background="Transparent" Height="800" Width="1160" KeyDown="Window_KeyDown" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" MinWidth="1160" MinHeight="800" Loaded="Window_Loaded">
     <Window.Resources>
-        <Image x:Key="dropdown_black" Source="Icon\drop_down_black_32px.png"/>
-        <Image x:Key="eraser_black" Source="Icon\eraser_black_50px.png"/>
-        <Image x:Key="export_black" Source="Icon\export_txt_black_50px.png"/>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Window.Resources>
-    <DockPanel>
-        <!--Top Menu-->
-        <DockPanel DockPanel.Dock="Top" Height="30" >
-            <Border Background="#16697a" DockPanel.Dock="Top" CornerRadius="0,0,10,10" Margin="10,0,10,0">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="btCard" Click="btCard_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\card_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            </Image>
-                            <TextBlock Text="Card" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+    <Border CornerRadius="10" Background="Transparent">
+        <DockPanel Background="Transparent">
+            <!--Left Panel-->
+            <Border Opacity="1" DockPanel.Dock="Left" CornerRadius="10,0,0,10" Width="200" Background="#999999">
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <Grid.Effect>
+                            <BlurEffect/>
+                        </Grid.Effect>
+                    </Grid>
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <!--Header button-->
+                        <StackPanel Orientation="Horizontal" x:Name="stackMainTitle" MouseDown="stackMainTitle_MouseDown"  Height="30"  Background="Transparent">
+                            <Button x:Name="btClose" Style="{DynamicResource headerButtonStyle}" Click="btClose_Click" Margin="10,0,0,0" Background="Transparent" VerticalAlignment="Center">
+                                <Image Source="Icon\close_red_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                            </Button>
+                            <Button x:Name="btMinnimize" Click="btMinnimize_Click" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                                <Image Source="Icon\minimize_yellow_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                            </Button>
+                            <Button x:Name="btMaximize" Click="btMaximize_Click" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                                <Image Source="Icon\maximize_green_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                            </Button>
                         </StackPanel>
-                    </Button>
-                    <Button x:Name="btHolder" Click="btHolder_Click"  BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\holder_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="Holder" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
+
+                        <!--Logo-->
+                        <Border CornerRadius="10" Background="DodgerBlue" Height="30" Margin="15,20,15,0">
+                            <TextBlock Text="SCORPION" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Consolas" FontWeight="SemiBold"/>
+
+                        </Border>
+                        <Grid Height="670" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                            <ListBox x:Name="lbFunctions" ItemContainerStyle="{DynamicResource listBoxItemType}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" Margin="5,10,5,0" BorderThickness="0" SelectionChanged="lbFunctions_SelectionChanged">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="5" BorderThickness="1" BorderBrush="#999999">
+                                            <StackPanel Orientation="Horizontal" Margin="5" Background="Transparent">
+                                                <Image Source="{Binding ImageSource}" Width="20" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TextBinding}" Margin="5,0,0,0" FontFamily="Helvetica Neue" Foreground="#333333" FontSize="11"/>
+                                            </StackPanel>
+                                        </Border>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+
+                        <StackPanel Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="50">
+
                         </StackPanel>
-                    </Button>
-                    <Button x:Name="btDevice" Click="btDevice_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\device_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="Device" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btDoor" Click="btDoor_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\door_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="Door" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btSchedule" Click="btSchedule_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\schedule_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="Schedule" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btRight" Click="btRight_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\right_white_50px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="User rights" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btEvent" Click="btEvent_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\event_white_30px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="Event" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="btExportFile" Click="btExportFile_Click" BorderThickness="0" Background="#16697a" Margin="10,0,0,0">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-                            <Image Source="Icon\export_file_white_30px.png" Width="20" Height="20" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-                            <TextBlock Text="Export File" Foreground="White" FontSize="10" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="5,0,0,0" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
             </Border>
-        </DockPanel>
-        
-        <DockPanel>
-            <!--Action Menu-->
-            <StackPanel DockPanel.Dock="Top" Height="30" Orientation="Horizontal">
-                <DockPanel Width="180">
-                    <Button x:Name="btSearch" ToolTip="Search" Height="18" DockPanel.Dock="Left" BorderThickness="0" Background="Transparent" Margin="10,0,0,0" Click="btSearch_Click">
-                        <Image Source="Icon\search_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                    </Button>
-                    <TextBox x:Name="tbSearchValue" Margin="5,0,0,0" FontFamily="Arial" FontSize="13" VerticalAlignment="Center" Background="Transparent" HorizontalAlignment="Stretch"/>
-                </DockPanel>
-                <Button x:Name="btNew" ToolTip="New" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btNew_Click">
-                    <Image Source="Icon\new_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                </Button>
-                <Button x:Name="btSave" ToolTip="Save" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btSave_Click">
-                    <Image Source="Icon\save_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                </Button>
-                <Button x:Name="btDelete" ToolTip="Delete" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btDelete_Click">
-                    <Image Source="Icon\delete_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                </Button>
+            <!--Main Panel-->
+            <DockPanel Background="Transparent" >
+                <Border CornerRadius="0,10,10,0" Background="White">
+                    <DockPanel>
+                        <Border DockPanel.Dock="Top" CornerRadius="0,10,0,0" Height="80" Background="#444444" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="tbFunctionName" Text="Cards" Foreground="LightGray" FontSize="13" FontFamily="Helvetica Neue" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                                <StackPanel Orientation="Horizontal" Margin="20,15,0,0">
+                                    <Border BorderBrush="Gray" Background="#888888" BorderThickness="0" CornerRadius="5" Width="90" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="3" Color="#666666" RenderingBias="Quality" ShadowDepth="0.1"/>
+                                        </Border.Effect>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Button x:Name="btNew" Click="btNew_Click" ToolTip="New" Style="{StaticResource menuButton}" Height="30" Width="30" Margin="0,0,1,0">
+                                                <Image Source="Icon\new_white_30px.png" Height="18" Width="18"/>
+                                            </Button>
+                                            <Button x:Name="btDelete" Click="btDelete_Click" ToolTip="Delete" Style="{StaticResource menuButton}" Height="30" Width="30" Background="Transparent" BorderThickness="0,0,1,0" BorderBrush="#666666">
+                                                <Image Source="Icon\delete_white_30px.png" Height="18" Width="18"/>
+                                            </Button>
+                                            <Button x:Name="btRefresh" Click="btRefresh_Click" ToolTip="Refresh" Style="{StaticResource menuButton}" Height="30" Width="29" Background="Transparent" BorderThickness="0,0,0,0" BorderBrush="#666666">
+                                                <Image Source="Icon\refresh_white_30px.png" Height="18" Width="18"/>
+                                            </Button>
+                                        </StackPanel>
+                                    </Border>
 
-                <Button x:Name="btRefresh" ToolTip="Refresh" Height="18" BorderThickness="0" Background="Transparent" Margin="5,0,0,0" Click="btRefresh_Click">
-                    <Image Source="Icon\refresh_gray_30px.png" Width="18" Height="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="0,0,0,0"/>
-                </Button>
-            </StackPanel>
+                                    <Border BorderBrush="Gray" Margin="10,0,0,0" Background="#888888" BorderThickness="0" CornerRadius="5" Width="30" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="3" Color="#666666" RenderingBias="Quality" ShadowDepth="0.1"/>
+                                        </Border.Effect>
+                                        <Button x:Name="btExport" Click="btExport_Click" ToolTip="Export Configuration File" Style="{StaticResource menuButton}" Height="30" Width="30" Margin="0,0,1,0">
+                                            <Image Source="Icon\export_white_30px.png" Height="18" Width="18"/>
+                                        </Button>
+                                    </Border>
 
-            <!--Data-->
-            <DockPanel Background="Gray">
-                <!--Bottom area-->
-                <DockPanel DockPanel.Dock="Bottom" Height="25">
-                    <TextBlock x:Name="tbViewName" VerticalAlignment="Center" Margin="10,0,10,0" FontFamily="Arial" FontSize="12" DockPanel.Dock="Right" Width="50" Text="Card"/>
-                    <TextBlock x:Name="tbStatus" VerticalAlignment="Center" Margin="10,0,0,0" FontFamily="Arial" FontSize="12" Text=""/>
-                </DockPanel>
+                        <Border BorderBrush="Gray" Background="#888888" BorderThickness="0" CornerRadius="5" Width="320" Height="30" Margin="100,0,0,0">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="3" Color="#666666" RenderingBias="Quality" ShadowDepth="0.1"/>
+                                        </Border.Effect>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="Icon\search_white_30px.png" Height="15" Width="15" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                            <TextBox TextWrapping="Wrap" BorderThickness="0" Text="Search" Foreground="White" Background="Transparent" FontFamily="Helvetica Neue" FontSize="12" FontWeight="Regular" VerticalAlignment="Center" Width="285" MaxLines="1" Margin="5,0,0,0"/>
 
-                <!--Data area-->
-                <Border Background="White" CornerRadius="10" Margin="5">
-                    <DockPanel Background="Transparent" Margin="10,0,0,0">
-                        <ListBox BorderThickness="0" DockPanel.Dock="Left" Name="lbListItems" Width="200" Margin="0,10,0,0" SelectionChanged="lbListItems_SelectionChanged">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="{Binding ImageSource}" Width="18" Height="18"/>
-                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TextBinding}" Margin="5,0,0,0" FontFamily="Consolas" FontSize="12"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <DockPanel Background="Gray">
-                            <!--Log-->
-                            <DockPanel  x:Name="stackLog" DockPanel.Dock="Bottom" Height="0" Margin="5,0,0,0">
-                                <DockPanel DockPanel.Dock="Top" Background="LightGray" Height="25">
-                                    <Label DockPanel.Dock="Left" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="Log" Foreground="Black" FontWeight="SemiBold" FontFamily="Consolas"/>
-                                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
-                                        <Button  ToolTip="Clear log" Click="btClearLog_Click" BorderThickness="0" Background="Transparent" x:Name="btClearLog" Height="20" Width="20" HorizontalAlignment="Right" Content="{StaticResource eraser_black}"/>
-                                        <Button  ToolTip="Export log to txt file" Click="btExportLog_Click" BorderThickness="0" Background="Transparent" x:Name="btExportLog" Height="20" Width="20" HorizontalAlignment="Right" Content="{StaticResource export_black}"/>
-                                        <Button  ToolTip="Hide log" Click="hideLog_Click" BorderThickness="0" Background="Transparent" x:Name="btHideLog" Height="20" Width="20" HorizontalAlignment="Right" Content="{StaticResource dropdown_black}"/>
-                                        
-                                    </StackPanel>
-                                </DockPanel>
-                                <Border HorizontalAlignment="Stretch" Background="White" CornerRadius="0,0,10,0">
-                                    <RichTextBox BorderThickness="0" VerticalScrollBarVisibility="Auto" IsReadOnly="True" x:Name="tbLog" Foreground="Gray" FontFamily="Consolas" Background="White" Margin="5">
-                                        <RichTextBox.Resources>
-                                            <Style TargetType="{x:Type Paragraph}">
-                                                <Setter Property="Margin" Value="0"></Setter>
-                                            </Style>
-                                        </RichTextBox.Resources>
-                                    </RichTextBox>
-                                </Border>
-                                
-                            </DockPanel>
-                            <Border x:Name="boderData" Background="White" CornerRadius="0,10,10,0" Margin="5,0,0,0">
-                                <Grid x:Name="pnlData" Background="White" Margin="0,0,10,0">
+                                        </StackPanel>
+                                    </Border>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <WrapPanel x:Name="panelData" Margin="5,5,0,0">
 
-                                </Grid>
-                            </Border>
-                        </DockPanel>
+                            </WrapPanel>
+                        </ScrollViewer>
                     </DockPanel>
                 </Border>
             </DockPanel>
         </DockPanel>
-    </DockPanel>
+    </Border>
+
 </Window>

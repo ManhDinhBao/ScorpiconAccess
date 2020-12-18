@@ -38,6 +38,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -75,14 +76,16 @@
     <Compile Include="Code39.cs" />
     <Compile Include="Converter\RowToIndexConverter.cs" />
     <Compile Include="Converter\ToCardHolderTextConverter.cs" />
+    <Compile Include="Converter\ToCardNumberFormatConverter.cs" />
+    <Compile Include="General.cs" />
     <Compile Include="LaunchWindow.xaml.cs">
       <DependentUpon>LaunchWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Repository.cs" />
     <Compile Include="Converter\ToCardSerialFormatConverter.cs" />
     <Compile Include="Converter\ToUpperValueConverter.cs" />
-    <Compile Include="View\CardDetailView.xaml.cs">
-      <DependentUpon>CardDetailView.xaml</DependentUpon>
+    <Compile Include="View\ChangeCardView.xaml.cs">
+      <DependentUpon>ChangeCardView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\DeviceDetailView.xaml.cs">
       <DependentUpon>DeviceDetailView.xaml</DependentUpon>
@@ -96,8 +99,8 @@
     <Compile Include="View\ExportFileView.xaml.cs">
       <DependentUpon>ExportFileView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\HolderDetailView.xaml.cs">
-      <DependentUpon>HolderDetailView.xaml</DependentUpon>
+    <Compile Include="View\ExportFileWizard.xaml.cs">
+      <DependentUpon>ExportFileWizard.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\PeriodDetailView.xaml.cs">
       <DependentUpon>PeriodDetailView.xaml</DependentUpon>
@@ -108,10 +111,50 @@
     <Compile Include="View\ScheduleDetailView.xaml.cs">
       <DependentUpon>ScheduleDetailView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ucCardView.xaml.cs">
+      <DependentUpon>ucCardView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucDeviceView.xaml.cs">
+      <DependentUpon>ucDeviceView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucDoorView.xaml.cs">
+      <DependentUpon>ucDoorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucHolderView.xaml.cs">
+      <DependentUpon>ucHolderView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucPeriodView.xaml.cs">
+      <DependentUpon>ucPeriodView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucRightView.xaml.cs">
+      <DependentUpon>ucRightView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ucScheduleView.xaml.cs">
+      <DependentUpon>ucScheduleView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\UserRightView.xaml.cs">
       <DependentUpon>UserRightView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\wdCardDetail.xaml.cs">
+      <DependentUpon>wdCardDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\wdCardHolderDetail.xaml.cs">
+      <DependentUpon>wdCardHolderDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\wdDeviceDetail.xaml.cs">
+      <DependentUpon>wdDeviceDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\wdDoorDetail.xaml.cs">
+      <DependentUpon>wdDoorDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
     <Page Include="LaunchWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LFStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -127,7 +170,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\CardDetailView.xaml">
+    <Page Include="View\ChangeCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,7 +190,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\HolderDetailView.xaml">
+    <Page Include="View\ExportFileWizard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,7 +206,55 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\ucCardView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucDeviceView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucDoorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucHolderView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucPeriodView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucRightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ucScheduleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\UserRightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\wdCardDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\wdCardHolderDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\wdDeviceDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\wdDoorDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Window1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -345,6 +436,82 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\export_file_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\right_arrow_gray_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\folder_gray_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\pin_gray_26px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\close_red_30px.png" />
+    <Resource Include="Icon\maximize_green_30px.png" />
+    <Resource Include="Icon\minimize_yellow_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\access_card.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\new_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\save_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\delete_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\refresh_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\search_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\card_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\info_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\export_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\s100.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\s100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\calendar_color_50px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\calendar_color_128px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\door1.jpg" />
+    <Resource Include="Image\door10.jpg" />
+    <Resource Include="Image\door2.jpg" />
+    <Resource Include="Image\door3.jpg" />
+    <Resource Include="Image\door4.jpg" />
+    <Resource Include="Image\door5.jpg" />
+    <Resource Include="Image\door6.jpg" />
+    <Resource Include="Image\door7.jpg" />
+    <Resource Include="Image\door8.jpg" />
+    <Resource Include="Image\door9.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\door_color_64px.png" />
+    <Resource Include="Icon\group_person_64px.png" />
+    <Resource Include="Icon\schedule_color_64px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\employee.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\schedule.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

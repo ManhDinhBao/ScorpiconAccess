@@ -39,12 +39,12 @@ namespace ScorpiconAccess.View
             if (mode == CHANGE_MODE)
             {
                 if (Repository.selectedRight != null)
-                    Repository.selectedRight.Name = tbRightId.Text;
+                    Repository.selectedRight.Id = tbRightId.Text;
             }
             else
             {
                 if (Repository.newRight != null)
-                    Repository.newRight.Name = tbRightId.Text;
+                    Repository.newRight.Id = tbRightId.Text;
             }
         }
 
@@ -104,13 +104,13 @@ namespace ScorpiconAccess.View
         {
             if (mode == CHANGE_MODE)
             {
-                if (Repository.selectedSchedule != null)
-                    Repository.selectedSchedule.Description = StringFromRichTextBox(rtbDescription).Trim();
+                if (Repository.selectedRight != null)
+                    Repository.selectedRight.Description = StringFromRichTextBox(rtbDescription).Trim();
             }
             else
             {
-                if (Repository.newSchedule != null)
-                    Repository.newSchedule.Description = StringFromRichTextBox(rtbDescription).Trim();
+                if (Repository.newRight != null)
+                    Repository.newRight.Description = StringFromRichTextBox(rtbDescription).Trim();
             }
         }
         public string StringFromRichTextBox(RichTextBox rtb)

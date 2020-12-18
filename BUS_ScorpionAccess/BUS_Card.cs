@@ -36,6 +36,7 @@ namespace BUS_ScorpionAccess
                     card.CardNumber = row["CardNumber"] == DBNull.Value ? null : row["CardNumber"].ToString();
                     card.CardSerial = row["CardSerial"] == DBNull.Value ? null :  row["CardSerial"].ToString();
                     card.Holder     = row["Holder"] == DBNull.Value ? null : row["Holder"].ToString();
+                    card.Pin        = row["PinCode"] == DBNull.Value ? 0 : int.Parse(row["PinCode"].ToString());
                     card.Type       = row["Type"] == DBNull.Value ? EType.CardType.BLOCK : (CardType)Convert.ToInt16(row["Type"].ToString());
                     card.STime      = row["STime"] == DBNull.Value ? new DateTime(1970, 01, 01) : Convert.ToDateTime(row["STime"].ToString());
                     card.ETime      = row["ETime"] == DBNull.Value ? new DateTime(1970, 01, 01) :  Convert.ToDateTime(row["ETime"].ToString());
@@ -47,18 +48,18 @@ namespace BUS_ScorpionAccess
             }
             catch
             {
-                return null;
+                return null;    
             }
         }
 
         /// <summary>
-        /// Get card by key (serial)
+        /// Get card by key (number)
         /// </summary>
         /// <param name="number"></param>
         /// <returns>Return card if founed or null if error</returns>
-        public DTO_Card GetCardByKey(string serial)
+        public DTO_Card GetCardByKey(string number)
         {
-            DataTable dt = dal.GetCardBySerial(serial);
+            DataTable dt = dal.GetCardByNumber(number);
 
             if (dt.Rows.Count < 0)
             {
@@ -73,6 +74,7 @@ namespace BUS_ScorpionAccess
                 card.CardNumber = row["CardNumber"] == DBNull.Value ? null : row["CardNumber"].ToString();
                 card.CardSerial = row["CardSerial"] == DBNull.Value ? null :  row["CardSerial"].ToString();
                 card.Holder     = row["Holder"] == DBNull.Value ? null : row["Holder"].ToString();
+                card.Pin        = row["PinCode"] == DBNull.Value ? 0 : int.Parse(row["PinCode"].ToString());
                 card.Type       = row["Type"] == DBNull.Value ? EType.CardType.BLOCK : (CardType)Convert.ToInt16(row["Type"].ToString());
                 card.STime      = row["STime"] == DBNull.Value ? new DateTime(1970, 01, 01) : Convert.ToDateTime(row["STime"].ToString());
                 card.ETime      = row["ETime"] == DBNull.Value ? new DateTime(1970, 01, 01) : Convert.ToDateTime(row["ETime"].ToString());
@@ -88,7 +90,7 @@ namespace BUS_ScorpionAccess
         /// <summary>
         /// Search card
         /// </summary>
-        /// <param name="searchValue">Card serial or Card holder id</param>
+        /// <param name="searchValue">Card number or Card holder id</param>
         /// <returns>Return list card if founded or error if null</returns>
         public List<DTO_Card> SearchCard(string searchValue)
         {
@@ -108,6 +110,7 @@ namespace BUS_ScorpionAccess
                     card.CardNumber = row["CardNumber"] == DBNull.Value ? null : row["CardNumber"].ToString();
                     card.CardSerial = row["CardSerial"] == DBNull.Value ? null : row["CardSerial"].ToString();
                     card.Holder     = row["Holder"] == DBNull.Value ? null : row["Holder"].ToString();
+                    card.Pin        = row["PinCode"] == DBNull.Value ? 0 : int.Parse(row["PinCode"].ToString());
                     card.Type       = row["Type"] == DBNull.Value ? EType.CardType.BLOCK : (CardType)Convert.ToInt16(row["Type"].ToString());
                     card.STime      = row["STime"] == DBNull.Value ? new DateTime(1970, 01, 01) : Convert.ToDateTime(row["STime"].ToString());
                     card.ETime      = row["ETime"] == DBNull.Value ? new DateTime(1970, 01, 01) : Convert.ToDateTime(row["ETime"].ToString());
@@ -132,12 +135,12 @@ namespace BUS_ScorpionAccess
         {
             if (card == null)
             {
-                return new SQLResult(false, "Card null");
+                return new SQLResult(false, "Card can't be null");
             }
 
-            if (!card.Validation())
+            if (!card.Validation().Result)
             {
-                return new SQLResult(false, "Validation fail");
+                return card.Validation();
             }
 
             return dal.AddNewCard(card);
@@ -152,12 +155,12 @@ namespace BUS_ScorpionAccess
         {
             if (card == null)
             {
-                return new SQLResult(false, "Card null");
+                return new SQLResult(false, "Card can't be null");
             }
 
-            if (!card.Validation())
+            if (!card.Validation().Result)
             {
-                return new SQLResult(false, "Validation fail");
+                return card.Validation();
             }
 
             return dal.UpdateCard(card);
@@ -166,21 +169,21 @@ namespace BUS_ScorpionAccess
         /// <summary>
         /// Delete card
         /// </summary>
-        /// <param name="cardSerial">Serial of card want to delete</param>
+        /// <param name="cardNumber">Number of card want to delete</param>
         /// <returns></returns>
-        public SQLResult DeleteCard(string cardSerial)
+        public SQLResult DeleteCard(string cardNumber)
         {
-            if (cardSerial == null)
+            if (cardNumber == null)
             {
-                return new SQLResult(false, "Card serial can't null");
+                return new SQLResult(false, "Card number can't null");
             }
 
-            if (cardSerial == "")
+            if (cardNumber == "")
             {
-                return new SQLResult(false, "Card serial can't empty");
+                return new SQLResult(false, "Card number can't empty");
             }
 
-            return dal.DeleteCard(cardSerial);
+            return dal.DeleteCard(cardNumber);
         }
     }
 }

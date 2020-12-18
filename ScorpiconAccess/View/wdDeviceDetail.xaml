@@ -1,0 +1,192 @@
+﻿<Window x:Class="ScorpiconAccess.View.wdDeviceDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScorpiconAccess.View"
+        mc:Ignorable="d"
+        Title="wdDeviceDetail" Height="489.165" Width="792.586" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border BorderThickness="1" BorderBrush="#444444" CornerRadius="10">
+        <DockPanel>
+            <Border DockPanel.Dock="Top" CornerRadius="10,10,0,0" Background="#333333">
+                <StackPanel Orientation="Horizontal" x:Name="stackMainTitle" MouseDown="stackMainTitle_MouseDown"  Height="30"  Background="Transparent">
+                    <Button Click="btClose_Click" x:Name="btClose" Style="{DynamicResource headerButtonStyle}" Margin="10,0,0,0" Background="Transparent" VerticalAlignment="Center">
+                        <Image Source="..\Icon\close_red_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    </Button>
+                    <Button IsEnabled="False" x:Name="btMinnimize" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                        <Image Source="..\Icon\minimize_yellow_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    </Button>
+                    <Button IsEnabled="False" x:Name="btMaximize" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                        <Image Source="..\Icon\maximize_green_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Border CornerRadius="0,0,10,10" Background="White" BorderThickness="0" BorderBrush="#666666">
+                <Grid Background="Transparent">
+                    <Image Source="..\Image\s100.png" Stretch="UniformToFill" HorizontalAlignment="Left" Height="53" Margin="29,8,0,0" VerticalAlignment="Top" Width="53"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="87,27,0,0" TextWrapping="Wrap" Text="Scorpion device information" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" FontFamily="Helvetica Neue"/>
+                    <TextBlock HorizontalAlignment="Left" Margin="87,42,0,0" TextWrapping="Wrap" Text="You can change information of Scorpion device bellow and click Save to Finish" VerticalAlignment="Top" FontSize="10" FontWeight="Regular" FontFamily="Helvetica Neue"/>
+                    <Border Margin="30,61,30,41" CornerRadius="5" BorderBrush="#666666" BorderThickness="1">
+                        <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left"  VerticalAlignment="Stretch" Width="730" Margin="0,0,-1,0">
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                <!--ID-->
+                                <Grid Margin="30,20,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="ID" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" IsReadOnly="True" x:Name="tbDeviceId" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="White" Width="150"/>
+                                </Grid>
+
+                                <!--Name-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Name" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbDeviceName" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black" Width="150"/>
+                                </Grid>
+
+                                <!--MAC-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="MAC" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbDeviceMAC" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black" Width="150"/>
+                                </Grid>
+
+                                <!--IP-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\ip_address_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Address" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbDeviceIP" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black" Width="150"/>
+                                </Grid>
+
+                                <!--Subnet-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Subnet" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbDeviceSubnet" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black" Width="150"/>
+                                </Grid>
+
+                                <!--Gateway-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Gateway" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbDeviceGateway" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black" Width="150"/>
+                                </Grid>
+
+                                <!--Host-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\router_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Host" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbDeviceHost" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black" Width="150"/>
+                                </Grid>
+
+                                <Grid Margin="30,10,0,0" Height="100">
+                                    <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\note_gray_24px.png" Width="20"/>
+                                    <TextBlock HorizontalAlignment="Left" Text="Note" Margin="25,3,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12" Height="14" VerticalAlignment="Top"/>
+                                    <Border CornerRadius="3" BorderThickness="1" BorderBrush="#666666" Margin="0,20,0,11">
+                                        <RichTextBox x:Name="rtbDescription" Margin="5,5,5,5" BorderThickness="0" FontSize="11" FontFamily="Helvetica Neue" Foreground="Black">
+                                            <RichTextBox.Resources>
+                                                <Style TargetType="{x:Type Paragraph}">
+                                                    <Setter Property="Margin" Value="0"/>
+                                                </Style>
+                                            </RichTextBox.Resources>
+                                        </RichTextBox>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Width="450">
+
+                                <StackPanel Orientation="Horizontal" Margin="30,20,0,0">
+                                    <RadioButton x:Name="rbNormal" Content="Normal Mode" FontFamily="Helvetica Neue" FontWeight="SemiBold"/>
+                                    <RadioButton x:Name="rbFAMode" Content="Fire Alarm Mode" FontFamily="Helvetica Neue" FontWeight="SemiBold" Margin="10,0,0,0"/>
+                                </StackPanel>
+
+
+                                <!--HW Number-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="HW Number" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <ComboBox Style="{StaticResource comboBoxStyle}" x:Name="cbHWNumber" FontFamily="Helvetica Neue" FontSize="11" Width="100" HorizontalAlignment="Right" Height="22">
+
+                                    </ComboBox>
+                                </Grid>
+
+                                <!--Mode-->
+                                <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left">
+                                    <Image HorizontalAlignment="Left" Source="..\Icon\properties_gray_30px.png" Width="18" Height="18"/>
+                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Mode" Margin="25,0,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                    <ComboBox Style="{StaticResource comboBoxStyle}" x:Name="cbMode" FontFamily="Helvetica Neue" FontSize="11" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0">
+
+                                    </ComboBox>
+                                </Grid>
+
+                                <StackPanel Orientation="Horizontal" Width="450">
+                                    <!--Readers-->
+                                    <Grid Margin="30,10,0,0" Height="180" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\input_gray_30px.png" Width="20"/>
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Readers" Margin="25,3,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                        <Border CornerRadius="3" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="#666666" HorizontalAlignment="Stretch" Margin="0,20,0,0">
+                                            <ListBox BorderThickness="0" x:Name="lbListReader" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="5,0,0,0" FontFamily="Consolas" FontSize="12"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Border>
+                                    </Grid>
+                                    <!--Inputs-->
+                                    <Grid Margin="20,10,0,0" Height="180" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\input_gray_30px.png" Width="20"/>
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Inputs" Margin="25,3,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                        <Border CornerRadius="3" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="#666666" HorizontalAlignment="Stretch" Margin="0,20,0,0">
+                                            <ListBox BorderThickness="0" x:Name="lbListInput" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="5,0,0,0" FontFamily="Consolas" FontSize="12"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Border>
+                                    </Grid>
+
+                                    <!--Outputs-->
+                                    <Grid Margin="20,10,0,0" Height="180" Width="120" HorizontalAlignment="Left" VerticalAlignment="Top">
+                                        <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\input_gray_30px.png" Width="20"/>
+                                        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Outputs" Margin="25,3,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                        <Border CornerRadius="3" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="#666666" HorizontalAlignment="Stretch" Margin="0,20,0,0">
+                                            <ListBox BorderThickness="0" x:Name="lbListOutput" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                                <ListBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <CheckBox IsChecked="{Binding IsUse}" IsEnabled="False"/>
+                                                            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding Name}" Margin="5,0,0,0" FontFamily="Consolas" FontSize="12"/>
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ListBox.ItemTemplate>
+                                            </ListBox>
+                                        </Border>
+                                    </Grid>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                    <Button x:Name="btSave" Click="btSave_Click" Style="{StaticResource okButtonStyle}" HorizontalAlignment="Left" Margin="701,427,0,0" VerticalAlignment="Top" Width="60" Height="20">
+                        <TextBlock Text="Save" FontSize="10" FontWeight="Bold" FontFamily="Helvetica Neue" Foreground="White"/>
+                    </Button>
+                </Grid>
+            </Border>
+        </DockPanel>
+    </Border>
+</Window>

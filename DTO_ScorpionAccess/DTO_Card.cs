@@ -13,6 +13,7 @@ namespace DTO_ScorpionAccess
         public string CardSerial { get; set; }
         public string Holder { get; set; }
         public CardType Type { get; set; }
+        public int Pin { get; set; }
         public DateTime STime { get; set; }
         public DateTime ETime { get; set; }
 
@@ -20,34 +21,49 @@ namespace DTO_ScorpionAccess
         {
         }
 
-        public DTO_Card(string cardNumber, string cardSerial, string holder, CardType type, DateTime sTime, DateTime eTime)
+        public DTO_Card(string cardNumber, string cardSerial, string holder, CardType type, int pin, DateTime sTime, DateTime eTime)
         {
             CardNumber = cardNumber;
             CardSerial = cardSerial;
             Holder = holder;
             Type = type;
+            Pin = pin;
             STime = sTime;
             ETime = eTime;
         }
 
-        public bool Validation()
+        public SQLResult Validation()
         {
-            if (CardNumber == null || CardNumber == ""){
-                return false;
-            }
+            SQLResult result = new SQLResult(true, "");
 
+            if (CardSerial == null || CardSerial == ""){
+                result.Result = false;
+                result.Detail = "Card serial can't be null";
+                return result;
+            }
 
             if (DateTime.Compare(ETime, DateTime.Today) < 0)
             {
-                return false;
+                result.Result = false;
+                result.Detail = "The end date must not be less than the current date";
+                return result;
             }
 
             if (DateTime.Compare(ETime, STime) < 0) 
             {
-                return false;
+                result.Result = false;
+                result.Detail = "The end date must not be less than the start date";
+                return result;
             }
 
-            return true;
+            if (Pin>999999 || Pin<0)
+            {
+                result.Result = false;
+                result.Detail = "Pin must be from 1 to 6 character";
+                return result;
+            }
+
+            return result;
         }
     }
 

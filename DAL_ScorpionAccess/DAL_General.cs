@@ -51,5 +51,95 @@ namespace DAL_ScorpionAccess
 
             return returnId;
         }
+
+        public DataTable GetCardFileConfig(string listDoorString)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLGenConfigFile";
+                command.Parameters.AddWithValue("listDoor", listDoorString);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetDoorGroupFileConfig(string listRightString)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLGenDoorGroup";
+                command.Parameters.AddWithValue("listRight", listRightString);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetScheduleFileConfig(string listScheduleString)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLGenScheduleFile";
+                command.Parameters.AddWithValue("listSchedule", listScheduleString);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
     }
 }

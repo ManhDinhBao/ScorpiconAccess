@@ -50,11 +50,11 @@ namespace DAL_ScorpionAccess
         }
 
         /// <summary>
-        /// Get card by key (serial) from database
+        /// Get card by key (number) from database
         /// </summary>
-        /// <param name="serial"></param>
+        /// <param name="number"></param>
         /// <returns></returns>
-        public DataTable GetCardBySerial(string serial)
+        public DataTable GetCardByNumber(string number)
         {
             DataTable dt = new DataTable();
 
@@ -65,16 +65,18 @@ namespace DAL_ScorpionAccess
                 SqlCommand command = new SqlCommand();
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
-                command.CommandText = "spCard_Qry";
+                command.CommandText = "spLCardQry";
                 command.Parameters.AddWithValue("workType", "Q");
-                command.Parameters.AddWithValue("number", serial);
-                command.Parameters.AddWithValue("holder", DBNull.Value);
+                command.Parameters.AddWithValue("CardSerial", DBNull.Value);
+                command.Parameters.AddWithValue("CardNumber", number);
+                command.Parameters.AddWithValue("Holder", DBNull.Value);
+                command.Parameters.AddWithValue("Type", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
                 adapter.Fill(dt);
             }
-            catch
+            catch(Exception ex)
             {
 
             }
@@ -142,8 +144,9 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLCardSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("CardNumber", card.CardNumber);
+                command.Parameters.AddWithValue("CardNumber", "");
                 command.Parameters.AddWithValue("CardSerial", card.CardSerial);
+                command.Parameters.AddWithValue("Pin", card.Pin);
                 if (string.IsNullOrEmpty(card.Holder))
                 {
                     command.Parameters.AddWithValue("Holder", DBNull.Value);
@@ -167,6 +170,7 @@ namespace DAL_ScorpionAccess
                 }
  
                 result.Detail = dt.Rows[0]["Detail"].ToString();
+                result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
             }
             catch (Exception ex)
             {
@@ -201,6 +205,7 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("WorkType", "U");
                 command.Parameters.AddWithValue("CardNumber", card.CardNumber);
                 command.Parameters.AddWithValue("CardSerial", card.CardSerial);
+                command.Parameters.AddWithValue("Pin", card.Pin);
                 if (string.IsNullOrEmpty(card.Holder))
                 {
                     command.Parameters.AddWithValue("Holder", DBNull.Value);
@@ -239,11 +244,11 @@ namespace DAL_ScorpionAccess
         }
 
         /// <summary>
-        /// Delete card by serial
+        /// Delete card by number
         /// </summary>
-        /// <param name="serial"></param>
+        /// <param name="number"></param>
         /// <returns></returns>
-        public SQLResult DeleteCard(string serial)
+        public SQLResult DeleteCard(string number)
         {
             DataTable dt = new DataTable();
             SQLResult result = new SQLResult(false, "");
@@ -257,8 +262,9 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLCardSave";
                 command.Parameters.AddWithValue("WorkType", "D");
-                command.Parameters.AddWithValue("CardNumber", DBNull.Value);
-                command.Parameters.AddWithValue("CardSerial", serial);
+                command.Parameters.AddWithValue("CardNumber", number);
+                command.Parameters.AddWithValue("CardSerial", DBNull.Value);
+                command.Parameters.AddWithValue("Pin", DBNull.Value);
                 command.Parameters.AddWithValue("Holder", DBNull.Value);
                 command.Parameters.AddWithValue("Type",  DBNull.Value);
                 command.Parameters.AddWithValue("STime", DBNull.Value);

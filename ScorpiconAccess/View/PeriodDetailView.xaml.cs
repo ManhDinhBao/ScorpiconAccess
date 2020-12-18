@@ -40,12 +40,12 @@ namespace ScorpiconAccess.View
 
         private void btSave_Click(object sender, RoutedEventArgs e)
         {
-            SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", weekDay, scheduleId, tbStartTime.Text, tbEndTime.Text));
-            if (!result.Result)
-            {
-                MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+            //SQLResult result = bus_Period.AddNewPeriod(new DTO_Period("", weekDay, scheduleId, tbStartTime.Text, tbEndTime.Text));
+            //if (!result.Result)
+            //{
+            //    MessageBox.Show(result.Detail, "", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    return;
+            //}
 
             Repository.selectedSchedule.Periods = bus_Period.GetAllPeriodOfSchedule(Repository.selectedSchedule.Id);
             this.DialogResult = true;

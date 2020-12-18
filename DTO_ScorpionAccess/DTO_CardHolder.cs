@@ -38,21 +38,6 @@ namespace DTO_ScorpionAccess
         {
             SQLResult result = new SQLResult(false, "Validate fail");
 
-            //Id validate
-            if (Id == null)
-            {
-                result.Detail = "Card holder id can't null";
-                return result;
-            }
-            else
-            {
-                if (Id.Count() != 10)
-                {
-                    result.Detail = "Id length must be 10 characters";
-                    return result;
-                }
-            }
-
             //Name validate
             if (Name == null)
             {

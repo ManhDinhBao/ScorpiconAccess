@@ -1,0 +1,107 @@
+﻿<Window x:Class="ScorpiconAccess.View.ExportFileWizard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScorpiconAccess.View"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="ExportFileWizard" ShowInTaskbar="True" Height="450" Width="600" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+    <Window.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Border BorderThickness="1" BorderBrush="#444444" CornerRadius="10">
+        <DockPanel>
+            <Border DockPanel.Dock="Top" CornerRadius="10,10,0,0" Background="#333333">
+                <StackPanel Orientation="Horizontal" x:Name="stackMainTitle" MouseDown="stackMainTitle_MouseDown"  Height="30"  Background="Transparent">
+                    <Button x:Name="btClose" Click="btClose_Click" Style="{DynamicResource headerButtonStyle}" Margin="10,0,0,0" Background="Transparent" VerticalAlignment="Center">
+                        <Image Source="..\Icon\close_red_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    </Button>
+                    <Button x:Name="btMinnimize" Click="btMinnimize_Click" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                        <Image Source="..\Icon\minimize_yellow_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    </Button>
+                    <Button x:Name="btMaximize" Click="btMaximize_Click" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                        <Image Source="..\Icon\maximize_green_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Border CornerRadius="0,0,10,10" Background="#444444">
+                <xctk:Wizard BorderThickness="0" FinishButtonClosesWindow="True" HelpButtonVisibility="Hidden" Finish="Wizard_Finish">
+                    <xctk:WizardPage x:Name="IntroPage" 
+                                   Title="Welcome to export configuration file Wizard"
+                                   Description="This Wizard will generate configuration files." >
+                        <xctk:WizardPage.ExteriorPanelBackground>
+                            <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                <GradientStop Color="#FFF0F0F0" Offset="0"/>
+                                <GradientStop Color="#FF666666" Offset="1"/>
+                            </LinearGradientBrush>
+                        </xctk:WizardPage.ExteriorPanelBackground>
+
+                    </xctk:WizardPage>
+                    <xctk:WizardPage x:Name="Page1" PageType="Interior"
+                                   Title="File type"
+                                   Description="Please select the file type you want to create. Click Next to continue"
+                                   NextPage="{Binding ElementName=Page2}"
+                                   PreviousPage="{Binding ElementName=IntroPage}" Unloaded="Page1_Unloaded" Loaded="Page1_Loaded">
+                        <StackPanel>
+                            <RadioButton x:Name="rbCardFile" IsChecked="True">Card</RadioButton>
+                            <RadioButton x:Name="rbGDoorFile" Margin="0,2,0,0">Door group</RadioButton>
+                            <RadioButton x:Name="rbScheduleFile" Margin="0,2,0,0">Schedule</RadioButton>
+                        </StackPanel>
+                    </xctk:WizardPage>
+                    <xctk:WizardPage x:Name="Page2" PageType="Interior"
+                                   Title="Content"
+                                   Description="Select content to create your file and click Next to continue"
+                                   NextPage="{Binding ElementName=Page3}"
+                                   PreviousPage="{Binding ElementName=Page1}" Unloaded="Page2_Unloaded" Loaded="Page2_Loaded">
+
+                        <ListBox x:Name="lbContents" FontFamily="Helvetica Neue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                            <ListBox.ContextMenu>
+                                <ContextMenu >
+                                    <MenuItem Header="Edit" x:Name="itemAddPerson" />
+                                </ContextMenu>
+                            </ListBox.ContextMenu>
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <ListBoxItem IsSelected="{Binding IsChecked}" >
+                                        <CheckBox IsChecked="{Binding IsChecked}" Content="{Binding Path=TextBinding}" />
+                                    </ListBoxItem>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </xctk:WizardPage>
+
+                    <xctk:WizardPage x:Name="Page3" PageType="Interior"
+                                   Title="Export folder"
+                                   Description="Select export folder and click Next to continue."
+                                   NextPage="{Binding ElementName=LastPage}"
+                                   PreviousPage="{Binding ElementName=Page2}" Unloaded="Page3_Unloaded" Loaded="Page3_Loaded">
+                        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
+                            <Button x:Name="btChangePath" DockPanel.Dock="Right" Margin="0,0,10,0" Content="  Change...  " Height="20" FontFamily="Helvetica Neue" FontSize="9" VerticalAlignment="Top" Click="btChangePath_Click">
+                            </Button>
+                            <Border Margin="0,0,3,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" BorderThickness="1" BorderBrush="Gray" Height="20" Background="White">
+                                <TextBox Background="White" x:Name="tbPath" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="9" FontFamily="Helvetica Neue" Foreground="Black"/>
+                            </Border>
+                        </DockPanel>
+                    </xctk:WizardPage>
+
+                    <xctk:WizardPage x:Name="LastPage" PageType="Interior"
+                                   Title="Finish"
+                                   Description="Please check config file below. Click finish to export file and finish"
+                                   CanFinish="True"
+                                   PreviousPage="{Binding ElementName=Page3}" Unloaded="LastPage_Unloaded" Loaded="LastPage_Loaded">
+                        <RichTextBox FontFamily="Consolas"  FontSize="10" x:Name="rtbFileDetail" Margin="5" IsReadOnly="True">
+
+                        </RichTextBox>
+                    </xctk:WizardPage>
+                </xctk:Wizard>
+            </Border>
+
+        </DockPanel>
+    </Border>
+</Window>
+    

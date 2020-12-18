@@ -201,6 +201,7 @@ namespace DAL_ScorpionAccess
                 }
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
+                result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
             }
             catch (Exception ex)
             {

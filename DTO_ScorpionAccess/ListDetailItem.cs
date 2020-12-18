@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace DTO_ScorpionAccess
 {
-    public class ListRightDetailItem
+    public class ListDetailItem
     {
         public string TextBinding { get; set; }
         public bool IsChecked { get; set; }
         public string Key { get; set; }
 
-        public ListRightDetailItem()
+        public ListDetailItem()
         {
         }
     }

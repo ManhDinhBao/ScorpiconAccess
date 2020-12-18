@@ -37,7 +37,7 @@ namespace DAL_ScorpionAccess
                 adapter.SelectCommand = command;
                 adapter.Fill(dt);
             }
-            catch
+            catch(Exception ex)
             {
 
             }
@@ -76,7 +76,7 @@ namespace DAL_ScorpionAccess
                 adapter.SelectCommand = command;
                 adapter.Fill(dt);
             }
-            catch
+            catch(Exception ex)
             {
 
             }
@@ -146,7 +146,7 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLCardHolderSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("Id", cardHolder.Id);
+                command.Parameters.AddWithValue("Id", "");
                 command.Parameters.AddWithValue("Name", cardHolder.Name);
                 command.Parameters.AddWithValue("Gender", (int)cardHolder.Gender);
                 command.Parameters.AddWithValue("DOB", cardHolder.DOB);
@@ -194,6 +194,7 @@ namespace DAL_ScorpionAccess
                 if (dt.Rows[0]["Result"].ToString() == "OK")
                 {
                     result.Result = true;
+                    result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
 
                 }
 

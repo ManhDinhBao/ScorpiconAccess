@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardConfig.cs" />
+    <Compile Include="DoorConfig.cs" />
     <Compile Include="DTO_Card.cs" />
     <Compile Include="DTO_CardHolder.cs" />
     <Compile Include="DTO_Contact.cs" />
@@ -57,9 +59,11 @@
     <Compile Include="DTO_UserRight.cs" />
     <Compile Include="EType.cs" />
     <Compile Include="FAMode.cs" />
-    <Compile Include="ListRightDetailItem.cs" />
+    <Compile Include="ListDetailItem.cs" />
+    <Compile Include="ListMenuItem.cs" />
     <Compile Include="ListViewItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduleConfig.cs" />
     <Compile Include="SQLResult.cs" />
     <Compile Include="UserLog.cs" />
   </ItemGroup>

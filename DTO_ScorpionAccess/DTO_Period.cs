@@ -11,14 +11,14 @@ namespace DTO_ScorpionAccess
         public string Id { get; set; }
         public EType.WeekDay WeekDay { get; set; }
         public string Schedule { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
 
         public DTO_Period()
         {
         }
 
-        public DTO_Period(string id, EType.WeekDay weekDay, string schedule, string startTime, string endTime)
+        public DTO_Period(string id, EType.WeekDay weekDay, string schedule, DateTime startTime, DateTime endTime)
         {
             Id = id;
             WeekDay = weekDay;

@@ -133,7 +133,7 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLRightSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("Id", right.Id);
+                command.Parameters.AddWithValue("Id", "");
                 command.Parameters.AddWithValue("Name", right.Name);
                 command.Parameters.AddWithValue("Description", right.Description);
 

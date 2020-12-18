@@ -76,7 +76,12 @@ namespace DTO_ScorpionAccess
             OUT = 2
         }
 
-
+        public enum GenConfigFileType
+        {
+            CARD = 1,
+            DOOR = 2,
+            SCHEDULE = 3
+        }
 
         public enum UserLogType
         {
@@ -87,15 +92,21 @@ namespace DTO_ScorpionAccess
             LOG_STATUS_WARNING = 5,
         }
 
+        public enum WindowMode
+        {
+            ADD_MODE = 1,
+            EDIT_MODE = 2
+        }
+
         public enum WeekDay
         {
-            MONDAY = 0,
-            TUESDAY = 1,
-            WEDNESDAY = 2,
-            THURSDAY = 3,
-            FRIDAY = 4,
-            SATURDAY = 5,
-            SUNDAY = 6
+            MONDAY = 1,
+            TUESDAY = 2,
+            WEDNESDAY = 3,
+            THURSDAY = 4,
+            FRIDAY = 5,
+            SATURDAY = 6,
+            SUNDAY = 0
         }
     }
 

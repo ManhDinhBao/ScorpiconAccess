@@ -5,14 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ScorpiconAccess"
         mc:Ignorable="d"
-        Title="LaunchWindow" Background="#16697a" Width="500" Height="150" WindowStyle="None" WindowStartupLocation="CenterScreen">
-    <DockPanel>
-        <Grid DockPanel.Dock="Bottom" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-            <ProgressBar x:Name="prBarLoadData"  HorizontalAlignment="Stretch" Height="20"/>
-            <TextBlock x:Name="tbLoadData" Text="0%" Foreground="Black" Background="Transparent" FontFamily="Consolas" FontWeight="SemiBold" FontSize="10" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-        </Grid>
-        <Grid>
-            <TextBlock Text=" LEFA SCORPION" Foreground="White" FontFamily="Consolas" FontWeight="SemiBold" FontSize="50" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-        </Grid>
-    </DockPanel>
+        Title="LaunchWindow" Background="Transparent" Width="400" Height="200" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+    <Border HorizontalAlignment="Stretch"  Background="#ECF0F1" VerticalAlignment="Stretch" CornerRadius="10">
+        <DockPanel Background="Transparent" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border DockPanel.Dock="Top" Height="30" Background="#333333" CornerRadius="10,10,0,0">
+                <Grid  Background="Transparent">
+                    <TextBlock Text="" FontSize="14" FontFamily="Helvetica Neue" Foreground="White" HorizontalAlignment="Stretch" VerticalAlignment="Center" TextAlignment="Center"/>
+                </Grid>
+            </Border>
+            <StackPanel Orientation="Vertical">
+                <TextBlock Text="LEFA SCORPION" Margin="0,40,0,0" TextAlignment="Center" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="16"/>
+                <Grid HorizontalAlignment="Stretch" Background="Transparent" VerticalAlignment="Center" Margin="30,10,30,0">
+                    <ProgressBar BorderThickness="1" BorderBrush="#333333" Background="Transparent" x:Name="prBarLoadData"  HorizontalAlignment="Stretch" Height="25">
+                        <ProgressBar.Style>
+                            <Style TargetType="{x:Type ProgressBar}">
+                                <Setter Property="Foreground" Value="#666666"/>
+                            </Style>
+                        </ProgressBar.Style>
+                    </ProgressBar>
+                    <TextBlock x:Name="tbLoadData"  Text="0%" Foreground="White" Background="Transparent" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="10" TextAlignment="Center" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                </Grid>
+            </StackPanel>
+        </DockPanel>
+    </Border>
+    
 </Window>

@@ -31,7 +31,7 @@ namespace ScorpiconAccess.View
 
         BUS_Right bUS_Right = new BUS_Right();
 
-        List<ListRightDetailItem> listRightDetails = new List<ListRightDetailItem>();
+        List<ListDetailItem> listRightDetails = new List<ListDetailItem>();
         public RightDetailView(int mode, string RightId)
         {
             InitializeComponent();
@@ -55,7 +55,7 @@ namespace ScorpiconAccess.View
                 right.Doors.Clear();
                 List<DTO_Door> newDoors = new List<DTO_Door>();
 
-                foreach (ListRightDetailItem item in listRightDetails)
+                foreach (ListDetailItem item in listRightDetails)
                 {
                     if (item.IsChecked)
                     {
@@ -90,7 +90,7 @@ namespace ScorpiconAccess.View
 
                 List<DTO_Schedule> newSchedules = new List<DTO_Schedule>();
 
-                foreach (ListRightDetailItem item in listRightDetails)
+                foreach (ListDetailItem item in listRightDetails)
                 {
                     if (item.IsChecked)
                     {
@@ -124,7 +124,7 @@ namespace ScorpiconAccess.View
                 right.CardHolders.Clear();
                 List<DTO_CardHolder> newPersons = new List<DTO_CardHolder>();
 
-                foreach (ListRightDetailItem item in listRightDetails)
+                foreach (ListDetailItem item in listRightDetails)
                 {
                     if (item.IsChecked)
                     {
@@ -157,7 +157,7 @@ namespace ScorpiconAccess.View
             {
                 foreach(DTO_Door door in Repository.lstAllDoor)
                 {
-                    ListRightDetailItem item = new ListRightDetailItem();
+                    ListDetailItem item = new ListDetailItem();
                     item.TextBinding = door.Name;
                     item.Key = door.Id;
 
@@ -184,7 +184,7 @@ namespace ScorpiconAccess.View
             {
                 foreach (DTO_Schedule schedule in Repository.lstAllSchedules)
                 {
-                    ListRightDetailItem item = new ListRightDetailItem();
+                    ListDetailItem item = new ListDetailItem();
                     item.TextBinding = schedule.Name;
                     item.Key = schedule.Id;
 
@@ -207,7 +207,7 @@ namespace ScorpiconAccess.View
             {
                 foreach (DTO_CardHolder hodler in Repository.lstAllCardHolders)
                 {
-                    ListRightDetailItem item = new ListRightDetailItem();
+                    ListDetailItem item = new ListDetailItem();
                     item.TextBinding = hodler.Name;
                     item.Key = hodler.Id;
 
