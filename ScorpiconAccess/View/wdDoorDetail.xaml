@@ -90,9 +90,9 @@
 
                             <Grid Margin="30,20,0,0" Height="248" Width="154" HorizontalAlignment="Left" VerticalAlignment="Top">
                                 <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\Icon\card_gray_50px.png" Width="20"/>
-                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="List Cards" Margin="25,3,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Sockets" Margin="25,3,0,0" FontFamily="Helvetica Neue" FontWeight="SemiBold" FontSize="12"/>
                                 <Border CornerRadius="3" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="#666666" HorizontalAlignment="Stretch" Margin="0,20,0,0">
-                                    <ListBox BorderThickness="0" x:Name="lbListCard" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                    <ListBox BorderThickness="0" x:Name="lbListSockets" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
                                         <ListBox.ContextMenu>
                                             <ContextMenu >
                                                 <MenuItem Header="Edit" x:Name="itemEditCard" />

@@ -147,6 +147,9 @@
     <Compile Include="View\wdDoorDetail.xaml.cs">
       <DependentUpon>wdDoorDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\wdScheduleDetail.xaml.cs">
+      <DependentUpon>wdScheduleDetail.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -251,6 +254,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\wdDoorDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\wdScheduleDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
