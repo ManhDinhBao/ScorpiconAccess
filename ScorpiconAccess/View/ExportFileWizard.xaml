@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ScorpiconAccess.View"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ExportFileWizard" ShowInTaskbar="True" Height="450" Width="600" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
+        Title="ExportFileWizard" ShowInTaskbar="True" Height="450" Width="600" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Icon="/ScorpiconAccess;component/Icon/app_icon.ico">
     <Window.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
@@ -21,19 +21,19 @@
                     <Button x:Name="btClose" Click="btClose_Click" Style="{DynamicResource headerButtonStyle}" Margin="10,0,0,0" Background="Transparent" VerticalAlignment="Center">
                         <Image Source="..\Icon\close_red_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
                     </Button>
-                    <Button x:Name="btMinnimize" Click="btMinnimize_Click" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
-                        <Image Source="..\Icon\minimize_yellow_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    <Button IsEnabled="False" x:Name="btMinnimize" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                        <Image Source="..\Icon\minimize_gray_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
                     </Button>
-                    <Button x:Name="btMaximize" Click="btMaximize_Click" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
-                        <Image Source="..\Icon\maximize_green_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                    <Button IsEnabled="False" x:Name="btMaximize" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                        <Image Source="..\Icon\maximize_gray_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
                     </Button>
                 </StackPanel>
             </Border>
             <Border CornerRadius="0,0,10,10" Background="#444444">
                 <xctk:Wizard BorderThickness="0" FinishButtonClosesWindow="True" HelpButtonVisibility="Hidden" Finish="Wizard_Finish">
                     <xctk:WizardPage x:Name="IntroPage" 
-                                   Title="Welcome to export configuration file Wizard"
-                                   Description="This Wizard will generate configuration files." >
+                                   Title="Chào mừng đến với trình tạo tệp cấu hình"
+                                   Description="Quá trình này sẽ tạo ra các tệp câu hình cho bộ điều khiển." >
                         <xctk:WizardPage.ExteriorPanelBackground>
                             <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                                 <GradientStop Color="#FFF0F0F0" Offset="0"/>
@@ -43,23 +43,25 @@
 
                     </xctk:WizardPage>
                     <xctk:WizardPage x:Name="Page1" PageType="Interior"
-                                   Title="File type"
-                                   Description="Please select the file type you want to create. Click Next to continue"
+                                   Title="Loại tệp"
+                                   Description="Hãy lựa chọn loại tệp mà bạn muốn tạo sau đó nhấn Next để tiếp tục."
                                    NextPage="{Binding ElementName=Page2}"
                                    PreviousPage="{Binding ElementName=IntroPage}" Unloaded="Page1_Unloaded" Loaded="Page1_Loaded">
                         <StackPanel>
-                            <RadioButton x:Name="rbCardFile" IsChecked="True">Card</RadioButton>
-                            <RadioButton x:Name="rbGDoorFile" Margin="0,2,0,0">Door group</RadioButton>
-                            <RadioButton x:Name="rbScheduleFile" Margin="0,2,0,0">Schedule</RadioButton>
+                            <RadioButton x:Name="rbCardFile" IsChecked="True">Cấu hình thẻ vào/ra</RadioButton>
+                            <RadioButton x:Name="rbGDoorFile" Margin="0,2,0,0">Cấu hình nhóm cửa</RadioButton>
+                            <RadioButton x:Name="rbScheduleFile" Margin="0,2,0,0">Cấu hình lịch</RadioButton>
+                            <RadioButton x:Name="rbAccessGrFile" Margin="0,2,0,0">Cấu hình nhóm truy cập</RadioButton>
+                            <RadioButton x:Name="rbAllFile" Margin="0,10,0,0">Tất cả</RadioButton>
                         </StackPanel>
                     </xctk:WizardPage>
                     <xctk:WizardPage x:Name="Page2" PageType="Interior"
-                                   Title="Content"
-                                   Description="Select content to create your file and click Next to continue"
-                                   NextPage="{Binding ElementName=Page3}"
+                                   Title="Thành phần"
+                                   Description="Lựa chọn các thành phần cần thiết. Sau đó nhấn Next để tới trang tạo tệp."
+                                   NextPage="{Binding ElementName=LastPage}"
                                    PreviousPage="{Binding ElementName=Page1}" Unloaded="Page2_Unloaded" Loaded="Page2_Loaded">
 
-                        <ListBox x:Name="lbContents" FontFamily="Helvetica Neue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
+                        <ListBox x:Name="lbContents" FontFamily="Arial" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5">
                             <ListBox.ContextMenu>
                                 <ContextMenu >
                                     <MenuItem Header="Edit" x:Name="itemAddPerson" />
@@ -75,25 +77,11 @@
                         </ListBox>
                     </xctk:WizardPage>
 
-                    <xctk:WizardPage x:Name="Page3" PageType="Interior"
-                                   Title="Export folder"
-                                   Description="Select export folder and click Next to continue."
-                                   NextPage="{Binding ElementName=LastPage}"
-                                   PreviousPage="{Binding ElementName=Page2}" Unloaded="Page3_Unloaded" Loaded="Page3_Loaded">
-                        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10">
-                            <Button x:Name="btChangePath" DockPanel.Dock="Right" Margin="0,0,10,0" Content="  Change...  " Height="20" FontFamily="Helvetica Neue" FontSize="9" VerticalAlignment="Top" Click="btChangePath_Click">
-                            </Button>
-                            <Border Margin="0,0,3,0" HorizontalAlignment="Stretch" VerticalAlignment="Top" BorderThickness="1" BorderBrush="Gray" Height="20" Background="White">
-                                <TextBox Background="White" x:Name="tbPath" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="9" FontFamily="Helvetica Neue" Foreground="Black"/>
-                            </Border>
-                        </DockPanel>
-                    </xctk:WizardPage>
-
                     <xctk:WizardPage x:Name="LastPage" PageType="Interior"
-                                   Title="Finish"
-                                   Description="Please check config file below. Click finish to export file and finish"
+                                   Title="Kết thúc"
+                                   Description="Hãy kiểm tra lại nội dung của tệp. Nhấn Finish để tạo tệp cấu hình"
                                    CanFinish="True"
-                                   PreviousPage="{Binding ElementName=Page3}" Unloaded="LastPage_Unloaded" Loaded="LastPage_Loaded">
+                                   PreviousPage="{Binding ElementName=Page2}" Unloaded="LastPage_Unloaded" Loaded="LastPage_Loaded">
                         <RichTextBox FontFamily="Consolas"  FontSize="10" x:Name="rtbFileDetail" Margin="5" IsReadOnly="True">
 
                         </RichTextBox>

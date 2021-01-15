@@ -7,7 +7,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:ScorpiconAccess"
         mc:Ignorable="d"
-        Title="MainWindow" Background="Transparent" Height="800" Width="1160" KeyDown="Window_KeyDown" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" MinWidth="1160" MinHeight="800" Loaded="Window_Loaded">
+        Title="MainWindow" Background="Transparent" Height="800" Width="1160" KeyDown="Window_KeyDown" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" MinWidth="1160" MinHeight="800" Loaded="Window_Loaded" Icon="/ScorpiconAccess;component/Icon/app_icon.ico">
     <Window.Resources>
         <ResourceDictionary >
             <ResourceDictionary.MergedDictionaries >
@@ -20,15 +20,24 @@
         <DockPanel Background="Transparent">
             <!--Left Panel-->
             <Border Opacity="1" DockPanel.Dock="Left" CornerRadius="10,0,0,10" Width="200" Background="#999999">
-                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <Grid.Effect>
                             <BlurEffect/>
                         </Grid.Effect>
                     </Grid>
-                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <StackPanel DockPanel.Dock="Bottom" Orientation="Horizontal" Background="Transparent" Height="50">
+                        <Border CornerRadius="5" Background="DodgerBlue" Width="30" Height="30" Margin="10,0,0,0">
+                            <TextBlock x:Name="tbLoginUserLetter" Text="{Binding LoginUserLetter,UpdateSourceTrigger=Explicit}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="14" FontWeight="Bold" FontFamily="Arial"/>
+                        </Border>
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock x:Name="tbLoginUserName" Text="{Binding LoginUserName,UpdateSourceTrigger=Explicit}" Width="150" TextTrimming="CharacterEllipsis"  TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="White" FontSize="12" FontWeight="SemiBold" FontFamily="Arial"/>
+                            <TextBlock x:Name="tbLoginUserDetail" Text="{Binding LoginUserDetail,UpdateSourceTrigger=Explicit}"  Width="150" TextTrimming="CharacterEllipsis" TextAlignment="Left" HorizontalAlignment="Stretch" VerticalAlignment="Center" Foreground="White" FontSize="10" FontWeight="Regular" FontFamily="Arial"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <!--Header button-->
-                        <StackPanel Orientation="Horizontal" x:Name="stackMainTitle" MouseDown="stackMainTitle_MouseDown"  Height="30"  Background="Transparent">
+                        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" x:Name="stackMainTitle" MouseDown="stackMainTitle_MouseDown"  Height="30"  Background="Transparent">
                             <Button x:Name="btClose" Style="{DynamicResource headerButtonStyle}" Click="btClose_Click" Margin="10,0,0,0" Background="Transparent" VerticalAlignment="Center">
                                 <Image Source="Icon\close_red_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
                             </Button>
@@ -39,40 +48,38 @@
                                 <Image Source="Icon\maximize_green_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
                             </Button>
                         </StackPanel>
-
-                        <!--Logo-->
-                        <Border CornerRadius="10" Background="DodgerBlue" Height="30" Margin="15,20,15,0">
-                            <TextBlock Text="SCORPION" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" FontFamily="Consolas" FontWeight="SemiBold"/>
-
-                        </Border>
-                        <Grid Height="670" HorizontalAlignment="Stretch" VerticalAlignment="Top">
-                            <ListBox x:Name="lbFunctions" ItemContainerStyle="{DynamicResource listBoxItemType}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" Margin="5,10,5,0" BorderThickness="0" SelectionChanged="lbFunctions_SelectionChanged">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border CornerRadius="5" BorderThickness="1" BorderBrush="#999999">
-                                            <StackPanel Orientation="Horizontal" Margin="5" Background="Transparent">
-                                                <Image Source="{Binding ImageSource}" Width="20" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
-                                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TextBinding}" Margin="5,0,0,0" FontFamily="Helvetica Neue" Foreground="#333333" FontSize="11"/>
-                                            </StackPanel>
-                                        </Border>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                        </Grid>
-
-                        <StackPanel Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Height="50">
-
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
+                        <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <!--Logo-->
+                            <Border DockPanel.Dock="Top" Height="80" CornerRadius="5" Width="130" Margin="0,15,0,15">
+                                <Border.Background>
+                                    <ImageBrush ImageSource="Image\logo_ibs1.png"/>
+                                </Border.Background>
+                            </Border>
+                            <Grid Height="640" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <ListBox x:Name="lbFunctions" ItemContainerStyle="{DynamicResource listBoxItemType}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ScrollViewer.VerticalScrollBarVisibility="Auto" Background="Transparent" Margin="5,10,5,0" BorderThickness="0" SelectionChanged="lbFunctions_SelectionChanged">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="5" BorderThickness="1" BorderBrush="#999999">
+                                                <StackPanel Orientation="Horizontal" Margin="5" Background="Transparent">
+                                                    <Image Source="{Binding ImageSource}" Width="20" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                                                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding TextBinding}" Margin="5,0,0,0" FontFamily="Arial" FontWeight="SemiBold" Foreground="#333333" FontSize="12"/>
+                                                </StackPanel>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </Grid>
+                        </DockPanel>
+                    </DockPanel>
+                </DockPanel>
             </Border>
             <!--Main Panel-->
             <DockPanel Background="Transparent" >
                 <Border CornerRadius="0,10,10,0" Background="White">
                     <DockPanel>
-                        <Border DockPanel.Dock="Top" CornerRadius="0,10,0,0" Height="80" Background="#444444" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                        <Border DockPanel.Dock="Top" MouseDown="Border_MouseDown" CornerRadius="0,10,0,0" Height="80" Background="#444444" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock x:Name="tbFunctionName" Text="Cards" Foreground="LightGray" FontSize="13" FontFamily="Helvetica Neue" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                                <TextBlock x:Name="tbFunctionName" Text="Cards" Foreground="LightGray" FontSize="13" FontFamily="Arial" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,10,0,0"/>
                                 <StackPanel Orientation="Horizontal" Margin="20,15,0,0">
                                     <Border BorderBrush="Gray" Background="#888888" BorderThickness="0" CornerRadius="5" Width="90" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Left" >
                                         <Border.Effect>
@@ -82,11 +89,12 @@
                                             <Button x:Name="btNew" Click="btNew_Click" ToolTip="New" Style="{StaticResource menuButton}" Height="30" Width="30" Margin="0,0,1,0">
                                                 <Image Source="Icon\new_white_30px.png" Height="18" Width="18"/>
                                             </Button>
-                                            <Button x:Name="btDelete" Click="btDelete_Click" ToolTip="Delete" Style="{StaticResource menuButton}" Height="30" Width="30" Background="Transparent" BorderThickness="0,0,1,0" BorderBrush="#666666">
-                                                <Image Source="Icon\delete_white_30px.png" Height="18" Width="18"/>
-                                            </Button>
+
                                             <Button x:Name="btRefresh" Click="btRefresh_Click" ToolTip="Refresh" Style="{StaticResource menuButton}" Height="30" Width="29" Background="Transparent" BorderThickness="0,0,0,0" BorderBrush="#666666">
                                                 <Image Source="Icon\refresh_white_30px.png" Height="18" Width="18"/>
+                                            </Button>
+                                            <Button x:Name="btInfo" Click="btInfo_Click" ToolTip="About" Style="{StaticResource menuButton}" Height="30" Width="29" Background="Transparent" BorderThickness="0,0,0,0" BorderBrush="#666666">
+                                                <Image Source="Icon\info_white_30px.png" Height="18" Width="18"/>
                                             </Button>
                                         </StackPanel>
                                     </Border>
@@ -99,14 +107,14 @@
                                             <Image Source="Icon\export_white_30px.png" Height="18" Width="18"/>
                                         </Button>
                                     </Border>
-
-                        <Border BorderBrush="Gray" Background="#888888" BorderThickness="0" CornerRadius="5" Width="320" Height="30" Margin="100,0,0,0">
+                                
+                                    <Border Visibility="Visible" BorderBrush="Gray" Background="#888888" BorderThickness="0" CornerRadius="5" Width="320" Height="30" Margin="100,0,0,0">
                                         <Border.Effect>
                                             <DropShadowEffect BlurRadius="3" Color="#666666" RenderingBias="Quality" ShadowDepth="0.1"/>
                                         </Border.Effect>
                                         <StackPanel Orientation="Horizontal">
                                             <Image Source="Icon\search_white_30px.png" Height="15" Width="15" Margin="10,0,0,0" VerticalAlignment="Center"/>
-                                            <TextBox TextWrapping="Wrap" BorderThickness="0" Text="Search" Foreground="White" Background="Transparent" FontFamily="Helvetica Neue" FontSize="12" FontWeight="Regular" VerticalAlignment="Center" Width="285" MaxLines="1" Margin="5,0,0,0"/>
+                                            <TextBox x:Name="tbSearch" KeyDown="tbSearch_KeyDown"  TextWrapping="Wrap" BorderThickness="0" Text="" Foreground="White" Background="Transparent" FontFamily="Arial" FontSize="12" FontWeight="Regular" VerticalAlignment="Center" Width="285" MaxLines="1" Margin="5,0,0,0"/>
 
                                         </StackPanel>
                                     </Border>

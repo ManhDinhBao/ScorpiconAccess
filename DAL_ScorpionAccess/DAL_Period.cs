@@ -30,6 +30,39 @@ namespace DAL_ScorpionAccess
                 command.CommandText = "spLPeriodQry";
                 command.Parameters.AddWithValue("WorkType", "Q");
                 command.Parameters.AddWithValue("Schedule", scheduleId);
+                command.Parameters.AddWithValue("Id", DBNull.Value);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetPeriodById(string periodId)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLPeriodQry";
+                command.Parameters.AddWithValue("WorkType", "P");
+                command.Parameters.AddWithValue("Schedule", DBNull.Value);
+                command.Parameters.AddWithValue("Id", periodId);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -66,7 +99,7 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLPeriodSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("@Id", period.Id);
+                command.Parameters.AddWithValue("@Id", "");
                 command.Parameters.AddWithValue("@DayInWeek", period.WeekDay);
                 command.Parameters.AddWithValue("@Schedule", period.Schedule);
                 command.Parameters.AddWithValue("@StartTime", period.StartTime);
@@ -83,6 +116,7 @@ namespace DAL_ScorpionAccess
                 }
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
+                result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
             }
             catch (Exception ex)
             {

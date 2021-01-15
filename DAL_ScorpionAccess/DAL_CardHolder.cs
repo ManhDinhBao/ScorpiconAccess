@@ -32,6 +32,9 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("Name", DBNull.Value);
                 command.Parameters.AddWithValue("PhoneNumber", DBNull.Value);
                 command.Parameters.AddWithValue("Email", DBNull.Value);
+                command.Parameters.AddWithValue("UserName", DBNull.Value);
+                command.Parameters.AddWithValue("Password", DBNull.Value);
+                command.Parameters.AddWithValue("Department", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -66,11 +69,14 @@ namespace DAL_ScorpionAccess
                 command.Connection = _conn;
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLCardHolderQry";
-                command.Parameters.AddWithValue("WorkType", "Q");
+                command.Parameters.AddWithValue("WorkType", "I");
                 command.Parameters.AddWithValue("Id", Id);
                 command.Parameters.AddWithValue("Name", DBNull.Value);
                 command.Parameters.AddWithValue("PhoneNumber", DBNull.Value);
                 command.Parameters.AddWithValue("Email", DBNull.Value);
+                command.Parameters.AddWithValue("UserName", DBNull.Value);
+                command.Parameters.AddWithValue("Password", DBNull.Value);
+                command.Parameters.AddWithValue("Department", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -79,6 +85,80 @@ namespace DAL_ScorpionAccess
             catch(Exception ex)
             {
 
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetCardHolderByDept(string deptId)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLCardHolderQry";
+                command.Parameters.AddWithValue("WorkType", "Q");
+                command.Parameters.AddWithValue("Id", DBNull.Value);
+                command.Parameters.AddWithValue("Name", DBNull.Value);
+                command.Parameters.AddWithValue("PhoneNumber", DBNull.Value);
+                command.Parameters.AddWithValue("Email", DBNull.Value);
+                command.Parameters.AddWithValue("UserName", DBNull.Value);
+                command.Parameters.AddWithValue("Password", DBNull.Value);
+                command.Parameters.AddWithValue("Department", deptId);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetCardHolderByAccount(string account, string password)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLCardHolderQry";
+                command.Parameters.AddWithValue("WorkType", "L");
+                command.Parameters.AddWithValue("Id", DBNull.Value);
+                command.Parameters.AddWithValue("Name", DBNull.Value);
+                command.Parameters.AddWithValue("PhoneNumber", DBNull.Value);
+                command.Parameters.AddWithValue("Email", DBNull.Value);
+                command.Parameters.AddWithValue("UserName", account);
+                command.Parameters.AddWithValue("Password", password);
+                command.Parameters.AddWithValue("Department", DBNull.Value);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch (Exception ex)
+            {
+                return null;
             }
             finally
             {
@@ -110,6 +190,9 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("Name", value);
                 command.Parameters.AddWithValue("PhoneNumber", value);
                 command.Parameters.AddWithValue("Email", value);
+                command.Parameters.AddWithValue("UserName", DBNull.Value);
+                command.Parameters.AddWithValue("Password", DBNull.Value);
+                command.Parameters.AddWithValue("Department", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
@@ -185,6 +268,33 @@ namespace DAL_ScorpionAccess
                 else
                 {
                     command.Parameters.AddWithValue("Description", cardHolder.Description);
+                }
+
+                if (string.IsNullOrEmpty(cardHolder.Account))
+                {
+                    command.Parameters.AddWithValue("UserName", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("UserName", cardHolder.Account);
+                }
+
+                if (string.IsNullOrEmpty(cardHolder.Password))
+                {
+                    command.Parameters.AddWithValue("Password", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Password", cardHolder.Password);
+                }
+
+                if (cardHolder.Department==null)
+                {
+                    command.Parameters.AddWithValue("Department", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Department", cardHolder.Department.Id);
                 }
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
@@ -271,6 +381,33 @@ namespace DAL_ScorpionAccess
                     command.Parameters.AddWithValue("Description", cardHolder.Description);
                 }
 
+                if (string.IsNullOrEmpty(cardHolder.Account))
+                {
+                    command.Parameters.AddWithValue("UserName", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("UserName", cardHolder.Account);
+                }
+
+                if (string.IsNullOrEmpty(cardHolder.Password))
+                {
+                    command.Parameters.AddWithValue("Password", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Password", cardHolder.Password);
+                }
+
+                if (string.IsNullOrEmpty(cardHolder.Department.Id))
+                {
+                    command.Parameters.AddWithValue("Department", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Department", cardHolder.Department.Id);
+                }
+
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;
                 adapter.Fill(dt);
@@ -322,6 +459,9 @@ namespace DAL_ScorpionAccess
                 command.Parameters.AddWithValue("PhoneNumber", DBNull.Value);
                 command.Parameters.AddWithValue("Email", DBNull.Value);
                 command.Parameters.AddWithValue("Description", DBNull.Value);
+                command.Parameters.AddWithValue("UserName", DBNull.Value);
+                command.Parameters.AddWithValue("Password", DBNull.Value);
+                command.Parameters.AddWithValue("Department", DBNull.Value);
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;

@@ -139,7 +139,7 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLScheduleSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("@Id", schedule.Id);
+                command.Parameters.AddWithValue("@Id", "");
                 command.Parameters.AddWithValue("@Name", schedule.Name);
                 command.Parameters.AddWithValue("@Description", schedule.Description);
 
@@ -154,6 +154,7 @@ namespace DAL_ScorpionAccess
                 }
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
+                result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
             }
             catch (Exception ex)
             {

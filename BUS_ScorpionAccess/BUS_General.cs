@@ -138,5 +138,47 @@ namespace BUS_ScorpionAccess
                 return null;
             }
         }
+
+        public List<AccessGroupConfig> GetAccessGroupCongfigs(string listRight)
+        {
+            List<AccessGroupConfig> lstConfigs = new List<AccessGroupConfig>();
+            DataTable dt = dal.GetAccessGRFileConfig(listRight);
+
+            if (dt.Rows.Count < 0)
+            {
+                return null;
+            }
+
+            try
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    AccessGroupConfig config = new AccessGroupConfig();
+                    config.DoorGroupId = row["doorGrId"] == DBNull.Value ? null : row["doorGrId"].ToString();
+                    config.Detail = row["Detail"] == DBNull.Value ? null : row["Detail"].ToString();
+
+                    lstConfigs.Add(config);
+                }
+
+                return lstConfigs;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public DataTable GetAttendance(DateTime month, int deptId)
+        {
+            return dal.GetAttendance(month, deptId);
+        }
+
+        public void SetConnect(string server, string port)
+        {
+            string path = string.Format("Data Source = {0},{1};Initial Catalog=LefaAccess;User ID=ibs;Password=ibs;Connection Timeout=10", server, port);
+
+            DBConnect dBConnect = new DBConnect();
+            dBConnect.SetConnect(path);
+        }
     }
 }

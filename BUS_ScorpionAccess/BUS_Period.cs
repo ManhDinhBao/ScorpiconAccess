@@ -52,6 +52,35 @@ namespace BUS_ScorpionAccess
             }
         }
 
+        public DTO_Period GetPeriodByKey(string periodId)
+        {
+            DataTable dt = dal.GetPeriodById(periodId);
+
+            if (dt.Rows.Count < 0)
+            {
+                return null;
+            }
+
+            try
+            {
+                DataRow row = dt.Rows[0];
+
+                DTO_Period period = new DTO_Period();
+
+                period.Id = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
+                period.WeekDay = row["DayInWeek"] == DBNull.Value ? WeekDay.MONDAY : (WeekDay)Convert.ToInt16(row["DayInWeek"]);
+                period.Schedule = row["Schedule"] == DBNull.Value ? null : row["Schedule"].ToString();
+                period.StartTime = row["StartTime"] == DBNull.Value ? new DateTime(1970, 1, 1) : Convert.ToDateTime(row["StartTime"].ToString());
+                period.EndTime = row["EndTime"] == DBNull.Value ? new DateTime(1970, 1, 1) : Convert.ToDateTime(row["EndTime"].ToString());
+
+                return period;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// Add new period
         /// </summary>

@@ -23,7 +23,7 @@ namespace BUS_ScorpionAccess
             List<DTO_CardHolder> lstCardHolders = new List<DTO_CardHolder>();
             DataTable dt = dal.GetAllCardHolder();
 
-            if (dt.Rows.Count < 0)
+            if (dt.Rows.Count <= 0)
             {
                 return null;
             }
@@ -41,6 +41,10 @@ namespace BUS_ScorpionAccess
                     holder.PhoneNumber = row["PhoneNumber"].ToString();
                     holder.Email = row["Email"].ToString();
                     holder.Description = row["Description"].ToString();
+                    holder.Account = row["UserName"].ToString();
+                    holder.Password = row["Password"].ToString();
+                    holder.DepartmentId = row["Department"].ToString();
+                    holder.Department = null;
 
                     lstCardHolders.Add(holder);
                 }
@@ -62,7 +66,7 @@ namespace BUS_ScorpionAccess
         {
             DataTable dt = dal.GetCardHOlderById(Id);
 
-            if (dt.Rows.Count < 0)
+            if (dt.Rows.Count <= 0)
             {
                 return null;
             }
@@ -80,6 +84,10 @@ namespace BUS_ScorpionAccess
                 holder.PhoneNumber = row["PhoneNumber"].ToString();
                 holder.Email = row["Email"].ToString();
                 holder.Description = row["Description"].ToString();
+                holder.Account = row["UserName"].ToString();
+                holder.Password = row["Password"].ToString();
+                holder.DepartmentId = row["Department"].ToString();
+                holder.Department = null;
 
                 return holder;
             }
@@ -89,17 +97,52 @@ namespace BUS_ScorpionAccess
             }
         }
 
-        /// <summary>
-        /// Search card holder
-        /// </summary>
-        /// <param name="searchValue">name, phone number or email</param>
-        /// <returns>Return list card holder if founded or error if null</returns>
-        public List<DTO_CardHolder> SearchCardHolder(string searchValue)
+        public DTO_CardHolder GetCardHolderByAccount(string account, string password)
+        {
+            DataTable dt = dal.GetCardHolderByAccount(account,password);
+
+            if (dt == null)
+            {
+                return null;
+            }
+
+            if (dt.Rows.Count <= 0)
+            {
+                return new DTO_CardHolder();
+            }
+
+            try
+            {
+                DataRow row = dt.Rows[0];
+
+                DTO_CardHolder holder = new DTO_CardHolder();
+                holder.Id = row["Id"].ToString();
+                holder.Name = row["Name"].ToString();
+                holder.Gender = (Gender)Convert.ToInt16(row["Gender"].ToString());
+                holder.DOB = Convert.ToDateTime(row["DOB"].ToString());
+                holder.Address = row["Address"].ToString();
+                holder.PhoneNumber = row["PhoneNumber"].ToString();
+                holder.Email = row["Email"].ToString();
+                holder.Description = row["Description"].ToString();
+                holder.Account = row["UserName"].ToString();
+                holder.Password = row["Password"].ToString();
+                holder.DepartmentId = row["Department"].ToString();
+                holder.Department = null;
+
+                return holder;
+            }
+            catch
+            {
+                return new DTO_CardHolder();
+            }
+        }
+
+        public List<DTO_CardHolder> GetCardHolderByDept(string deptId)
         {
             List<DTO_CardHolder> lstCardHolders = new List<DTO_CardHolder>();
-            DataTable dt = dal.SearchCardHolder(searchValue);
+            DataTable dt = dal.GetCardHolderByDept(deptId);
 
-            if (dt.Rows.Count < 0)
+            if (dt.Rows.Count <= 0)
             {
                 return null;
             }
@@ -117,6 +160,54 @@ namespace BUS_ScorpionAccess
                     holder.PhoneNumber = row["PhoneNumber"].ToString();
                     holder.Email = row["Email"].ToString();
                     holder.Description = row["Description"].ToString();
+                    holder.Account = row["UserName"].ToString();
+                    holder.Password = row["Password"].ToString();
+                    holder.DepartmentId = row["Department"].ToString();
+                    holder.Department = null;
+
+                    lstCardHolders.Add(holder);
+                }
+
+                return lstCardHolders;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Search card holder
+        /// </summary>
+        /// <param name="searchValue">name, phone number or email</param>
+        /// <returns>Return list card holder if founded or error if null</returns>
+        public List<DTO_CardHolder> SearchCardHolder(string searchValue)
+        {
+            List<DTO_CardHolder> lstCardHolders = new List<DTO_CardHolder>();
+            DataTable dt = dal.SearchCardHolder(searchValue);
+
+            if (dt.Rows.Count <= 0)
+            {
+                return null;
+            }
+
+            try
+            {
+                foreach (DataRow row in dt.Rows)
+                {
+                    DTO_CardHolder holder = new DTO_CardHolder();
+                    holder.Id = row["Id"].ToString();
+                    holder.Name = row["Name"].ToString();
+                    holder.Gender = (Gender)Convert.ToInt16(row["Gender"].ToString());
+                    holder.DOB = Convert.ToDateTime(row["DOB"].ToString());
+                    holder.Address = row["Address"].ToString();
+                    holder.PhoneNumber = row["PhoneNumber"].ToString();
+                    holder.Email = row["Email"].ToString();
+                    holder.Description = row["Description"].ToString();
+                    holder.Account = row["UserName"].ToString();
+                    holder.Password = row["Password"].ToString();
+                    holder.DepartmentId = row["Department"].ToString();
+                    holder.Department = null;
 
                     lstCardHolders.Add(holder);
                 }
@@ -138,7 +229,7 @@ namespace BUS_ScorpionAccess
         {
             if (holder == null)
             {
-                return new SQLResult(false, "Card holder can't null");
+                return new SQLResult(false, "[214] - Chủ thẻ rỗng.");
             }
 
             if(!holder.Validation().Result)
@@ -158,7 +249,7 @@ namespace BUS_ScorpionAccess
         {
             if (holder == null)
             {
-                return new SQLResult(false, "Card holder can't null");
+                return new SQLResult(false, "[214] - Chủ thẻ rỗng.");
             }
 
             if (!holder.Validation().Result)
@@ -178,7 +269,7 @@ namespace BUS_ScorpionAccess
         {
             if (holderId == null || holderId == "")
             {
-                return new SQLResult(false, "Card holder id can't empty");
+                return new SQLResult(false, "[214] - Chủ thẻ rỗng.");
             }
 
             return dal.DeleteCardHolder(holderId);

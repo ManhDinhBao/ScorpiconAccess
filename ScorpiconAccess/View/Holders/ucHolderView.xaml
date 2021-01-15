@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="ScorpiconAccess.View.ucHolderView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScorpiconAccess.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="150" d:DesignWidth="220" Loaded="UserControl_Loaded" MinWidth="220" MinHeight="150">
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border CornerRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Border.Background>
+            <ImageBrush ImageSource="..\..\Image\technology1.jpg" Stretch="UniformToFill"/>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0.5" RenderingBias="Quality"/>
+        </Border.Effect>
+        <DockPanel>
+            <Border CornerRadius="0,0,10,10" DockPanel.Dock="Bottom" Height="40" Background="#444444">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="10,0,10,0" Width="140">
+                        <TextBlock x:Name="tbHolderName" Text="{Binding HolderName,UpdateSourceTrigger=Explicit}" Foreground="DodgerBlue" FontSize="14" FontWeight="SemiBold" FontFamily="Arial" TextTrimming="CharacterEllipsis" />
+                        <TextBlock x:Name="tbHolderAddress" Text="{Binding HolderAddress,UpdateSourceTrigger=Explicit}" Foreground="White" FontSize="8" FontWeight="Regular" FontFamily="Arial" TextTrimming="CharacterEllipsis" Margin="0,2,0,0"/>
+                    </StackPanel>
+                    <Button x:Name="btHolderInfo" Click="btHolderInfo_Click" Style="{StaticResource okButtonStyle}" Width="50" Height="20" Content="Chi tiết" Foreground="White" FontSize="10" FontFamily="Arial" FontWeight="SemiBold">
+
+                    </Button>
+                </StackPanel>
+            </Border>
+            <Border>
+                <Image x:Name="imgAvatar" Source="{Binding ImgSource,UpdateSourceTrigger=Explicit}" Height="100" Width="100" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0"/>
+            </Border>
+        </DockPanel>
+    </Border>
+</UserControl>

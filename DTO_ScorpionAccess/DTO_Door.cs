@@ -32,19 +32,29 @@ namespace DTO_ScorpionAccess
             Sockets = sockets;
         }
 
-        public bool Validation()
+
+        public SQLResult Validation()
         {
-            if (Id == null || Id == "")
+            SQLResult result = new SQLResult(false, "Xác thực không thành công.");
+
+            //Name validate
+            if (Name == null)
             {
-                return false;
+                result.Detail = "Tên cửa không được để trống.";
+                return result;
             }
 
-            if (Mode.Id == null || Mode.Id == "")
+            //Mode validate
+            if (Mode == null || Mode.Id == "")
             {
-                return false;
+                result.Detail = "Chưa chọn chế độ hoạt động của cửa.";
+                return result;
             }
 
-            return true;
+
+            result.Result = true;
+            result.Detail = "Xác thực thành công.";
+            return result;
         }
     }
 }

@@ -43,21 +43,13 @@ namespace DTO_ScorpionAccess
     
         public SQLResult Validate()
         {
-            SQLResult result = new SQLResult(true, "Validate success");
-
-            //Validate Id
-            if(Id == null || Id.Count()<=0)
-            {
-                result.Result = false;
-                result.Detail = "Device id can't empty";
-                return result;
-            }
+            SQLResult result = new SQLResult(true, "Xác thực thành công.");
 
             //Validate Name
             if (Name == null || Name.Count() <= 0)
             {
                 result.Result = false;
-                result.Detail = "Device name can't empty";
+                result.Detail = "Tên thiết bị không được để trống.";
                 return result;
             }
 
@@ -65,14 +57,14 @@ namespace DTO_ScorpionAccess
             if (IP == null || IP.Count() <= 0)
             {
                 result.Result = false;
-                result.Detail = "IP address can't empty";
+                result.Detail = "Địa chỉ IP không được để trống.";
                 return result;
             }
 
             if (!ValidateIp(IP))
             {
                 result.Result = false;
-                result.Detail = "IP address invalid";
+                result.Detail = "Định dạng IP không đúng.";
                 return result;
             }
 
@@ -80,14 +72,14 @@ namespace DTO_ScorpionAccess
             if (GateWay == null || GateWay.Count() <= 0)
             {
                 result.Result = false;
-                result.Detail = "Gateway can't empty";
+                result.Detail = "Gateway không được để trống.";
                 return result;
             }
 
             if (!ValidateIp(GateWay))
             {
                 result.Result = false;
-                result.Detail = "Gateway invalid";
+                result.Detail = "Định dạng Gateway không đúng.";
                 return result;
             }
 
@@ -95,14 +87,14 @@ namespace DTO_ScorpionAccess
             if (Subnet == null || Subnet.Count() <= 0)
             {
                 result.Result = false;
-                result.Detail = "Subnet can't empty";
+                result.Detail = "Subnet không được để trống.";
                 return result;
             }
 
             if (!ValidateIp(Subnet))
             {
                 result.Result = false;
-                result.Detail = "Subnet invalid";
+                result.Detail = "Định dạng subnet không đúng.";
                 return result;
             }
 
@@ -110,14 +102,14 @@ namespace DTO_ScorpionAccess
             if (HostIp == null || HostIp.Count() <= 0)
             {
                 result.Result = false;
-                result.Detail = "Host IP address can't empty";
+                result.Detail = "Địa chỉ host không được để trống.";
                 return result;
             }
 
             if (!ValidateIp(HostIp))
             {
                 result.Result = false;
-                result.Detail = "Host IP address invalid";
+                result.Detail = "Định dạng địa chỉ host không đúng.";
                 return result;
             }
 
@@ -125,7 +117,7 @@ namespace DTO_ScorpionAccess
             if (MAC == null || MAC.Count() <= 0)
             {
                 result.Result = false;
-                result.Detail = "MAC address can't empty";
+                result.Detail = "Địa chỉ MAC không được để trống.";
                 return result;
             }
             else
@@ -135,12 +127,11 @@ namespace DTO_ScorpionAccess
                 if (!r.IsMatch(inputMAC))
                 {
                     result.Result = false;
-                    result.Detail = "MAC address invalid";
+                    result.Detail = "Định dạng địa chỉ MAC không đúng.";
                     return result;
                 }
             }
             
-
             return result;
         }
 

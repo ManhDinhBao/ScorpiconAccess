@@ -155,6 +155,7 @@ namespace DAL_ScorpionAccess
                 }
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
+                result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
             }
             catch (Exception ex)
             {
@@ -187,10 +188,36 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLDoorSocketSave";
                 command.Parameters.AddWithValue("WorkType", "U");
-                command.Parameters.AddWithValue("Id", socket.Id);
-                command.Parameters.AddWithValue("Name", DBNull.Value);
-                command.Parameters.AddWithValue("Door", DBNull.Value);
-                command.Parameters.AddWithValue("Type", DBNull.Value);
+
+                if (socket.Id == null)
+                {
+                    command.Parameters.AddWithValue("Id", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Id", socket.Id);
+                }
+
+                if (socket.Name == null)
+                {
+                    command.Parameters.AddWithValue("Name", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Name", socket.Name);
+                }
+
+                if (socket.Door == null)
+                {
+                    command.Parameters.AddWithValue("Door", DBNull.Value);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("Door", socket.Door);
+                }
+
+                command.Parameters.AddWithValue("Type", socket.Type);
+
                 if (socket.ConnectedDeviceSocketId == null)
                 {
                     command.Parameters.AddWithValue("DeviceSocket", DBNull.Value);
@@ -199,8 +226,30 @@ namespace DAL_ScorpionAccess
                 {
                     command.Parameters.AddWithValue("DeviceSocket", socket.ConnectedDeviceSocketId);
                 }
-                command.Parameters.AddWithValue("SocketType", DBNull.Value);
-                command.Parameters.AddWithValue("SocketMode", DBNull.Value);
+
+                switch (socket.Type)
+                {
+                    case EType.DoorSocketType.CONTACT:
+                        DTO_Contact contact = (DTO_Contact)socket.Property;
+                        command.Parameters.AddWithValue("SocketType", contact.Type);
+                        command.Parameters.AddWithValue("SocketMode", contact.Mode);
+                        break;
+                    case EType.DoorSocketType.LOCK:
+                        DTO_Lock llock = (DTO_Lock)socket.Property;
+                        command.Parameters.AddWithValue("SocketType", llock.Type);
+                        command.Parameters.AddWithValue("SocketMode", DBNull.Value);
+                        break;
+                    case EType.DoorSocketType.READER:
+                        DTO_Reader reader = (DTO_Reader)socket.Property;
+                        command.Parameters.AddWithValue("SocketType", reader.Type);
+                        command.Parameters.AddWithValue("SocketMode", DBNull.Value);
+                        break;
+                    case EType.DoorSocketType.REX:
+                        DTO_Rex rex = (DTO_Rex)socket.Property;
+                        command.Parameters.AddWithValue("SocketType", rex.Type);
+                        command.Parameters.AddWithValue("SocketMode", DBNull.Value);
+                        break;
+                }
 
                 SqlDataAdapter adapter = new SqlDataAdapter();
                 adapter.SelectCommand = command;

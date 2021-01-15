@@ -15,6 +15,21 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,9 +50,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>app_icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <HintPath>packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -72,11 +95,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Barcodes.cs" />
-    <Compile Include="Code39.cs" />
     <Compile Include="Converter\RowToIndexConverter.cs" />
     <Compile Include="Converter\ToCardHolderTextConverter.cs" />
     <Compile Include="Converter\ToCardNumberFormatConverter.cs" />
+    <Compile Include="ExcelUtlity.cs" />
+    <Compile Include="ExportFileAttendance.xaml.cs">
+      <DependentUpon>ExportFileAttendance.xaml</DependentUpon>
+    </Compile>
     <Compile Include="General.cs" />
     <Compile Include="LaunchWindow.xaml.cs">
       <DependentUpon>LaunchWindow.xaml</DependentUpon>
@@ -84,75 +109,91 @@
     <Compile Include="Repository.cs" />
     <Compile Include="Converter\ToCardSerialFormatConverter.cs" />
     <Compile Include="Converter\ToUpperValueConverter.cs" />
-    <Compile Include="View\ChangeCardView.xaml.cs">
-      <DependentUpon>ChangeCardView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DeviceDetailView.xaml.cs">
-      <DependentUpon>DeviceDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DoorDetailView.xaml.cs">
-      <DependentUpon>DoorDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\DoorSocketDetailView.xaml.cs">
+    <Compile Include="View\Door\DoorSocketDetailView.xaml.cs">
       <DependentUpon>DoorSocketDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ExportFileView.xaml.cs">
-      <DependentUpon>ExportFileView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\ExportFileWizard.xaml.cs">
       <DependentUpon>ExportFileWizard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\PeriodDetailView.xaml.cs">
-      <DependentUpon>PeriodDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\RightDetailView.xaml.cs">
+    <Compile Include="View\Rights\RightDetailView.xaml.cs">
       <DependentUpon>RightDetailView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ScheduleDetailView.xaml.cs">
-      <DependentUpon>ScheduleDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\ucCardView.xaml.cs">
+    <Compile Include="View\Card\ucCardView.xaml.cs">
       <DependentUpon>ucCardView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ucDeviceView.xaml.cs">
+    <Compile Include="View\Department\ucDepartmentView.xaml.cs">
+      <DependentUpon>ucDepartmentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Devices\ucDeviceView.xaml.cs">
       <DependentUpon>ucDeviceView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ucDoorView.xaml.cs">
+    <Compile Include="View\Door\ucDoorView.xaml.cs">
       <DependentUpon>ucDoorView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ucHolderView.xaml.cs">
+    <Compile Include="View\ucEvent.xaml.cs">
+      <DependentUpon>ucEvent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Holders\ucHolderView.xaml.cs">
       <DependentUpon>ucHolderView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ucPeriodView.xaml.cs">
+    <Compile Include="View\Schedules\ucPeriodView.xaml.cs">
       <DependentUpon>ucPeriodView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ucRightView.xaml.cs">
+    <Compile Include="View\Rights\ucRightView.xaml.cs">
       <DependentUpon>ucRightView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ucScheduleView.xaml.cs">
+    <Compile Include="View\Schedules\ucScheduleView.xaml.cs">
       <DependentUpon>ucScheduleView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserRightView.xaml.cs">
-      <DependentUpon>UserRightView.xaml</DependentUpon>
+    <Compile Include="View\wdAboutView.xaml.cs">
+      <DependentUpon>wdAboutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\wdCardDetail.xaml.cs">
+    <Compile Include="View\Card\wdCardDetail.xaml.cs">
       <DependentUpon>wdCardDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\wdCardHolderDetail.xaml.cs">
+    <Compile Include="View\Holders\wdCardHolderDetail.xaml.cs">
       <DependentUpon>wdCardHolderDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\wdDeviceDetail.xaml.cs">
+    <Compile Include="View\Department\wdDepartmentChildView.xaml.cs">
+      <DependentUpon>wdDepartmentChildView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Department\wdDepartmentDetail.xaml.cs">
+      <DependentUpon>wdDepartmentDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Devices\wdDeviceDetail.xaml.cs">
       <DependentUpon>wdDeviceDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\wdDoorDetail.xaml.cs">
+    <Compile Include="View\Door\wdDoorDetail.xaml.cs">
       <DependentUpon>wdDoorDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\wdScheduleDetail.xaml.cs">
+    <Compile Include="View\Door\wdDoorSocketDetail.xaml.cs">
+      <DependentUpon>wdDoorSocketDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Department\wdEmployeeDetail.xaml.cs">
+      <DependentUpon>wdEmployeeDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Department\wdGroupDetail.xaml.cs">
+      <DependentUpon>wdGroupDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Schedules\wdPeriodDetail.xaml.cs">
+      <DependentUpon>wdPeriodDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Rights\wdRightDetail.xaml.cs">
+      <DependentUpon>wdRightDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Schedules\wdScheduleDetail.xaml.cs">
       <DependentUpon>wdScheduleDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\Window1.xaml.cs">
-      <DependentUpon>Window1.xaml</DependentUpon>
+    <Compile Include="View\wdLogin.xaml.cs">
+      <DependentUpon>wdLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\wdSetting.xaml.cs">
+      <DependentUpon>wdSetting.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ExportFileAttendance.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LaunchWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -173,23 +214,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ChangeCardView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DeviceDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DoorDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\DoorSocketDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\ExportFileView.xaml">
+    <Page Include="View\Door\DoorSocketDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -197,71 +222,103 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\PeriodDetailView.xaml">
+    <Page Include="View\Rights\RightDetailView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\RightDetailView.xaml">
+    <Page Include="View\Card\ucCardView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ScheduleDetailView.xaml">
+    <Page Include="View\Department\ucDepartmentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucCardView.xaml">
+    <Page Include="View\Devices\ucDeviceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucDeviceView.xaml">
+    <Page Include="View\Door\ucDoorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucDoorView.xaml">
+    <Page Include="View\ucEvent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucHolderView.xaml">
+    <Page Include="View\Holders\ucHolderView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucPeriodView.xaml">
+    <Page Include="View\Schedules\ucPeriodView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucRightView.xaml">
+    <Page Include="View\Rights\ucRightView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ucScheduleView.xaml">
+    <Page Include="View\Schedules\ucScheduleView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserRightView.xaml">
+    <Page Include="View\wdAboutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\wdCardDetail.xaml">
+    <Page Include="View\Card\wdCardDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\wdCardHolderDetail.xaml">
+    <Page Include="View\Holders\wdCardHolderDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\wdDeviceDetail.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\wdDoorDetail.xaml">
+    <Page Include="View\Department\wdDepartmentChildView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\wdScheduleDetail.xaml">
+    <Page Include="View\Department\wdDepartmentDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\Window1.xaml">
+    <Page Include="View\Devices\wdDeviceDetail.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\Door\wdDoorDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Door\wdDoorSocketDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Department\wdEmployeeDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Department\wdGroupDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Schedules\wdPeriodDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Rights\wdRightDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Schedules\wdScheduleDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\wdLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\wdSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -315,10 +372,6 @@
     <Resource Include="Icon\new_gray_30px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\delete_gray_30px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\refresh_gray_30px.png" />
     <Resource Include="Icon\search_gray_30px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -332,50 +385,20 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Image\blue_ocean_bg.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon\person_gray_30px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\birthday_gray_30px.png" />
-    <Resource Include="Icon\email_gray_30px.png" />
-    <Resource Include="Icon\location_gray_30px.png" />
-    <Resource Include="Icon\name_tag_gray_30px.png" />
-    <Resource Include="Icon\phone_gray_30px.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon\card_blue_50px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\holder_id_gray_24px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\gender_gray_50px.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Image\blue_card_bg.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\female_gray_50px.png" />
-    <Resource Include="Icon\male_gray_50px.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\female_avatar_128px.png" />
     <Resource Include="Icon\male_avatar_128px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\note_gray_24px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\card_gray_50px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\drop_down_black_32px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\eraser_black_50px.png" />
-    <Resource Include="Icon\export_txt_black_50px.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\schedule_gray_50px.png" />
@@ -442,12 +465,6 @@
     <Resource Include="Icon\right_gray_50px.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Icon\export_file_white_30px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\right_arrow_gray_30px.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon\folder_gray_24px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -455,7 +472,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\close_red_30px.png" />
-    <Resource Include="Icon\maximize_green_30px.png" />
     <Resource Include="Icon\minimize_yellow_30px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -463,12 +479,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\new_white_30px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\save_white_30px.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Icon\delete_white_30px.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\refresh_white_30px.png" />
@@ -520,5 +530,82 @@
   <ItemGroup>
     <Resource Include="Image\schedule.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\excel_white_30px.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\technology1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\technology3.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon\app_icon.ico" />
+    <Resource Include="app_icon.ico" />
+    <Content Include="VertX.dll" />
+    <Content Include="Vertx64.dll" />
+    <Resource Include="Icon\group_color_50px.png" />
+    <Resource Include="Icon\user_color_50px.png" />
+    <Resource Include="Image\department_background2.jpg" />
+    <Resource Include="Image\department_background.jpg" />
+    <Resource Include="Image\logo_ibs.png" />
+    <Resource Include="Icon\cardholder_128px.png" />
+    <Resource Include="Icon\birthday_gray_30px.png" />
+    <Resource Include="Icon\email_gray_30px.png" />
+    <Resource Include="Icon\phone_gray_30px.png" />
+    <Resource Include="Icon\gender_gray_50px.png" />
+    <Resource Include="Icon\name_tag_gray_30px.png" />
+    <Resource Include="Icon\holder_id_gray_24px.png" />
+    <Resource Include="Icon\location_gray_30px.png" />
+    <Resource Include="Icon\card_gray_50px.png" />
+    <Resource Include="Icon\note_gray_24px.png" />
+    <Resource Include="Icon\maximize_gray_30px.png" />
+    <Resource Include="Icon\maximize_green_30px.png" />
+    <Resource Include="Icon\minimize_gray_30px.png" />
+    <Resource Include="Icon\password_gray_30px.png" />
+    <Resource Include="Icon\male_gray_50px.png" />
+    <Resource Include="Icon\unit_gray_50px.png" />
+    <Resource Include="Icon\department_128px.png" />
+    <Resource Include="Image\logo_ibs1.PNG" />
+    <Resource Include="Image\logo_s.png" />
+    <Resource Include="Icon\setting_white_30px.png" />
+    <AdditionalFiles Include="Config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <Resource Include="Icon\addgroup_color_48px.png" />
+    <Resource Include="Icon\addemp_color_48px.png" />
+    <Resource Include="Icon\delete_color_48px.png" />
+    <Resource Include="Icon\info_color_48px.png" />
+    <Resource Include="Image\link.png" />
+    <Resource Include="Icon\add_color_48px.png" />
+    <Resource Include="Icon\edit_color_48px.png" />
+    <Resource Include="Icon\userright_color_48px.png" />
+    <Content Include="BuildDumpCards.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="BuildDumpCards64.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LefaDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LefaDB_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>LefaDB.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.8">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.8 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

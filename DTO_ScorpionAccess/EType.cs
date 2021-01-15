@@ -80,7 +80,9 @@ namespace DTO_ScorpionAccess
         {
             CARD = 1,
             DOOR = 2,
-            SCHEDULE = 3
+            SCHEDULE = 3,
+            ACCESSGR = 4,
+            ALL = 5
         }
 
         public enum UserLogType
@@ -107,6 +109,21 @@ namespace DTO_ScorpionAccess
             FRIDAY = 5,
             SATURDAY = 6,
             SUNDAY = 0
+        }
+
+        public enum Direction
+        {
+            OTHER = 0,
+            IN = 1,
+            OUT = 2
+           
+        }
+
+        public enum EventStatus
+        {
+            OTHER = 0,            
+            GRANDTED = 1,
+            DENIED = 2
         }
     }
 

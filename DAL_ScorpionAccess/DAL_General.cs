@@ -141,5 +141,68 @@ namespace DAL_ScorpionAccess
 
             return dt;
         }
+
+        public DataTable GetAccessGRFileConfig(string listRightString)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLGenAccessGroup";
+                command.Parameters.AddWithValue("listRight", listRightString);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
+
+        public DataTable GetAttendance(DateTime month, int deptId)
+        {
+            DataTable dt = new DataTable();
+
+            try
+            {
+                _conn.Open();
+
+                SqlCommand command = new SqlCommand();
+                command.Connection = _conn;
+                command.CommandType = CommandType.StoredProcedure;
+                command.CommandText = "spLAttendanceQry";
+                command.Parameters.AddWithValue("workingTag", "A");
+                command.Parameters.AddWithValue("aDate", month);
+                command.Parameters.AddWithValue("deptId", deptId);
+
+                SqlDataAdapter adapter = new SqlDataAdapter();
+                adapter.SelectCommand = command;
+                adapter.Fill(dt);
+            }
+            catch
+            {
+
+            }
+            finally
+            {
+                _conn.Close();
+            }
+
+            return dt;
+        }
     }
 }
+

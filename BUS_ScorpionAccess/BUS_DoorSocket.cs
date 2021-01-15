@@ -65,7 +65,9 @@ namespace BUS_ScorpionAccess
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
                     socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.LOCK : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
+                    socket.ConnectedDeviceSocketId = row["DeviceSocketId"] == DBNull.Value ? null : row["DeviceSocketId"].ToString();
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
+                    socket.ConnectedDeviceId = row["DeviceId"] == DBNull.Value ? null : row["DeviceId"].ToString();
 
                     DTO_Lock locks = new DTO_Lock();
                     locks.Id = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
@@ -87,7 +89,9 @@ namespace BUS_ScorpionAccess
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
                     socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.READER : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
+                    socket.ConnectedDeviceSocketId = row["DeviceSocketId"] == DBNull.Value ? null : row["DeviceSocketId"].ToString();
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
+                    socket.ConnectedDeviceId = row["DeviceId"] == DBNull.Value ? null : row["DeviceId"].ToString();
 
                     DTO_Reader reader = new DTO_Reader();
                     reader.Id = row["Id"] == DBNull.Value ? null : row["Id"].ToString();
@@ -110,7 +114,9 @@ namespace BUS_ScorpionAccess
                     socket.Name = row["Name"] == DBNull.Value ? null : row["Name"].ToString();
                     socket.Type = row["SocketType"] == DBNull.Value ? EType.DoorSocketType.REX : (DoorSocketType)Convert.ToInt16(row["SocketType"].ToString());
                     socket.ConnectedDeviceSocketOrder = row["OrdNumber"] == DBNull.Value ? -1 : (int)row["OrdNumber"];
+                    socket.ConnectedDeviceSocketId = row["DeviceSocketId"] == DBNull.Value ? null : row["DeviceSocketId"].ToString();
                     socket.ConnectedDevice = row["DeviceName"] == DBNull.Value ? null : row["DeviceName"].ToString();
+                    socket.ConnectedDeviceId = row["DeviceId"] == DBNull.Value ? null : row["DeviceId"].ToString();
 
                     DTO_Rex rex = new DTO_Rex();
                     rex.Id = row["Id"] == DBNull.Value ? null : row["Id"].ToString();

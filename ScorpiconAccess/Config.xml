@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Configuration>
+	<Server IP="10.173.24.216" Port="1433"/>
+	<Account Remember="true" UserName="manhdb" Password="123"/>
+	<File Location ="C:\HID\" CardFileName="Cards" DoorFileName="DoorGroups" ScheduleFileName="Schedules" AccessGrFileName="AccessGroups"/>
+</Configuration>

@@ -1,4 +1,5 @@
 ﻿using BUS_ScorpionAccess;
+using DTO_ScorpionAccess;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,13 +30,18 @@ namespace ScorpiconAccess
         private BUS_Door bus_Door;
         private BUS_DoorMode bus_DoorMode;
         private BUS_Right bUS_Right;
+        private BUS_Department bUS_Department;
 
         private BackgroundWorker wokerLoadAllData;
         private List<string> lstDataType;
+        public DTO_CardHolder loginUser;
 
-        public LaunchWindow()
+        public LaunchWindow(DTO_CardHolder loginUser)
         {
+
             InitializeComponent();
+            this.loginUser = loginUser;
+
             bus_Card = new BUS_Card();
             bus_CardHolder = new BUS_CardHolder();
             bus_Device = new BUS_Device();
@@ -43,8 +49,9 @@ namespace ScorpiconAccess
             bus_Door = new BUS_Door();
             bus_DoorMode = new BUS_DoorMode();
             bUS_Right = new BUS_Right();
+            bUS_Department = new BUS_Department();
 
-            lstDataType = new List<string>() { "CARD", "HOLDER", "DEVICE","SCHEDULE", "DOOR","DOOR_MODE","RIGHT"};
+            lstDataType = new List<string>() { "CARD", "HOLDER", "DEVICE","SCHEDULE", "DOOR","DOOR_MODE","RIGHT","DEPARTMENT","LOADHOLDERDEPT"};
 
             wokerLoadAllData = new BackgroundWorker();
             wokerLoadAllData.WorkerReportsProgress = true;
@@ -60,6 +67,7 @@ namespace ScorpiconAccess
         {
             Thread.Sleep(1000);
             MainWindow main = new MainWindow();
+            main.LoginUser = loginUser;
             main.Show();
             this.Hide();
         }
@@ -79,9 +87,15 @@ namespace ScorpiconAccess
 
                 this.Dispatcher.Invoke(() =>
                 {
-                    tbLoadData.Text = string.Format("Loading {0} data... {1}%", lstDataType[i], percentage);
+                    tbLoadData.Text = string.Format("Đang tải dữ liệu {0}7... {1}%", lstDataType[i], percentage);
                 });
             }
+
+            if (this.loginUser.DepartmentId != null)
+            {
+                this.loginUser.Department = bUS_Department.GetDepartmentById(this.loginUser.DepartmentId);
+            }
+            
 
         }
 
@@ -91,24 +105,69 @@ namespace ScorpiconAccess
             {
                 case "CARD": 
                     Repository.lstAllCards = bus_Card.GetAllCard();
+                    if(Repository.lstAllCards == null)
+                    {
+                        Repository.lstAllCards = new List<DTO_Card>();
+                    }
                     break;
                 case "HOLDER":
                     Repository.lstAllCardHolders = bus_CardHolder.GetAllCardHolder();
+                    if (Repository.lstAllCardHolders == null)
+                    {
+                        Repository.lstAllCardHolders = new List<DTO_CardHolder>();
+                    }
                     break;
                 case "DEVICE":
                     Repository.lstAllDevices = bus_Device.GetAllDevice();
+                    if (Repository.lstAllDevices == null)
+                    {
+                        Repository.lstAllDevices = new List<DTO_Device>();
+                    }
                     break;
                 case "SCHEDULE":
                     Repository.lstAllSchedules = bus_Schedule.GetAllSchedule();
+                    if (Repository.lstAllSchedules == null)
+                    {
+                        Repository.lstAllSchedules = new List<DTO_Schedule>();
+                    }
                     break;
                 case "DOOR":
                     Repository.lstAllDoor = bus_Door.GetAllDoor();
+                    if (Repository.lstAllDoor == null)
+                    {
+                        Repository.lstAllDoor = new List<DTO_Door>();
+                    }
                     break;
                 case "DOOR_MODE":
                     Repository.lstAllDoorMode = bus_DoorMode.GetAllDoorMode();
+                    if (Repository.lstAllDoorMode == null)
+                    {
+                        Repository.lstAllDoorMode = new List<DTO_DoorMode>();
+                    }
                     break;
                 case "RIGHT":
                     Repository.lstAllRIght = bUS_Right.GetAllUserRight();
+                    if (Repository.lstAllRIght == null)
+                    {
+                        Repository.lstAllRIght = new List<DTO_UserRight>();
+                    }
+                    break;
+                case "DEPARTMENT":
+                    Repository.lstAllDepartment = bUS_Department.GetAllDepartment();
+                    if (Repository.lstAllDepartment == null)
+                    {
+                        Repository.lstAllDepartment = new List<DTO_Department>();
+                    }
+                    break;
+                case "LOADHOLDERDEPT":
+                    if(Repository.lstAllCardHolders==null)
+                    {
+                        return;
+                    }
+                    foreach(DTO_CardHolder holder in Repository.lstAllCardHolders)
+                    {
+                        holder.Department = bUS_Department.GetDepartmentById(holder.DepartmentId);
+                    }
                     break;
                 default:
                     break;

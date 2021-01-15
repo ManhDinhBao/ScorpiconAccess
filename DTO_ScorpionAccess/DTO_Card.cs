@@ -38,28 +38,21 @@ namespace DTO_ScorpionAccess
 
             if (CardSerial == null || CardSerial == ""){
                 result.Result = false;
-                result.Detail = "Card serial can't be null";
-                return result;
-            }
-
-            if (DateTime.Compare(ETime, DateTime.Today) < 0)
-            {
-                result.Result = false;
-                result.Detail = "The end date must not be less than the current date";
+                result.Detail = "[109] - Mã thẻ không được để trống.";
                 return result;
             }
 
             if (DateTime.Compare(ETime, STime) < 0) 
             {
                 result.Result = false;
-                result.Detail = "The end date must not be less than the start date";
+                result.Detail = "[110] - Ngày thẻ hết hiệu lực phải lớn hơn ngày thẻ bắt đầu có hiệu lực.";
                 return result;
             }
 
             if (Pin>999999 || Pin<0)
             {
                 result.Result = false;
-                result.Detail = "Pin must be from 1 to 6 character";
+                result.Detail = "[111] - Mã pin của thẻ phải có độ dài từ 1 đến 6 ký tự.";
                 return result;
             }
 

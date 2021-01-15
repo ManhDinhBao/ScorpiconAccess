@@ -116,12 +116,12 @@ namespace BUS_ScorpionAccess
         {
             if (door == null)
             {
-                return new SQLResult(false, "Card null");
+                return new SQLResult(false, "Cửa rỗng.");
             }
 
-            if (!door.Validation())
+            if (!door.Validation().Result)
             {
-                return new SQLResult(false, "Validation fail");
+                return new SQLResult(false, door.Validation().Detail);
             }
 
             return dal.AddNewDoor(door);
@@ -136,12 +136,12 @@ namespace BUS_ScorpionAccess
         {
             if (door == null)
             {
-                return new SQLResult(false, "Card null");
+                return new SQLResult(false, "Cửa rỗng.");
             }
 
-            if (!door.Validation())
+            if (!door.Validation().Result)
             {
-                return new SQLResult(false, "Validation fail");
+                return new SQLResult(false, door.Validation().Detail);
             }
 
             return dal.UpdateDoor(door);
@@ -156,7 +156,7 @@ namespace BUS_ScorpionAccess
         {
             if (doorId == null)
             {
-                return new SQLResult(false, "Door Id can't null");
+                return new SQLResult(false, "Id của cửa rỗng.");
             }
 
             return dal.DeleteDoor(doorId);

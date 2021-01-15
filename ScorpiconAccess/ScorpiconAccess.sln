@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_ScorpionAccess", "..\DA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO_ScorpionAccess", "..\DTO_ScorpionAccess\DTO_ScorpionAccess.csproj", "{045870C7-99A1-4042-8993-6EC21E801F72}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InstallSQL", "..\InstallSQL\InstallSQL.csproj", "{8829F5F5-885C-4516-865F-ABA677D6C570}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{045870C7-99A1-4042-8993-6EC21E801F72}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{045870C7-99A1-4042-8993-6EC21E801F72}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{045870C7-99A1-4042-8993-6EC21E801F72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8829F5F5-885C-4516-865F-ABA677D6C570}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8829F5F5-885C-4516-865F-ABA677D6C570}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8829F5F5-885C-4516-865F-ABA677D6C570}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8829F5F5-885C-4516-865F-ABA677D6C570}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

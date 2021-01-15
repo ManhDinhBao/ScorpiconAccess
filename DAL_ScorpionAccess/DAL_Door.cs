@@ -140,7 +140,7 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLDoorSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("Id", door.Id);
+                command.Parameters.AddWithValue("Id", "");
                 if (door.Name == null)
                 {
                     command.Parameters.AddWithValue("Name", DBNull.Value);
@@ -175,6 +175,7 @@ namespace DAL_ScorpionAccess
                 }
 
                 result.Detail = dt.Rows[0]["Detail"].ToString();
+                result.ExtraData = dt.Rows[0]["ExtraData"].ToString();
             }
             catch (Exception ex)
             {

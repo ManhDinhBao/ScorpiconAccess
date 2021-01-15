@@ -1,0 +1,77 @@
+﻿<Window x:Class="InstallSQL.wdSQLConfig"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:InstallSQL"
+        mc:Ignorable="d"
+        Title="SQL Config Manager" Height="300" Width="575" MinWidth="575" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded">
+    <DockPanel Margin="10">
+        <GroupBox DockPanel.Dock="Left" FontSize="12" Header="Services" VerticalAlignment="Stretch" Width="300">
+            <DockPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,5,0,0">
+                    <Button x:Name="cmdStart" Click="cmdStart_Click" Width="50" Padding="5" Foreground="DodgerBlue" FontFamily="Consolas" FontSize="10">
+                        <Button.Content>Start</Button.Content>
+                    </Button>
+                    <Button x:Name="cmdStop" Click="cmdStop_Click" Width="50" Padding="5" Foreground="Red" FontFamily="Consolas" FontSize="10" Margin="5,0,0,0">
+                        <Button.Content>Stop</Button.Content>
+                    </Button>
+                    <Button x:Name="cmdRestart" Click="cmdRestart_Click" Width="50" Padding="5" Foreground="DodgerBlue" FontFamily="Consolas" FontSize="10" Margin="5,0,0,0">
+                        <Button.Content>Restart</Button.Content>
+                    </Button>
+                    <Button x:Name="cmdRefresh" Click="cmdRefresh_Click" Width="60" Padding="5" Margin="5,0,0,0">
+                        <TextBlock Text="Refresh" TextWrapping="Wrap" FontFamily="Consolas" FontSize="10"></TextBlock>
+                    </Button>
+                </StackPanel>
+                <ListView x:Name="lvwServices" Margin="0,5,0,0" SelectionChanged="lvwServices_SelectionChanged">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Display Name" Width="120" DisplayMemberBinding="{Binding DisplayName}" />
+                            <GridViewColumn Header="Real Name" Width="95" DisplayMemberBinding="{Binding RealName}" />
+                            <GridViewColumn Header="State" Width="70" DisplayMemberBinding="{Binding State}" />
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </DockPanel>
+        </GroupBox>
+        <GroupBox Header="SQL Config" FontFamily="Consolas" FontSize="12" VerticalAlignment="Stretch" Margin="10,0,0,0">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,15,0,0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,0,0,0">
+                    <TextBlock Text="Server: " FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Center" FontFamily="Consolas"/>
+                    <TextBox x:Name="tbServer" FontFamily="Consolas" FontSize="12" Padding="5,2,5,2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="146" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,0,0">
+                    <Button x:Name="btCheckMixMode" Click="btCheckMixMode_Click" Width="100" Height="25" Content="Check Mix Mode" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                    <Button x:Name="btSetMixMode" Click="btSetMixMode_Click" Width="100" Height="25" Content="Set Mix Mode" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,5,0,0">
+                    <Button x:Name="btnCheckTCP" Click="btnCheckTCP_Click" Width="100"  Height="25" Content="Check TCP" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="0,0,0,0"/>
+                    <Button x:Name="btnEnableTCPSQL" Click="btnEnableTCPSQL_Click" Width="100"  Height="25" Content="Enable TCP" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right"  VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10,15,0,0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontFamily="Consolas" VerticalAlignment="Center" FontSize="12" Text="Port: "/>
+                        <TextBox x:Name="tbPort" FontFamily="Consolas" Padding="5,2,5,2" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="66"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0">
+                        <Button x:Name="btCheckPortDynamic" Click="btCheckPortDynamic_Click" Width="100" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right" Height="35" VerticalAlignment="Center" >
+                            <TextBlock TextWrapping="Wrap" TextAlignment="Center">Check Dynamic Port</TextBlock>
+                        </Button>
+                        <Button x:Name="btSetPortDynamic" Click="btSetPortDynamic_Click" Width="100" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right" Height="35" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock Padding="5,0,5,0" TextWrapping="Wrap" TextAlignment="Center">Set Dynamic Port</TextBlock>
+                        </Button>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,5,0,0">
+                        <Button x:Name="btCheckPortStatic" Click="btnCheckPortStatic_Click" Width="100" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right" Height="35" VerticalAlignment="Center" >
+                            <TextBlock Padding="5,0,5,0" TextWrapping="Wrap" TextAlignment="Center">Check Static Port</TextBlock>
+                        </Button>
+                        <Button x:Name="btSetPortStatic" Click="btSetPortStatic_Click" Width="100" FontFamily="Consolas" FontSize="12" HorizontalAlignment="Right" Height="35" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <TextBlock Padding="7,0,7,0" TextWrapping="Wrap" TextAlignment="Center">Set Static Port</TextBlock>
+                        </Button>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </GroupBox>
+    </DockPanel>
+</Window>

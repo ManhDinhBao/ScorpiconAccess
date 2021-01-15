@@ -135,7 +135,7 @@ namespace BUS_ScorpionAccess
         {
             if (card == null)
             {
-                return new SQLResult(false, "Card can't be null");
+                return new SQLResult(false, "[112] - Thẻ rỗng.");
             }
 
             if (!card.Validation().Result)
@@ -155,7 +155,7 @@ namespace BUS_ScorpionAccess
         {
             if (card == null)
             {
-                return new SQLResult(false, "Card can't be null");
+                return new SQLResult(false, "[112] - Thẻ rỗng.");
             }
 
             if (!card.Validation().Result)
@@ -175,12 +175,7 @@ namespace BUS_ScorpionAccess
         {
             if (cardNumber == null)
             {
-                return new SQLResult(false, "Card number can't null");
-            }
-
-            if (cardNumber == "")
-            {
-                return new SQLResult(false, "Card number can't empty");
+                return new SQLResult(false, "[112] - Thẻ rỗng.");
             }
 
             return dal.DeleteCard(cardNumber);

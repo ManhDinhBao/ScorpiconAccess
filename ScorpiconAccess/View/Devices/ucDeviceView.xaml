@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ScorpiconAccess.View.ucDeviceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ScorpiconAccess.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="110" d:DesignWidth="230" MinHeight="110" MinWidth="230" Loaded="UserControl_Loaded" >
+    <UserControl.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border CornerRadius="10">
+        <Border.Background>
+            <ImageBrush ImageSource="..\..\Image\technology3.jpg" Stretch="UniformToFill"/>
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" RenderingBias="Quality"/>
+        </Border.Effect>
+        
+        <StackPanel Orientation="Horizontal">
+            <Border Height="50" Width="50" CornerRadius="10" Margin="10,15,0,15">
+                <Border.Effect>
+                    <DropShadowEffect  ShadowDepth="0.5" RenderingBias="Quality"/>
+                </Border.Effect>
+                <Border.Background>
+                    <ImageBrush ImageSource="..\..\Image\s100.jpg" Stretch="UniformToFill"/>
+                </Border.Background>
+            </Border>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" Width="90" Margin="10,0,10,0">
+                <TextBlock x:Name="tbDeviceName" Text="{Binding DeviceName,UpdateSourceTrigger=Explicit}" Foreground="White" FontSize="13" FontFamily="Arial" TextTrimming="CharacterEllipsis" FontWeight="SemiBold"/>
+                <TextBlock x:Name="tbDeviceIP" Text="{Binding DeviceIp,UpdateSourceTrigger=Explicit}" Foreground="White" FontSize="10" FontFamily="Arial" TextTrimming="CharacterEllipsis" FontWeight="Regular"/>
+            </StackPanel>
+            <Button x:Name="btDeviceInfo" Click="btDeviceInfo_Click" Style="{StaticResource okButtonStyle}" Width="50" Height="20" Content="Chi tiết" Foreground="White" FontSize="10" FontFamily="Arial" FontWeight="SemiBold">
+
+            </Button>
+        </StackPanel>
+    </Border>
+</UserControl>

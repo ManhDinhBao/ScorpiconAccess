@@ -1,0 +1,152 @@
+﻿<Window x:Class="ScorpiconAccess.View.wdCardHolderDetail"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ScorpiconAccess.View"
+        mc:Ignorable="d"
+        Title="wdCardHolderDetail" Height="475.333" Width="800" Background="Transparent" WindowStyle="None" WindowStartupLocation="CenterScreen" AllowsTransparency="True" Loaded="Window_Loaded" Icon="/ScorpiconAccess;component/Icon/app_icon.ico">
+    <Window.Resources>
+        <ResourceDictionary >
+            <ResourceDictionary.MergedDictionaries >
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel >
+        <Border DockPanel.Dock="Top" CornerRadius="10,10,0,0" Background="#333333">
+            <StackPanel Orientation="Horizontal" x:Name="stackMainTitle" MouseDown="stackMainTitle_MouseDown"  Height="30"  Background="Transparent">
+                <Button x:Name="btClose" Click="btClose_Click" Style="{DynamicResource headerButtonStyle}" Margin="10,0,0,0" Background="Transparent" VerticalAlignment="Center">
+                    <Image Source="..\..\Icon\close_red_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                </Button>
+                <Button x:Name="btMinnimize" IsEnabled="False" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                    <Image Source="..\..\Icon\minimize_gray_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                </Button>
+                <Button x:Name="btMaximize" IsEnabled="False" Margin="5,0,0,0" Style="{DynamicResource headerButtonStyle}" BorderThickness="0" Background="Transparent">
+                    <Image Source="..\..\Icon\maximize_gray_30px.png" HorizontalAlignment="Stretch" Stretch="Fill" VerticalAlignment="Stretch"/>
+                </Button>
+            </StackPanel>
+        </Border>
+        <Border CornerRadius="0,0,10,10" Background="White" BorderThickness="1,0,1,1" BorderBrush="#444444">
+            <Grid Background="Transparent">
+                <Image Source="..\..\Icon\cardholder_128px.png" HorizontalAlignment="Left" Height="53" Margin="29,8,0,0" VerticalAlignment="Top" Width="53"/>
+                <TextBlock HorizontalAlignment="Left" Margin="87,27,0,0" TextWrapping="Wrap" Text="Chủ thẻ" VerticalAlignment="Top" FontSize="12" FontWeight="Bold" FontFamily="Arial"/>
+                <TextBlock HorizontalAlignment="Left" Margin="87,42,0,0" TextWrapping="Wrap" Text="Quản lý thông tin chủ thẻ (người dùng)" VerticalAlignment="Top" FontSize="10" FontWeight="Regular" FontFamily="Arial"/>
+                <Border Margin="30,60,30,40" CornerRadius="5" BorderBrush="#666666" BorderThickness="1">
+                    <StackPanel Orientation="Horizontal"  HorizontalAlignment="Left"  VerticalAlignment="Stretch" Width="737" Margin="0,0,-1,0">
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                            <!--ID-->
+                            <Grid Margin="30,20,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\holder_id_gray_24px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Id" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbId" IsReadOnly="True" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Arial" Width="150"/>
+                            </Grid>
+
+                            <!--Name-->
+                            <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\name_tag_gray_30px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Họ và tên" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbHolderName" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Arial" Foreground="Black" Width="150"/>
+                            </Grid>
+
+                            <!--Gender-->
+                            <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\gender_gray_50px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Giới tính" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <ComboBox x:Name="cboGender" Style="{StaticResource comboBoxStyle}" FontFamily="Arial" FontSize="11" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0">
+
+                                </ComboBox>
+                            </Grid>
+                            
+                            <!--Phone-->
+                            <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\phone_gray_30px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="SĐT" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBox x:Name="tbHolderPhone" Style="{StaticResource textBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Arial" Foreground="Black" Width="150"/>
+                            </Grid>
+
+                            <!--Email-->
+                            <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\email_gray_30px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Email" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBox x:Name="tbHolderEmail" Style="{StaticResource textBoxStyle}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Arial" Foreground="Black" Width="150"/>
+                            </Grid>
+                            <!--Birthday-->
+                            <Grid Margin="30,10,10,0" Height="22" Width="250" HorizontalAlignment="Left" >
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\birthday_gray_30px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Ngày sinh" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <DatePicker x:Name="dpHolderDOB" Style="{StaticResource datePickerStyle}" FontFamily="Arial" FontSize="11" VerticalAlignment="Stretch"  Width="150" Margin="100,0,0,0">
+                                </DatePicker>
+                            </Grid>
+
+                            <!--Dept-->
+                            <Grid Margin="30,20,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\unit_gray_50px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Bộ phận" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <ComboBox x:Name="cboDepartment" Style="{StaticResource comboBoxStyle}" FontFamily="Arial" FontSize="11" Width="150" HorizontalAlignment="Right" Height="22" Margin="2,0,0,0">
+
+                                </ComboBox>
+                            </Grid>
+                            
+                            <!--Account-->
+                            <Grid Margin="30,20,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\male_gray_50px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Tài khoản" ToolTip="Tài khoản sử dụng để đăng nhập hệ thống." Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBox Style="{StaticResource textBoxStyle}" x:Name="tbAccount" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="11" FontFamily="Arial" Foreground="Black" Width="150"/>
+                            </Grid>
+                            <!--Pin-->
+                            <Grid Margin="30,10,0,0" Height="22" Width="250" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Center" Source="..\..\Icon\password_gray_30px.png" Width="18" Height="18"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="Mật khẩu" ToolTip="Mật khẩu đăng nhập" Margin="25,0,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <Border CornerRadius="3" HorizontalAlignment="Right" Width="150" VerticalAlignment="Stretch" BorderThickness="1" BorderBrush="Gray">
+                                    <PasswordBox x:Name="tbPassword" Margin="2,0,2,0" BorderThickness="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="11" FontFamily="Arial" Foreground="Black"/>
+                                </Border>
+                            </Grid>
+                        </StackPanel>
+
+                        <Grid HorizontalAlignment="Left" Width="445">
+                            <Grid Margin="30,27,0,0" Width="395" HorizontalAlignment="Left" VerticalAlignment="Top" Height="51">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\..\Icon\location_gray_30px.png" Width="20"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"  Text="Địa chỉ" Margin="25,3,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <TextBox x:Name="tbHolderAddress" Style="{StaticResource textBoxStyle}" Margin="0,20,0,0" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="11" FontFamily="Arial" Foreground="Black" MaxLines="1"/>
+                            </Grid>
+                            <Grid Margin="30,83,189,15">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\..\Icon\note_gray_24px.png" Width="20"/>
+                                <TextBlock HorizontalAlignment="Left" Text="Ghi chú" Margin="25,3,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12" Height="14" VerticalAlignment="Top"/>
+                                <Border CornerRadius="3" BorderThickness="1" BorderBrush="#666666" Margin="0,20,0,10">
+                                    <RichTextBox x:Name="rtbDescription" Margin="5,5,5,5" BorderThickness="0" FontSize="11" FontFamily="Arial" Foreground="Black">
+                                        <RichTextBox.Resources>
+                                            <Style TargetType="{x:Type Paragraph}">
+                                                <Setter Property="Margin" Value="0"/>
+                                            </Style>
+                                        </RichTextBox.Resources>
+                                    </RichTextBox>
+                                </Border>
+                            </Grid>
+                            <Grid Margin="267,83,0,15">
+                                <Image HorizontalAlignment="Left" VerticalAlignment="Top" Source="..\..\Icon\card_gray_50px.png" Width="20"/>
+                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Text="Danh sách thẻ" Margin="25,3,0,0" FontFamily="Arial" FontWeight="SemiBold" FontSize="12"/>
+                                <Border CornerRadius="3"  BorderThickness="1" BorderBrush="#666666" HorizontalAlignment="Stretch" Margin="0,20,20,10">
+                                    <ListBox BorderThickness="0" x:Name="lbListCard" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="2">
+                                        <ListBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Text="{Binding CardSerial}" Margin="5,0,0,0" FontFamily="Arial" FontSize="11"/>
+                                            </DataTemplate>
+                                        </ListBox.ItemTemplate>
+                                    </ListBox>
+                                </Border>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+
+                <Button x:Name="btSave" Click="btSave_Click" Style="{StaticResource okButtonStyle}" HorizontalAlignment="Right" Margin="0,0,30,10" VerticalAlignment="Bottom" Width="60" Height="20">
+                    <TextBlock Text="Lưu" FontSize="10" FontWeight="Bold" FontFamily="Arial" Foreground="White"/>
+                </Button>
+                <Button x:Name="btDelete" Click="btDelete_Click" Style="{StaticResource deleteButtonStyle}" HorizontalAlignment="Right" Margin="0,0,100,10" VerticalAlignment="Bottom" Width="60" Height="20">
+                    <TextBlock Text="Xóa" FontSize="10" FontWeight="Bold" FontFamily="Arial" Foreground="White"/>
+                </Button>
+            </Grid>
+        </Border>
+    </DockPanel>
+</Window>

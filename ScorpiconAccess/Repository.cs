@@ -17,6 +17,7 @@ namespace ScorpiconAccess
         public static List<DTO_Schedule> lstAllSchedules;
         public static List<DTO_Door> lstAllDoor;
         public static List<DTO_UserRight> lstAllRIght;
+        public static List<DTO_Department> lstAllDepartment;
 
 
 

@@ -146,7 +146,7 @@ namespace DAL_ScorpionAccess
                 command.CommandType = CommandType.StoredProcedure;
                 command.CommandText = "spLDeviceSave";
                 command.Parameters.AddWithValue("WorkType", "A");
-                command.Parameters.AddWithValue("Id", device.Id);
+                command.Parameters.AddWithValue("Id", "");
                 command.Parameters.AddWithValue("Name", device.Name);
                 command.Parameters.AddWithValue("MAC", device.MAC);
                 if (device.IP == null)

@@ -1,0 +1,30 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:local="clr-namespace:ScorpiconAccess.View" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="ScorpiconAccess.View.ucDepartmentView" mc:Ignorable="d" d:DesignHeight="150" d:DesignWidth="220" MinWidth="220" MinHeight="150" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ScorpiconAccess;component/LFStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Border CornerRadius="10">
+        <Border.Background>
+            <ImageBrush ImageSource="..\..\Image\department_background2.jpg" />
+        </Border.Background>
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" RenderingBias="Quality" />
+        </Border.Effect>
+        <Grid>
+            <TextBlock x:Name="tbDeptName" Foreground="#444444" Text="{Binding DeptName,UpdateSourceTrigger=Explicit}" TextAlignment="Center" Margin="10,10,10,30" TextTrimming="CharacterEllipsis" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" TextWrapping="Wrap" FontWeight="Bold" FontFamily="Arial">
+                <TextBlock.Effect>
+                    <DropShadowEffect BlurRadius="10" ShadowDepth="0.5" RenderingBias="Quality" />
+                </TextBlock.Effect>
+            </TextBlock>
+            <Button x:Name="btInfo" Click="btInfo_Click" Style="{StaticResource moreButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="50" Height="20">
+                <TextBlock Text="Chi tiết" FontSize="10" FontWeight="Bold" FontFamily="Arial" Foreground="DodgerBlue" />
+            </Button>
+            <Button x:Name="btChildInfo" Click="btChildInfo_Click" Style="{StaticResource okButtonStyle}" HorizontalAlignment="Right" Margin="0,0,10,35" VerticalAlignment="Bottom" Width="50" Height="20">
+                <TextBlock Text="Cấu trúc" FontSize="10" FontWeight="Bold" FontFamily="Arial" Foreground="White" />
+            </Button>
+        </Grid>
+    </Border>
+</UserControl>
